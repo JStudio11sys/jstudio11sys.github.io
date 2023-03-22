@@ -8,85 +8,196 @@
 }
 
 body {
+    margin: 0;
     min-height: 100vh;
-    background: linear-gradient(#2b1055, 
-    #7597de);
+    background: linear-gradient(#2b1055, #7597de);
     overflow-x: hidden;
+    line-height: 1.5;
+}
+
+#navbar {
+    margin-top: -60px;
+    overflow: hidden;
+    background: linear-gradient(#160138a9, #7596de00);
+    padding: 90px 10px;
+    transition: 0.4s;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 9999;
+}
+
+.nav-set {
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+#navbar a {
+    float: left;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    line-height: 25px;
+    font-weight: bold;
+
+    --b: 0.1em;
+    /* the thickness of the line */
+    --c: #00bfff;
+    /* the color */
+
+    color: #0000;
+    padding-block: var(--b);
+    background:
+        linear-gradient(var(--c) 50%, #ffffff 0) 0% calc(100% - var(--_p, 0%))/100% 200%,
+        linear-gradient(var(--c) 0 0) 0% var(--_p, 0%)/var(--_p, 0%) var(--b) no-repeat;
+    -webkit-background-clip: text, padding-box;
+    background-clip: text, padding-box;
+    transition: .3s var(--_s, 0s) linear, background-size .3s calc(.3s - var(--_s, 0s));
+}
+
+#navbar a:hover {
+    --_p: 100%;
+    --_s: .3s;
+}
+
+#navbar #logo {
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    padding-top: 32px;
+    transition: 0.4s;
+}
+
+.sta_logo {
+    max-width: 100px;
+    transition: 0.4s;
+    float: left;
+}
+
+
+/*
+#navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+#navbar a.active {
+    background-color: dodgerblue;
+    color: white;
+}
+ */
+#navbar-right {
+    float: right;
+}
+
+@media screen and (max-width: 1024px) {
+    header img#students {
+        z-index: 0;
+        left: 100px !important;
+        overflow: visible;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header img#students {
+        z-index: 0;
+        left: 120px !important;
+        overflow: visible;
+    }
+
+    .sta_logo {
+        max-width: 100px !important;
+        margin-top: 1px !important;
+        transition: 0.4s;
+        float: left;
+    }
+
+    #navbar #logo {
+        color: #fff;
+        font-size: 25px !important;
+        font-weight: bold;
+        padding-top: 40px !important;
+        padding-left: 10px !important;
+        transition: 0.4s;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    header img#students {
+        z-index: 0;
+        left: 260px !important;
+        overflow: visible;
+    }
+
+    #navbar {
+        padding: 20px 10px !important;
+    }
+
+    #navbar a {
+        float: none;
+        display: block;
+        text-align: left;
+        font-size: 5px !important;
+    }
+
+    #navbar-right {
+        float: none;
+    }
+
+    .sta_logo {
+        max-width: 100px !important;
+        margin-top: 35px !important;
+        transition: 0.4s;
+        float: left;
+    }
+
+    #navbar #logo {
+        color: #fff;
+        font-size: 20px !important;
+        font-weight: bold;
+        padding-top: 75px !important;
+        padding-left: 110px !important;
+        transition: 0.4s;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .sta_logo {
+        max-width: 60px !important;
+        margin-top: 35px !important;
+        transition: 0.4s;
+        float: left;
+    }
+
+    #navbar #logo {
+        color: #fff;
+        font-size: 16px !important;
+        font-weight: bold;
+        padding-top: 53px !important;
+        padding-left: 70px !important;
+        transition: 0.4s;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .sta_logo {
+        max-width: 30px !important;
+        margin-top: 32px !important;
+        transition: 0.4s;
+        float: left;
+    }
+
+    #navbar #logo {
+        color: #fff;
+        font-size: 10px !important;
+        font-weight: bold;
+        padding-top: 35px !important;
+        padding-left: 40px !important;
+        transition: 0.4s;
+    }
 }
 
 header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 30px 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(#160138a9, 
-    #7596de00);
-    z-index: 10000;
-}
-
-header .logo {
-    color: #fff;
-    font-weight: 700;
-    text-decoration: none;
-    font-size: 2em;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-header ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-header ul li {
-    list-style: none;
-    margin-left: 20px;
-}
-
-header ul li a {
-    background-image: linear-gradient(to right,
-      #00f7ff,
-      #00f7ff 50%,
-      #ffffff 50%
-    );
-    background-size: 200% 100%;
-    background-position: -100%;
-    display: inline-block;
-    padding: 5px 0;
-    position: relative;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: all 0.3s ease-in-out;
-  }
-  
-header ul li a:before {
-    content: '';
-    background: #00f7ff;
-    display: block;
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 0;
-    height: 3px;
-    transition: all 0.3s ease-in-out;
-  }
-  
-header ul li a:hover {
-   background-position: 0;
-  }
-  
-  a:hover::before {
-    width:100%;
-  }
-
-
-section {
     position: relative;
     width: 100%;
     height: 100vh;
@@ -95,18 +206,20 @@ section {
     justify-content: center;
     align-items: center;
 }
-section:before {
+
+header:before {
     content: '';
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 100px;
-    background: linear-gradient(0deg, 
-    #0a0142fb 0%, 
-    #ffffff00 100%);
+    background: linear-gradient(0deg,
+            #0a0142fb 0%,
+            #ffffff00 100%);
     z-index: 1000;
 }
-section img {
+
+header img {
     position: absolute;
     top: 0;
     left: 0;
@@ -116,74 +229,42 @@ section img {
     pointer-events: none;
 }
 
-section img#logo {
+header img#logo {
     mix-blend-mode: screen;
 }
 
-section img#students {
+header img#students {
     z-index: 0;
-}
-#text {
-    position: absolute;
-    top: auto;
-    right: -1366px;
-    color: #fff;
-    white-space: nowrap;
-    font-size: 3vw;
-    z-index: 10000;
-    transform: translateY(100px);
-    scroll-behavior: smooth;
-}
-
-#btn {
-    text-decoration: none;
-    background-image: url('../assets/img/sta-logo.png');
-    background-size: cover;
-    padding: 100px 100px;
-    border-radius: 100px;
-    color: #2b1055;
-    font-size: 1.5em;
-    z-index: 9;
-    transform: translateY(50px);
-    transform: translateX(10px);
-}
-
-.sec {
-    position: relative;
-    padding: 100px;
-    min-height: 100vh;
-    background-color: #0a0142;
-}
-.sec-admission {
-    position: relative;
-    padding: 100px;
-    min-height: 100vh;
-    background-color: #30aee8;
-}
-
-.sec h2 , .sec-admission h2{
-    font-size: 3.5em;
-    margin-bottom: 10px;
-    color: #fff;
-}
-
-.sec p, .sec-admission p {
-    font-size: 1em;
-    color: #fff;
 }
 
 @keyframes floating {
-    0% { transform: translate(0, 0px); }
-    50% { transform: translate(0, 15px); }
-    100% { transform: translate(0, -0px); }
+    0% {
+        transform: translate(0, 0px);
     }
+
+    50% {
+        transform: translate(0, 15px);
+    }
+
+    100% {
+        transform: translate(0, -0px);
+    }
+}
 
 
 @keyframes cloud {
-    0% { transform: translate(0, 0px); }
-    50% { transform: translate(25px, 0px); }
-    100% { transform: translate(0, -0px); }
+    0% {
+        transform: translate(0, 0px);
     }
+
+    50% {
+        transform: translate(25px, 0px);
+    }
+
+    100% {
+        transform: translate(0, -0px);
+    }
+}
 
 .students {
     animation-name: floating;
@@ -197,4 +278,30 @@ section img#students {
     animation-duration: 6s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
+}
+
+.sec {
+    position: relative;
+    padding: 100px;
+    min-height: 100vh;
+    background-color: #0a0142;
+}
+
+.sec:nth-child(even) {
+    position: relative;
+    padding: 100px;
+    min-height: 100vh;
+    background-color: #30aee8;
+}
+
+.sec h2 {
+    font-size: 3.5em;
+    margin-bottom: 10px;
+    color: #fff;
+
+}
+
+.sec p {
+    font-size: 1em;
+    color: #fff;
 }

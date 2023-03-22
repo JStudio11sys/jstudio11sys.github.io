@@ -1,0 +1,200 @@
+/*KodeGo WD58P Joshua Tobongbanua MiniProject1 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(#2b1055, 
+    #7597de);
+    overflow-x: hidden;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(#160138a9, 
+    #7596de00);
+    z-index: 10000;
+}
+
+header .logo {
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 2em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+header ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header ul li {
+    list-style: none;
+    margin-left: 20px;
+}
+
+header ul li a {
+    background-image: linear-gradient(to right,
+      #00f7ff,
+      #00f7ff 50%,
+      #ffffff 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    padding: 5px 0;
+    position: relative;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+  }
+  
+header ul li a:before {
+    content: '';
+    background: #00f7ff;
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+header ul li a:hover {
+   background-position: 0;
+  }
+  
+  a:hover::before {
+    width:100%;
+  }
+
+
+section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    padding: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+section:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(0deg, 
+    #0a0142fb 0%, 
+    #ffffff00 100%);
+    z-index: 1000;
+}
+section img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+section img#logo {
+    mix-blend-mode: screen;
+}
+
+section img#students {
+    z-index: 0;
+}
+#text {
+    position: absolute;
+    top: auto;
+    right: -1366px;
+    color: #fff;
+    white-space: nowrap;
+    font-size: 3vw;
+    z-index: 10000;
+    transform: translateY(100px);
+    scroll-behavior: smooth;
+}
+
+#btn {
+    text-decoration: none;
+    background-image: url('../assets/img/sta-logo.png');
+    background-size: cover;
+    padding: 100px 100px;
+    border-radius: 100px;
+    color: #2b1055;
+    font-size: 1.5em;
+    z-index: 9;
+    transform: translateY(50px);
+    transform: translateX(10px);
+}
+
+.sec {
+    position: relative;
+    padding: 100px;
+    min-height: 100vh;
+    background-color: #0a0142;
+}
+.sec-admission {
+    position: relative;
+    padding: 100px;
+    min-height: 100vh;
+    background-color: #30aee8;
+}
+
+.sec h2 , .sec-admission h2{
+    font-size: 3.5em;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.sec p, .sec-admission p {
+    font-size: 1em;
+    color: #fff;
+}
+
+@keyframes floating {
+    0% { transform: translate(0, 0px); }
+    50% { transform: translate(0, 15px); }
+    100% { transform: translate(0, -0px); }
+    }
+
+
+@keyframes cloud {
+    0% { transform: translate(0, 0px); }
+    50% { transform: translate(25px, 0px); }
+    100% { transform: translate(0, -0px); }
+    }
+
+.students {
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.clouds {
+    animation-name: cloud;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
