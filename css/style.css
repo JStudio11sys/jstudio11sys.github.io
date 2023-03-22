@@ -40,7 +40,7 @@ body {
     line-height: 25px;
     font-weight: bold;
 
-    --b: 0.1em;
+    --b: 0.2em;
     /* the thickness of the line */
     --c: #00bfff;
     /* the color */
@@ -304,4 +304,8 @@ header img#students {
 .sec p {
     font-size: 1em;
     color: #fff;
+}
+
+footer a{
+    text-decoration: none;
 }
