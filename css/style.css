@@ -74,20 +74,13 @@ body {
     float: left;
 }
 
-
-/*
-#navbar a:hover {
-    background-color: #ddd;
-    color: black;
-}
-
-#navbar a.active {
-    background-color: dodgerblue;
-    color: white;
-}
- */
 #navbar-right {
     float: right;
+}
+
+.mobile-nav {
+    top: 0;
+    position: fixed;
 }
 
 @media screen and (max-width: 1024px) {
@@ -163,37 +156,90 @@ body {
 
 @media screen and (max-width: 425px) {
     .sta_logo {
-        max-width: 60px !important;
-        margin-top: 35px !important;
+        max-width: 80px !important;
+        margin-top: 50px !important;
         transition: 0.4s;
         float: left;
     }
 
     #navbar #logo {
         color: #fff;
-        font-size: 16px !important;
+        font-size: 18px !important;
         font-weight: bold;
-        padding-top: 53px !important;
-        padding-left: 70px !important;
+        padding-top: 80px !important;
+        padding-left: 90px !important;
         transition: 0.4s;
     }
 }
 
 @media screen and (max-width: 375px) {
     .sta_logo {
-        max-width: 30px !important;
-        margin-top: 32px !important;
+        max-width: 80px !important;
+        margin-top: 50px !important;
         transition: 0.4s;
         float: left;
     }
 
     #navbar #logo {
         color: #fff;
-        font-size: 10px !important;
+        font-size: 17px !important;
         font-weight: bold;
-        padding-top: 35px !important;
-        padding-left: 40px !important;
+        padding-top: 80px !important;
+        padding-left: 90px !important;
         transition: 0.4s;
+    }
+}
+
+@media screen and (max-width: 320px) {
+
+    .sta_logo {
+        max-width: 80px !important;
+        margin-top: 50px !important;
+        transition: 0.4s;
+        float: left;
+    }
+
+    #navbar #logo {
+        color: #fff;
+        font-size: 15px !important;
+        font-weight: bold;
+        padding-top: 80px !important;
+        padding-left: 100px !important;
+        transition: 0.4s;
+    }
+
+    #facade {
+        max-width: 320px !important;
+        overflow: visible;
+        left: 20px;
+    }
+
+    #sky {
+        left: 20px;
+        overflow: visible;
+        max-width: 320px !important;
+    }
+
+    .clouds {
+        display: none !important;
+    }
+
+    .sec p {
+        max-width: 320px;
+        min-height: 100vh;
+        overflow: visible;
+        background-color: #0a0142;
+    }
+
+    .sec h2 {
+        font-size: 2em !important;
+        margin-bottom: 10px;
+        color: #fff;
+    }
+
+    .sec p {
+        font-size: 1em !important;
+        color: #fff;
     }
 }
 
@@ -282,20 +328,20 @@ header img#students {
 
 .sec {
     position: relative;
-    padding: 100px;
+    padding: 100px 50px;
     min-height: 100vh;
     background-color: #0a0142;
 }
 
 .sec:nth-child(even) {
     position: relative;
-    padding: 100px;
+    padding: 100px 50px;
     min-height: 100vh;
     background-color: #30aee8;
 }
 
 .sec h2 {
-    font-size: 3.5em;
+    font-size: 2.5em;
     margin-bottom: 10px;
     color: #fff;
 
@@ -306,6 +352,107 @@ header img#students {
     color: #fff;
 }
 
-footer a{
+footer a {
     text-decoration: none;
+}
+
+#announce {
+    padding-top: 57px;
+}
+
+.admission {
+    background-image: url(../assets/img/grad.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Carousel styling */
+#introCarousel,
+.carousel-inner,
+.carousel-item,
+.carousel-item.active {
+    height: 100vh;
+    background-color: #0a0142;
+}
+
+.carousel-item:nth-child(1) {
+    background-image: url('../assets/img/values.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.carousel-item:nth-child(2) {
+    background: linear-gradient(90deg #00bfff, #ffffff93);
+    background-image: url('../assets/img/admission2.jpg');
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: center center;
+}
+
+.carousel-item:nth-child(3) {
+    background-image: url('../assets/img/admission3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+/* Height for devices larger than 576px */
+@media (min-width: 992px) {
+    #introCarousel {
+        margin-top: -58.59px;
+    }
+}
+
+.nav-link {
+    color: #ffffff;
+}
+
+.nav-link:hover {
+    color: #00eeff;
+}
+
+.nav-item-top .active {
+    margin: 0 1px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    /*background: linear-gradient(0deg, #c9c6c6 90%, #100153 30%);*/
+    background: linear-gradient(0deg, #3d15f3 10%, #c9c6c6 10%, #c9c6c6 90%, #3d15f3  30%);
+}
+
+.nav-item .active {
+    margin: 0 1px;
+    background-color: #00bfff;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    border-top-right-radius: 10px;
+    background: linear-gradient(0deg, #c9c6c6 90%, #100153 50%);
+}
+
+.tab-body {
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #ffffffa9;
+    padding: 30px;
+}
+
+.tab-welcome {
+    text-align: center;
+    font-weight: bold;
+    color: #0a0142;
+    line-height: 2em;
+}
+
+.tab-content {
+    color: #0a0142;
+    background-color: #ebe6e610;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.head-design {
+    color: #00bfff;
 }
