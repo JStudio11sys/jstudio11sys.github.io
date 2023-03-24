@@ -1,13 +1,11 @@
 function scrollFunction() {
         if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 80) {
-          document.getElementById("navbar").style.padding = "80px 10px";
-          document.getElementById("logo").style.fontSize = "20px";
-          document.getElementById("logo").style.paddingTop = "15px";
+          document.getElementById("nav-scroll").style.paddingTop = "2px";
+          document.getElementById("logo").style.fontSize = "18px";
           document.getElementById("sta_logo").style.maxWidth = "50px";
         } else {
-          document.getElementById("navbar").style.padding = "90px 10px";
-          document.getElementById("logo").style.fontSize = "35px";
-          document.getElementById("logo").style.paddingTop = "26px";
+          document.getElementById("nav-scroll").style.paddingTop = "70px";
+          document.getElementById("logo").style.fontSize = "25px";
           document.getElementById("sta_logo").style.maxWidth = "80px";
         }
       
@@ -26,4 +24,3 @@ function scrollFunction() {
             students.style.left = value * -1 + 'px';
         })
 }
-

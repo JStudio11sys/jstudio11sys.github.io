@@ -7,6 +7,218 @@
     scroll-behavior: smooth;
 }
 
+.navbar {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(0deg, #ffffff00 0%, #03030370 100%,  transparent);
+    transition: 0.5s
+}
+  
+  @media screen and (max-width: 375px) {
+    .sta_logo {
+        width: 50px;
+    }
+    .navbar-brand {
+        font-size: 16px !important;
+    }
+  }
+
+.sta_logo {
+    max-width: 70px;
+    margin-right: 15px;
+    transition: 0.5s;
+}
+
+.navbar a{
+    color: #fff;
+}
+
+#logo {
+    transition: 0.5s;
+}
+
+
+@media screen and (max-width: 990px) {
+    .navbar-collapse {
+        margin-top: 20px;
+        text-align: center;
+        background-color: rgba(0, 102, 255, 0.863);
+        border-radius: 10px;
+        box-shadow: 0px 0px 50px 1px;
+    }
+    .nav-item {
+        padding: 20px;
+    }
+    .navbar-brand {
+        padding-right: 500x;
+        font-weight: bold;
+    }
+}
+
+.main-back {
+    background-image: url(../assets/img/sky-background.jpg);
+    height: 100vh;
+}
+
+.nav-effect a{
+    text-decoration: none;
+    line-height: 25px;
+    font-weight: bold;
+
+    --b: 0.2em;
+    /* the thickness of the line */
+    --c: #00fff2;
+    /* the color */
+
+    color: #0000 !important;
+    padding-block: var(--b);
+    background:
+        linear-gradient(var(--c) 50%, #ffffff 0) 0% calc(100% - var(--_p, 0%))/100% 200%,
+        linear-gradient(var(--c) 0 0) 0% var(--_p, 0%)/var(--_p, 0%) var(--b) no-repeat;
+    -webkit-background-clip: text, padding-box;
+    background-clip: text, padding-box;
+    transition: .3s var(--_s, 0s) linear, background-size .3s calc(.3s - var(--_s, 0s));
+}
+
+.nav-effect a:hover {
+    --_p: 100%;
+    --_s: .3s;
+}
+
+header {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    padding: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(0deg,
+            #0a0142fb 0%,
+            #ffffff00 100%);
+    z-index: 1000;
+}
+
+header img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+header img#logo {
+    mix-blend-mode: screen;
+}
+
+header img#students {
+    z-index: 0;
+}
+
+
+
+@keyframes floating {
+    0% {
+        transform: translate(0, 0px);
+    }
+
+    50% {
+        transform: translate(0, 15px);
+    }
+
+    100% {
+        transform: translate(0, -0px);
+    }
+}
+
+
+@keyframes cloud {
+    0% {
+        transform: translate(0, 0px);
+    }
+
+    50% {
+        transform: translate(50px, -0px);
+    }
+
+    100% {
+        transform: translate(px, 0px);
+    }
+}
+
+.students {
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.clouds {
+    animation-name: cloud;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+#btn {
+    position: absolute;
+    width: 100px;
+}
+
+.sec {
+    position: relative;
+    padding: 100px 50px;
+    min-height: 100vh;
+    background-color: #0a0142;
+}
+
+.sec:nth-child(even) {
+    position: relative;
+    padding: 100px 50px;
+    min-height: 100vh;
+    background-color: #30aee8;
+}
+
+.sec h2 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #fff;
+
+}
+
+.sec p {
+    font-size: 1em;
+    color: #fff;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+#announce {
+    padding-top: 57px;
+}
+
+.admission {
+    background-image: url(../assets/img/grad.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+ /*
 body {
     margin: 0;
     min-height: 100vh;
@@ -41,9 +253,9 @@ body {
     font-weight: bold;
 
     --b: 0.2em;
-    /* the thickness of the line */
+    /* the thickness of the line 
     --c: #00bfff;
-    /* the color */
+    /* the color 
 
     color: #0000;
     padding-block: var(--b);
@@ -367,44 +579,6 @@ footer a {
     background-position: center;
 }
 
-/* Carousel styling */
-#introCarousel,
-.carousel-inner,
-.carousel-item,
-.carousel-item.active {
-    height: 100vh;
-    background-color: #0a0142;
-}
-
-.carousel-item:nth-child(1) {
-    background-image: url('../assets/img/values.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-}
-
-.carousel-item:nth-child(2) {
-    background: linear-gradient(90deg #00bfff, #ffffff93);
-    background-image: url('../assets/img/admission2.jpg');
-    background-repeat: no-repeat;
-    background-size:contain;
-    background-position: center center;
-}
-
-.carousel-item:nth-child(3) {
-    background-image: url('../assets/img/admission3.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-}
-
-/* Height for devices larger than 576px */
-@media (min-width: 992px) {
-    #introCarousel {
-        margin-top: -58.59px;
-    }
-}
-
 .nav-link {
     color: #ffffff;
 }
@@ -417,7 +591,7 @@ footer a {
     margin: 0 1px;
     border: 1px solid #ccc;
     border-bottom: none;
-    /*background: linear-gradient(0deg, #c9c6c6 90%, #100153 30%);*/
+    /*background: linear-gradient(0deg, #c9c6c6 90%, #100153 30%);
     background: linear-gradient(0deg, #3d15f3 10%, #c9c6c6 10%, #c9c6c6 90%, #3d15f3  30%);
 }
 
@@ -455,4 +629,4 @@ footer a {
 
 .head-design {
     color: #00bfff;
-}
+} */
