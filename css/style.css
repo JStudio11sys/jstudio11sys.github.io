@@ -159,6 +159,14 @@ header img#students {
     }
 }
 
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0eg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+  }
+
 .students {
     animation-name: floating;
     animation-duration: 3s;
@@ -173,50 +181,11 @@ header img#students {
     animation-timing-function: ease-in-out;
 }
 
-#btn {
-    position: absolute;
-    width: 100px;
-}
-
-.sec {
-    position: relative;
-    padding: 100px 50px;
-    min-height: 100vh;
-    background-color: #0a0142;
-}
-
-.sec:nth-child(even) {
-    position: relative;
-    padding: 100px 50px;
-    min-height: 100vh;
-    background-color: #30aee8;
-}
-
-.sec h2 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    color: #fff;
-
-}
-
-.sec p {
-    font-size: 1em;
-    color: #fff;
-}
-
-footer a {
-    text-decoration: none;
-}
-
-#announce {
-    padding-top: 57px;
-}
-
-.admission {
-    background-image: url(../assets/img/grad.webp);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+.shake {
+    animation-name: shake;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
 }
 
 #myVideo {
@@ -264,6 +233,54 @@ footer a {
     background: #ddd;
     color: black;
   }
+
+#btn {
+    position: absolute;
+    width: 100px;
+}
+
+.sec {
+    position: relative;
+    padding: 100px 50px;
+    min-height: 100vh;
+    background-color: #0a0142;
+}
+
+.sec:nth-child(even) {
+    position: relative;
+    padding: 100px 50px;
+    min-height: 100vh;
+    background-color: #30aee8;
+}
+
+.sec h2 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #fff;
+
+}
+
+.sec p {
+    font-size: 1em;
+    color: #fff;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+#announce {
+    padding-top: 57px;
+}
+
+.admission {
+    background-image: url(../assets/img/grad.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+
  /*
 body {
     margin: 0;
