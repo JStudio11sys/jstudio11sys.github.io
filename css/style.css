@@ -13,18 +13,24 @@
     z-index: 9999;
     width: 100%;
     height: 80px;
-    background: linear-gradient(0deg, #ffffff00 0%, #03030370 100%,  transparent);
+    background: linear-gradient(0deg, #ffffff00 0%, #03030370 100%, transparent);
     transition: 0.5s
 }
-  
-  @media screen and (max-width: 375px) {
+
+.navbar-toggler-con {
+    border: none !important;
+}
+
+
+@media screen and (max-width: 375px) {
     .sta_logo {
         width: 50px;
     }
+
     .navbar-brand {
         font-size: 16px !important;
     }
-  }
+}
 
 .sta_logo {
     max-width: 70px;
@@ -32,7 +38,7 @@
     transition: 0.5s;
 }
 
-.navbar a{
+.navbar a {
     color: #fff;
 }
 
@@ -49,9 +55,11 @@
         border-radius: 10px;
         box-shadow: 0px 0px 50px 1px;
     }
+
     .nav-item {
         padding: 20px;
     }
+
     .navbar-brand {
         padding-right: 500x;
         font-weight: bold;
@@ -63,7 +71,7 @@
     height: 100vh;
 }
 
-.nav-effect a{
+.nav-effect a {
     text-decoration: none;
     line-height: 25px;
     font-weight: bold;
@@ -160,18 +168,50 @@ header img#students {
 }
 
 @keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
-  }
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
 
 .students {
     animation-name: floating;
@@ -194,417 +234,94 @@ header img#students {
     animation-timing-function: ease-in-out;
 }
 
+.test {
+    width: 100vh;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
 #myVideo {
-    position: fixed;
+    z-index: -1;
+    position: absolute;
+    top: 0;
     right: 0;
     bottom: 0;
-    min-width: 100%; 
-    min-height: 100%;
-  }
-  
-  .content {
+    max-width: 100%;
+}
+
+@media screen and (max-width: 990px) {
+    #myVideo {
+        max-width: unset;
+        max-height: 100vh;
+    }
+}
+
+.content {
     bottom: 0;
     color: #f1f1f1;
     width: 100%;
     height: 100vh;
     padding: 300px;
     z-index: -9;
-    
-  }
-  .content1{
-    background: linear-gradient(90deg, #8b0197e8 30%, #ffffff67 100%);
-  }
-
-  .content2{
-    background: linear-gradient(90deg, #039172e8 30%, #ffffff67 100%);
-  }
-
-
-  .global-back {
-    background-image: url(../assets/img/values.jpg);
-    background-size: cover;
-  }
-  
-  #myBtn {  
-    width: 200px;
-    font-size: 18px;
-    padding: 10px;
-    border: none;
-    background: #000;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  #myBtn:hover {
-    background: #ddd;
-    color: black;
-  }
-
-#btn {
-    position: absolute;
-    width: 100px;
-}
-
-.sec {
-    position: relative;
-    padding: 100px 50px;
-    min-height: 100vh;
-    background-color: #0a0142;
-}
-
-.sec:nth-child(even) {
-    position: relative;
-    padding: 100px 50px;
-    min-height: 100vh;
-    background-color: #30aee8;
-}
-
-.sec h2 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    color: #fff;
 
 }
 
-.sec p {
-    font-size: 1em;
-    color: #fff;
-}
-
-footer a {
-    text-decoration: none;
-}
-
-#announce {
-    padding-top: 57px;
-}
-
-.admission {
-    background-image: url(../assets/img/grad.webp);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
-
- /*
-body {
-    margin: 0;
-    min-height: 100vh;
-    background: linear-gradient(#2b1055, #7597de);
-    overflow-x: hidden;
-    line-height: 1.5;
-}
-
-#navbar {
-    margin-top: -60px;
-    overflow: hidden;
-    background: linear-gradient(#160138a9, #7596de00);
-    padding: 90px 10px;
-    transition: 0.4s;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 9999;
-}
-
-.nav-set {
-    margin-left: 25px;
-    margin-right: 25px;
-}
-
-#navbar a {
-    float: left;
-    text-align: center;
-    padding: 12px;
-    text-decoration: none;
-    line-height: 25px;
-    font-weight: bold;
-
-    --b: 0.2em;
-    /* the thickness of the line 
-    --c: #00bfff;
-    /* the color 
-
-    color: #0000;
-    padding-block: var(--b);
-    background:
-        linear-gradient(var(--c) 50%, #ffffff 0) 0% calc(100% - var(--_p, 0%))/100% 200%,
-        linear-gradient(var(--c) 0 0) 0% var(--_p, 0%)/var(--_p, 0%) var(--b) no-repeat;
-    -webkit-background-clip: text, padding-box;
-    background-clip: text, padding-box;
-    transition: .3s var(--_s, 0s) linear, background-size .3s calc(.3s - var(--_s, 0s));
-}
-
-#navbar a:hover {
-    --_p: 100%;
-    --_s: .3s;
-}
-
-#navbar #logo {
-    color: #fff;
-    font-size: 35px;
-    font-weight: bold;
-    padding-top: 32px;
-    transition: 0.4s;
-}
-
-.sta_logo {
-    max-width: 100px;
-    transition: 0.4s;
-    float: left;
-}
-
-#navbar-right {
-    float: right;
-}
-
-.mobile-nav {
-    top: 0;
-    position: fixed;
-}
-
-@media screen and (max-width: 1024px) {
-    header img#students {
-        z-index: 0;
-        left: 100px !important;
-        overflow: visible;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    header img#students {
-        z-index: 0;
-        left: 120px !important;
-        overflow: visible;
-    }
-
-    .sta_logo {
-        max-width: 100px !important;
-        margin-top: 1px !important;
-        transition: 0.4s;
-        float: left;
-    }
-
-    #navbar #logo {
-        color: #fff;
-        font-size: 25px !important;
-        font-weight: bold;
-        padding-top: 40px !important;
-        padding-left: 10px !important;
-        transition: 0.4s;
-    }
-}
-
-@media screen and (max-width: 580px) {
-    header img#students {
-        z-index: 0;
-        left: 260px !important;
-        overflow: visible;
-    }
-
-    #navbar {
-        padding: 20px 10px !important;
-    }
-
-    #navbar a {
-        float: none;
-        display: block;
-        text-align: left;
-        font-size: 5px !important;
-    }
-
-    #navbar-right {
-        float: none;
-    }
-
-    .sta_logo {
-        max-width: 100px !important;
-        margin-top: 35px !important;
-        transition: 0.4s;
-        float: left;
-    }
-
-    #navbar #logo {
-        color: #fff;
-        font-size: 20px !important;
-        font-weight: bold;
-        padding-top: 75px !important;
-        padding-left: 110px !important;
-        transition: 0.4s;
-    }
-}
-
-@media screen and (max-width: 425px) {
-    .sta_logo {
-        max-width: 80px !important;
-        margin-top: 50px !important;
-        transition: 0.4s;
-        float: left;
-    }
-
-    #navbar #logo {
-        color: #fff;
-        font-size: 18px !important;
-        font-weight: bold;
-        padding-top: 80px !important;
-        padding-left: 90px !important;
-        transition: 0.4s;
-    }
-}
-
-@media screen and (max-width: 375px) {
-    .sta_logo {
-        max-width: 80px !important;
-        margin-top: 50px !important;
-        transition: 0.4s;
-        float: left;
-    }
-
-    #navbar #logo {
-        color: #fff;
-        font-size: 17px !important;
-        font-weight: bold;
-        padding-top: 80px !important;
-        padding-left: 90px !important;
-        transition: 0.4s;
-    }
-}
-
-@media screen and (max-width: 320px) {
-
-    .sta_logo {
-        max-width: 80px !important;
-        margin-top: 50px !important;
-        transition: 0.4s;
-        float: left;
-    }
-
-    #navbar #logo {
-        color: #fff;
-        font-size: 15px !important;
-        font-weight: bold;
-        padding-top: 80px !important;
-        padding-left: 100px !important;
-        transition: 0.4s;
-    }
-
-    #facade {
-        max-width: 320px !important;
-        overflow: visible;
-        left: 20px;
-    }
-
-    #sky {
-        left: 20px;
-        overflow: visible;
-        max-width: 320px !important;
-    }
-
-    .clouds {
-        display: none !important;
-    }
-
-    .sec p {
-        max-width: 320px;
-        min-height: 100vh;
-        overflow: visible;
-        background-color: #0a0142;
-    }
-
-    .sec h2 {
-        font-size: 2em !important;
-        margin-bottom: 10px;
-        color: #fff;
-    }
-
-    .sec p {
-        font-size: 1em !important;
-        color: #fff;
-    }
-}
-
-header {
-    position: relative;
+.content1 {
+    bottom: 0;
+    color: #f1f1f1;
     width: 100%;
     height: 100vh;
-    padding: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding-top: 150px;
+    text-align: center;
+    z-index: -9;
+
 }
 
-header:before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100px;
-    background: linear-gradient(0deg,
-            #0a0142fb 0%,
-            #ffffff00 100%);
-    z-index: 1000;
+.content1-text h1 {
+    color: hsl(0, 0%, 100%);
+    font-size: 50px;
+    font-weight: bold;
+    font-family: monospace;
+    letter-spacing: 7px;
+    cursor: pointer;
 }
 
-header img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    pointer-events: none;
+.content1-text h1 div {
+    transition: 0.5s ease-out;
 }
 
-header img#logo {
-    mix-blend-mode: screen;
+.content1-text h1:hover div:nth-child(1) {
+    margin-bottom: 100px;
 }
 
-header img#students {
-    z-index: 0;
+.content1-text h1:hover div:nth-child(2):after {
+    content: "Theresian Catholic";
+    text-shadow: 0 0 10px #fbff00, 0 0 10px #fff, 0 0 50px #fff;
+    margin-left: 30px;
 }
 
-@keyframes floating {
-    0% {
-        transform: translate(0, 0px);
-    }
+.content1-text h1:hover div:nth-child(3) {
+    margin-top: 100px;
+}
 
-    50% {
-        transform: translate(0, 15px);
-    }
+.content1-text h1:hover div {
+    color: #fff;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff;
+}
 
-    100% {
-        transform: translate(0, -0px);
-    }
+.content1 {
+    background: linear-gradient(90deg, #8a0197e7 50%, #ffffff67 100%);
+}
+
+.content2 {
+    background: linear-gradient(90deg, #039172e8 30%, #ffffff67 100%);
 }
 
 
-@keyframes cloud {
-    0% {
-        transform: translate(0, 0px);
-    }
-
-    50% {
-        transform: translate(25px, 0px);
-    }
-
-    100% {
-        transform: translate(0, -0px);
-    }
-}
-
-.students {
-    animation-name: floating;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-}
-
-.clouds {
-    animation-name: cloud;
-    animation-duration: 6s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
+.global-back {
+    background-image: url(../assets/img/grad.webp);
+    background-size: cover;
 }
 
 .sec {
@@ -618,10 +335,11 @@ header img#students {
     position: relative;
     padding: 100px 50px;
     min-height: 100vh;
-    background-color: #30aee8;
+    color: #2e2d2d !important;
+    background-color: #30aee8c0;
 }
 
-.sec h2 {
+.sec h3 {
     font-size: 2.5em;
     margin-bottom: 10px;
     color: #fff;
@@ -639,63 +357,12 @@ footer a {
 
 #announce {
     padding-top: 57px;
+    
 }
 
-.admission {
-    background-image: url(../assets/img/grad.webp);
+#admission {
+    background-image: url(../assets/img/global.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
-
-.nav-link {
-    color: #ffffff;
-}
-
-.nav-link:hover {
-    color: #00eeff;
-}
-
-.nav-item-top .active {
-    margin: 0 1px;
-    border: 1px solid #ccc;
-    border-bottom: none;
-    /*background: linear-gradient(0deg, #c9c6c6 90%, #100153 30%);
-    background: linear-gradient(0deg, #3d15f3 10%, #c9c6c6 10%, #c9c6c6 90%, #3d15f3  30%);
-}
-
-.nav-item .active {
-    margin: 0 1px;
-    background-color: #00bfff;
-    border: 1px solid #ccc;
-    border-bottom: none;
-    border-top-right-radius: 10px;
-    background: linear-gradient(0deg, #c9c6c6 90%, #100153 50%);
-}
-
-.tab-body {
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    background-color: #ffffffa9;
-    padding: 30px;
-}
-
-.tab-welcome {
-    text-align: center;
-    font-weight: bold;
-    color: #0a0142;
-    line-height: 2em;
-}
-
-.tab-content {
-    color: #0a0142;
-    background-color: #ebe6e610;
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-.head-design {
-    color: #00bfff;
-} */
