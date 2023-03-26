@@ -228,6 +228,20 @@ header img#students {
     text-align: center;
 }
 
+@media screen and (max-width: 1440px) {
+    .schoolname {
+        font-size: 2em;
+        padding: 5px;
+    }
+
+    .landingpage {
+        height: 52%;
+    }
+
+    .btn-enroll {
+        margin-top: 10%;
+    }
+}
 @media screen and (max-width: 1024px) {
     .schoolname {
         font-size: 1.2em;
