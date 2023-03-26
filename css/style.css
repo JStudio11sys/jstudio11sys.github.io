@@ -268,14 +268,39 @@ header img#students {
     }
 }
 
+@media screen and (max-width: 1366px) {
+    .schoolname {
+        font-size: 1.2em;
+        padding: 5px;
+    }
+    .theresian {
+        font-size: 5em;
+        font-family: 'Brush Script MT';
+    }
+
+    .landingpage {
+        height: 60%;
+    }
+    .btn-enroll {
+        margin-top: 5%;
+    }
+}
+
 @media screen and (max-width: 1024px) {
     .schoolname {
         font-size: 1.2em;
         padding: 5px;
     }
+    .theresian {
+        font-size: 3em;
+        font-family: 'Brush Script MT';
+    }
 
     .landingpage {
         height: 65%;
+    }
+    .btn-enroll {
+        margin-top: 10%;
     }
 }
 
@@ -283,6 +308,10 @@ header img#students {
     .schoolname {
         font-size: 1em;
         padding: 5px;
+    }
+    .theresian {
+        font-size: 3em;
+        font-family: 'Brush Script MT';
     }
 
     .landingpage {
