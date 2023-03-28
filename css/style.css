@@ -9,7 +9,6 @@
 }
 
 
-
 .cursor {
     position: fixed;
     border-radius: 50%;
@@ -34,9 +33,6 @@
     transition: 0.5s
 }
 
-.navbar-toggler-con {
-    border: none !important;
-}
 
 
 @media screen and (max-width: 375px) {
@@ -63,13 +59,68 @@
     transition: 0.5s;
 }
 
+@media screen and (min-width: 990px) {
+    .menu {
+        display:none !important;
+    }
+}   
+
 @media screen and (max-width: 990px) {
+    .menu {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        padding: 0;
+      }
+      .line {
+        fill: none;
+        stroke: rgb(255, 255, 255);
+        stroke-width: 6;
+        transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+          stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .line1 {
+        stroke-dasharray: 60 207;
+        stroke-width: 6;
+      }
+      .line2 {
+        stroke-dasharray: 60 60;
+        stroke-width: 6;
+      }
+      .line3 {
+        stroke-dasharray: 60 207;
+        stroke-width: 6;
+      }
+      .opened .line1 {
+        stroke-dasharray: 90 207;
+        stroke-dashoffset: -134;
+        stroke-width: 6;
+      }
+      .opened .line2 {
+        stroke-dasharray: 1 60;
+        stroke-dashoffset: -30;
+        stroke-width: 6;
+      }
+      .opened .line3 {
+        stroke-dasharray: 90 207;
+        stroke-dashoffset: -134;
+        stroke-width: 6;
+      }
     .navbar-collapse {
-        margin-top: 20px;
+        max-width: 200px;
         text-align: center;
-        background-color: rgba(0, 102, 255, 0.863);
+        margin-top: 0px;
+        margin-left: 70%;
+        background-color: rgba(6, 69, 163, 0.781);
         border-radius: 10px;
         box-shadow: 0px 0px 50px 1px;
+    }
+    .navbar-collapse-item:hover{
+        background-color: #393b3b69;
+        margin: 2px;
+        border-radius: 10px;
     }
 
     .nav-item {
@@ -808,7 +859,7 @@ p {
 }
 
 .title-animation {
-    height: 50px;
+    height: 60px;
     overflow: hidden;
     margin-left: 1rem;
 }

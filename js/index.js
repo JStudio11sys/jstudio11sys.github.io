@@ -1,3 +1,5 @@
+
+
 function scrollFunction() {
   if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 80) {
     document.getElementById("nav-scroll").style.paddingTop = "2px";
@@ -24,11 +26,3 @@ function scrollFunction() {
     students.style.left = value * -1 + 'px';
   })
 }
-
-
-
-
-
-
-
-

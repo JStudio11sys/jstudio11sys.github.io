@@ -13,12 +13,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@700&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 
     <script src="js/bootstrap.bundle.min.js"></script>
-
-
 </head>
 
 <body onScroll="scrollFunction()">
@@ -28,18 +26,28 @@
             <div class="container">
                 <a href="#"><img class="sta_logo" id="sta_logo" src="assets/img/sta-logo.png"></a>
                 <a class="navbar-brand" id="logo" href="#">St. Theresita's Academy</a>
-                <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation"><span
-                        class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <button class="menu" data-bs-toggle="collapse" data-bs-target="#navbareffect"
+                    aria-controls="navbareffect" aria-expanded="false" aria-label="Toggle navigation"
+                    onclick="this.classList.toggle('opened');this.setAttribute('aria-expanded', this.classList.contains('opened'))"
+                    aria-label="Main Menu">
+                    <svg width="50" height="50" viewBox="0 0 100 100">
+                        <path class="line line1"
+                            d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+                        <path class="line line2" d="M 20,50 H 80" />
+                        <path class="line line3"
+                            d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+                    </svg>
+                </button>
+                <div class="collapse navbar-collapse" id="navbareffect">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 nav-effect">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+
+                        <li class="nav-item navbar-collapse-item"><a href="#" class="nav-link">Home</a></li>
+
                         <!-- <li class="nav-item"><a class="nav-link" href="#announce">Announcements</a></li>-->
-                        <li class="nav-item"><a class="nav-link" href="#break">Breakthrough</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#admission">Admission</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+                        <li class="nav-item navbar-collapse-item"><a class="nav-link" href="#break">Breakthrough</a></li>
+                        <li class="nav-item navbar-collapse-item"><a class="nav-link" href="#admission">Admission</a></li>
+                        <li class="nav-item navbar-collapse-item"><a class="nav-link" href="#about">About Us</a></li>
+                        <li class="nav-item navbar-collapse-item"><a class="nav-link" href="#">Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -148,12 +156,18 @@
                         
                     </p>
                 </div>-->
-                <div class="break-back" >
+                <div class="break-back">
                     <div class="sec" id="break">
                         <h3 class="title-animation">
-                            <div class="first"><div>Breakthroughs</div></div>
-                            <div class="second"><div>Achievements</div></div>
-                            <div class="third"><div>Development</div></div>
+                            <div class="first">
+                                <div>Breakthroughs</div>
+                            </div>
+                            <div class="second">
+                                <div>Achievements</div>
+                            </div>
+                            <div class="third">
+                                <div>Development</div>
+                            </div>
                         </h3>
                         <div id="carouselbreak" class="carousel slide" data-bs-ride="true">
                             <div class="carousel-inner">
@@ -276,7 +290,7 @@
                                                             peaceful place for your personal time with God</p>
                                                         <div
                                                             class="d-flex align-items-center justify-content-between mt-3 pb-3">
-                                                            <a href="#" class="btn btn-primary"></a>Read more</a>
+                                                            <a href="#" class="btn btn-primary">Read more</a>
                                                             <div
                                                                 class="d-flex align-items-center justify-content-center foot">
                                                                 <p class="admin">Author - Maria Locsin</p>
@@ -599,6 +613,7 @@
             cursor.style.left = e.clientX + "px",
                 cursor.style.top = e.clientY + "px";
         });
+
     </script>
 </body>
 
