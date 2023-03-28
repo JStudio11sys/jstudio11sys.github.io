@@ -1219,7 +1219,7 @@ p {
 }
 
 .admission-container .admission-card .slide.slide2::after {
-    content: "Enroll";
+    content: "";
     position: absolute;
     width: 30px;
     height: 4px;
