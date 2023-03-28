@@ -593,6 +593,13 @@ header img#students {
     padding: 100px 50px;
     min-height: 100vh;
     background-color: #083980;
+    color: #f1f1f1;
+    background: linear-gradient(-45deg, #0a0238de, #6144e4de, #07ac96de, #014925de);
+    background-size: 400% 400%;
+    animation: gradient ease infinite;
+    animation-duration: 20s;
+    box-shadow: 0 0 10px;
+    transition-duration: 5s;
 }
 
 .sec h3 {
@@ -788,3 +795,11 @@ p {
 .card .break-content .foot .icon {
     font-size: 12px
 }
+
+.break-align{
+    display: flex;
+    justify-content: space-evenly
+}
+
+
+
