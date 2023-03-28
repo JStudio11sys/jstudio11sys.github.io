@@ -591,7 +591,7 @@ header img#students {
 .break-back {
     background-image: url(../assets/img/sta-logo.png);
     background-size: cover;
-    background-position:fixed;
+    background-position: fixed;
 }
 
 .sec {
@@ -600,10 +600,10 @@ header img#students {
     min-height: 100vh;
     background-color: #083980;
     color: #f1f1f1;
-    background: linear-gradient(-45deg, #0a0238ef, #6144e4ef, #07ac96ef, #014925ef);
+    background: linear-gradient(-45deg, #0a0238ef, #9782f3ef, #199e8cef, #2f9260ef);
     background-size: 400% 400%;
     animation: gradient ease infinite;
-    animation-duration: 20s;
+    animation-duration: 10s;
     box-shadow: 0 0 10px;
     transition-duration: 2s;
 }
@@ -802,10 +802,78 @@ p {
     font-size: 12px
 }
 
-.break-align{
+.break-align {
     display: flex;
     justify-content: space-evenly
 }
 
+.title-animation {
+    height: 50px;
+    overflow: hidden;
+    margin-left: 1rem;
+}
 
+.title-animation>div>div {
+    padding: 0.25rem 0.75rem;
+    height: 2.81rem;
+    margin-bottom: 2.81rem;
+    display: inline-block;
+}
 
+.title-animation div:first-child {
+    animation: text-animation 8s infinite;
+}
+
+.first div {
+    padding: 0;
+}
+
+.second div {
+    padding: 0;
+}
+
+.third div {
+    padding: 0;
+}
+
+@keyframes text-animation {
+    0% {
+        margin-top: 0;
+    }
+
+    10% {
+        margin-top: 0;
+    }
+
+    20% {
+        margin-top: -5.62rem;
+    }
+
+    30% {
+        margin-top: -5.62rem;
+    }
+
+    40% {
+        margin-top: -11.24rem;
+    }
+
+    60% {
+        margin-top: -11.24rem;
+    }
+
+    70% {
+        margin-top: -5.62rem;
+    }
+
+    80% {
+        margin-top: -5.62rem;
+    }
+
+    90% {
+        margin-top: 0;
+    }
+
+    100% {
+        margin-top: 0;
+    }
+}
