@@ -61,9 +61,9 @@
 
 @media screen and (min-width: 990px) {
     .menu {
-        display:none !important;
+        display: none !important;
     }
-}   
+}
 
 @media screen and (max-width: 990px) {
     .menu {
@@ -72,42 +72,49 @@
         cursor: pointer;
         display: flex;
         padding: 0;
-      }
-      .line {
+    }
+
+    .line {
         fill: none;
         stroke: rgb(255, 255, 255);
         stroke-width: 6;
         transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
-          stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      
-      .line1 {
+            stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .line1 {
         stroke-dasharray: 60 207;
         stroke-width: 6;
-      }
-      .line2 {
+    }
+
+    .line2 {
         stroke-dasharray: 60 60;
         stroke-width: 6;
-      }
-      .line3 {
+    }
+
+    .line3 {
         stroke-dasharray: 60 207;
         stroke-width: 6;
-      }
-      .opened .line1 {
+    }
+
+    .opened .line1 {
         stroke-dasharray: 90 207;
         stroke-dashoffset: -134;
         stroke-width: 6;
-      }
-      .opened .line2 {
+    }
+
+    .opened .line2 {
         stroke-dasharray: 1 60;
         stroke-dashoffset: -30;
         stroke-width: 6;
-      }
-      .opened .line3 {
+    }
+
+    .opened .line3 {
         stroke-dasharray: 90 207;
         stroke-dashoffset: -134;
         stroke-width: 6;
-      }
+    }
+
     .navbar-collapse {
         max-width: 200px;
         text-align: center;
@@ -117,7 +124,8 @@
         border-radius: 10px;
         box-shadow: 0px 0px 50px 1px;
     }
-    .navbar-collapse-item:hover{
+
+    .navbar-collapse-item:hover {
         background-color: #393b3b69;
         margin: 2px;
         border-radius: 10px;
@@ -666,20 +674,13 @@ header img#students {
 
 }
 
-.sec:nth-child(even) p {
-    color: #313130;
-}
 
-.sec:nth-child(even) h3 {
-    color: #313130;
-}
-
-.sec:nth-child(even) {
+.sec2 {
     position: relative;
     padding: 70px 50px;
     min-height: 100vh;
-    color: #313130;
-    background: linear-gradient(180deg, #eec003 120px, #ffffff 0%, #ffffff 90%, #eec003 30px);
+    color: #ffffff;
+    background: linear-gradient(180deg, #043c91 120px, #ffffffcb 30px);
 }
 
 .sec p {
@@ -696,9 +697,7 @@ footer a {
 
 }
 
-.admission2 {
-    width: 100%;
-}
+
 
 .breakthrough-container {
     min-height: 100vh;
@@ -826,7 +825,8 @@ p {
     background-color: #1b9ce3;
     border-radius: 25px;
     font-size: 12px;
-    border: none
+    border: none;
+
 }
 
 .card:hover .break-content .btn {
@@ -927,4 +927,320 @@ p {
     100% {
         margin-top: 0;
     }
+}
+
+
+.about-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 40px 0;
+}
+
+.about-container .box {
+    position: relative;
+    width: 320px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 30px;
+    transition: 0.5s;
+}
+
+.about-container .box::before {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: 50px;
+    width: 50%;
+    height: 100%;
+    text-decoration: none;
+    background: #fff;
+    border-radius: 8px;
+    transform: skewX(15deg);
+    transition: 0.5s;
+}
+
+.about-container .box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50;
+    width: 50%;
+    height: 100%;
+    background: #fff;
+    border-radius: 8px;
+    transform: skewX(15deg);
+    transition: 0.5s;
+    filter: blur(30px);
+}
+
+.about-container .box:hover:before,
+.about-container .box:hover:after {
+    transform: skewX(0deg);
+    left: 20px;
+    width: calc(100% - 90px);
+
+}
+
+.about-container .box:nth-child(1):before,
+.about-container .box:nth-child(1):after {
+    background: linear-gradient(315deg, #a37002, #036953)
+}
+
+.about-container .box:nth-child(2):before,
+.about-container .box:nth-child(2):after {
+    background: linear-gradient(315deg, #138ef3, #2104c4)
+}
+
+.about-container .box:nth-child(3):before,
+.about-container .box:nth-child(3):after {
+    background: linear-gradient(315deg, #ff03d5, #7f0283)
+}
+
+.about-container .box span {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.about-container .box span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: 0.1s;
+    animation: animate 2s ease-in-out infinite;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08)
+}
+
+.about-container .box:hover span::before {
+    top: -50px;
+    left: 50px;
+    width: 100px;
+    height: 100px;
+    opacity: 1;
+}
+
+.about-container .box span::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: 0.5s;
+    animation: animate 2s ease-in-out infinite;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    animation-delay: -1s;
+}
+
+.about-container .box:hover span:after {
+    bottom: -50px;
+    right: 50px;
+    width: 100px;
+    height: 100px;
+    opacity: 1;
+}
+
+@keyframes animate {
+
+    0%,
+    100% {
+        transform: translateY(10px);
+    }
+
+    50% {
+        transform: translate(-10px);
+    }
+}
+
+.about-container .box .about-content {
+    position: relative;
+    left: 0;
+    padding: 20px 40px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1;
+    transform: 0.5s;
+    color: #fff;
+}
+
+.about-container .box:hover .about-content {
+    left: -25px;
+    padding: 60px 40px;
+}
+
+.about-container .box .about-content h2 {
+    font-size: 2em;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.about-container .box .about-content p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    line-height: 1.4em;
+}
+
+.about-container .box .about-content a {
+    display: inline-block;
+    font-size: 1.1em;
+    color: #111;
+    background: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 700;
+    margin-top: 5px;
+}
+
+.about-container .box .about-content a:hover {
+    background: #ffcf4d;
+    border: 1px solid rgba(255, 0, 88, 0.4);
+    box-shadow: 0 1px 15px rgba(1, 1, 1, 0.2);
+}
+
+.admission-back {
+    background-image: url(../assets/img/admission.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.admission-link-item {
+    text-decoration: none;
+    padding: 5px 20px;
+}
+
+.admission-link-item:hover{
+    color:#ff0000 !important;
+}
+
+.admission-container .admission-card .icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #011b42;
+}
+
+.admission-row {
+    padding-top: 25px;
+}
+
+.admission-container .admission-card .icon1 {
+    background-image: url(../assets/img/elem.jpg);
+    background-position: center;
+    background-size: cover;
+}
+.admission-container .admission-card .icon2 {
+    background-image: url(../assets/img/jhs.jpg);
+    background-position: center;
+    background-size: cover;
+}
+.admission-container .admission-card .icon3 {
+    background-image: url(../assets/img/shs.jpg);
+    background-position: center;
+    background-size: cover;
+}
+.admission-container .admission-card .icon4 {
+    background-image: url(../assets/img/onlinepay.jpg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.admission-container .admission-card .icon .fa {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    width: 100%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: #12055e;
+}
+
+.admission-container .admission-card .slide {
+    width: 300px;
+    height: 200px;
+    transition: 0.5s;
+}
+
+.admission-container .admission-card .slide.slide1 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    transition: .7s;
+    transform: translateY(100px);
+}
+
+.admission-container .admission-card:hover .slide.slide1 {
+    transform: translateY(0px);
+}
+
+.admission-container .admission-card .slide.slide2 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: .8s;
+    transform: translateY(-100px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.admission-container .admission-card:hover .slide.slide2 {
+    transform: translateY(0);
+}
+
+.admission-container .admission-card .slide.slide2::after {
+    content: "Enroll";
+    position: absolute;
+    width: 30px;
+    height: 4px;
+    bottom: 15px;
+    left: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2c73df;
+}
+
+.admission-container .admission-card .slide.slide2 .admission-content p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #414141;
+}
+
+.admission-container .admission-card .slide.slide2 .admission-content h3 {
+    margin: 0 0 10px 0;
+    padding: 0;
+    font-size: 24px;
+    text-align: center;
+    color: #414141;
 }
