@@ -8,7 +8,6 @@
     scroll-behavior: smooth;
 }
 
-
 .cursor {
     position: fixed;
     border-radius: 50%;
@@ -16,12 +15,32 @@
     pointer-events: none;
     left: -100px;
     top: 50%;
-    background-color: #000000a4;
-    z-index: 99;
-    border: 2px solid #ffffff81;
-    height: 40px;
-    width: 40px;
-}
+    background-color: #0c0c0ca4;
+    z-index: 9999;
+    box-shadow: 0 0  15px 0px #ffffff;
+    height: 30px;
+    width: 30px;
+} 
+
+.ripple {
+    pointer-events: none;
+    width: 10px;
+    height: 10px;
+    position: fixed;
+    border-radius: 50%;
+    border: 20px #ffffff;
+    box-shadow: 0 0  12px 1px #020202;
+    z-index: 9999;
+ }
+ 
+ @keyframes ripple-effect {
+    to {
+       transform:scale(15);
+       opacity: 0.01;
+    }
+ }
+
+
 
 .navbar {
     position: fixed;
@@ -966,10 +985,13 @@ p {
     width: 100%;
     height: 100%;
     background: #011b42;
+    border-radius: 10px;
 }
 
 .admission-row {
-    padding-top: 25px;
+    padding-top: 5%;
+    margin: -2%;
+    
 }
 
 .admission-container .admission-card .icon1 {
@@ -989,6 +1011,20 @@ p {
 }
 .admission-container .admission-card .icon4 {
     background-image: url(../assets/img/onlinepay.jpg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.admission-container .admission-card .icon5 {
+    background-image: url(../assets/img/bank-icon.jpg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.admission-container .admission-card .icon6 {
+    background-image: url(../assets/img/remit.jpg);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -1035,6 +1071,8 @@ p {
     transition: .8s;
     transform: translateY(-100px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .admission-container .admission-card:hover .slide.slide2 {
@@ -1073,4 +1111,148 @@ p {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.modal-content {
+    margin-top: 100px;
+    color: #022861;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 35px;
+    box-shadow: 0 0 10px #242323;
+}
+
+.modal-header {
+    border-bottom: 0 none;
+    background-color: #0444a3;
+    color: #fff;
+    border-top-right-radius: 30px;
+}
+
+.modal-footer {
+    border-top: 0 none;
+}
+
+.modal-img-container{
+    margin-left: 10%;
+    width: 120%;
+    
+}
+
+.enroll-btn:hover {
+    background-color: #036318;
+}
+
+
+/*form styles*/
+.form-back {
+    background-image: url(../assets/img/sky-background.jpg);
+    background-size: cover;
+    padding: 0px 20px 100px 20px;
+}
+.form-logo {
+    max-width: 100px;
+    margin: 10px 20px;
+}
+.form {
+    background-color: #ffffff;
+    border-radius: 20px;
+    height: 100vh;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .title {
+    color: #3f3d3d;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 30px 10px;
+    text-align: center;
+  }
+
+  .app-code {
+    font-size: 12px;
+    margin: 30px 20px;
+    background-color: #ffbb00;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .form-card {
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background: #fff;
+    border-radius: 2px;
+  }
+
+  .card-header {
+    background-color: #0444a3;
+    color: #f3ecec;
+  }
+
+  .form-submit {
+    padding: 20px;
+    background-color: #0066ff;
+    color: #f3ecec;
+    border-radius: 10px;
+  }
+
+  .form-submit:hover {
+    background-color: #02662b;
+    color: #f3ecec;
+  }
+
+  .btn-center {
+    text-align: center;
+  }
+
+  .enrollmodal {
+    text-align: center;
+    padding: 50px;
+  }
+
+  .enroll-modal-header {
+    padding: 20px;
+    border-bottom: 0 none;
+    background-color: #0490a3;
+    color: #fff;
+    border-top-right-radius: 30px;
+}
+
+.enroll-btn:hover {
+    background-color: #036318;
+}
+
+.post-container div{
+    padding-bottom: 10px;
+}
+
+.break-modal-header {
+    margin-top: 100px;
+    background-color: #cce207;
+    padding: 20px;
+    color: #2e2d2d;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.break-modal-content {
+    background-color: #fff;
+    border-radius: 5px;
+    color: #2e2d2d;
+    box-shadow: 0 0 20px 10px #000000;
+    font-family: 'Courier New', Courier, monospace !important;
+}
+
+.break-modal-dialog {
+    background-color: #cce207;
+    padding: 20px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.break-modal-img {
+    max-width: 500px;
+    width: 100%;
+}
+
+
 

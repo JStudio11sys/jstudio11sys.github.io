@@ -49,11 +49,58 @@
                         <li class="nav-item navbar-collapse-item"><a class="nav-link" href="#admission">Admission</a>
                         </li>
                         <li class="nav-item navbar-collapse-item"><a class="nav-link" href="#about">About Us</a></li>
-                        <li class="nav-item navbar-collapse-item"><a class="nav-link" href="#">Login</a></li>
+                        <li class="nav-item navbar-collapse-item"><a class="nav-link" type="button"
+                                data-bs-toggle="modal" data-bs-target="#modallogin">Login</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <div class="modal fade" id="modallogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <form>
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example1">Email address</label>
+                                <input type="email" id="form2Example1" class="form-control" />
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example2">Password</label>
+                                <input type="password" id="form2Example2" class="form-control" />
+                            </div>
+
+                            <!-- 2 column grid layout for inline styling -->
+                            <div class="row mb-4">
+                                <div class="col d-flex justify-content-center">
+                                    <!-- Checkbox -->
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="form2Example31"
+                                            checked />
+                                        <label class="form-check-label" for="form2Example31"> Remember me </label>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <!-- Simple link -->
+                                    <a href="#!">Forgot password?</a>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button class="btn form-submit">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div>
             <div id="#">
                 <div id="carouselBanner" class="carousel slide carousel-fade" data-bs-ride="carousel"
@@ -170,7 +217,7 @@
                                 <div class="carousel-item active">
                                     <div class="container break-align">
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col d-flex justify-content-center">
                                                 <div class="card border-0 me-lg-4 mb-lg-0 mb-4">
                                                     <div class="backgroundEffect"></div>
                                                     <div class="pic"> <img class="" src="assets/img/break1.jpg" alt="">
@@ -185,7 +232,8 @@
                                                             element. Probably the answer to end COVID-19</p>
                                                         <div
                                                             class="d-flex align-items-center justify-content-between mt-3 pb-3">
-                                                            <a href="#" class="btn btn-primary">Read more</a>
+                                                            <a class="btn btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#breakModal1">Read more</a>
                                                             <div
                                                                 class="d-flex align-items-center justify-content-center foot">
                                                                 <p class="admin">Author - Jane Carter</p>
@@ -194,8 +242,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col"></div>
-                                            <div class="col">
+
+                                            <div class="col d-flex justify-content-center">
                                                 <div class="card border-0 me-lg-4 mb-lg-0 mb-4">
                                                     <div class="backgroundEffect"></div>
                                                     <div class="pic"> <img class="" src="assets/img/break2.jpg" alt="">
@@ -209,7 +257,8 @@
                                                             have a 100% passing rate in the Bar Exams</p>
                                                         <div
                                                             class="d-flex align-items-center justify-content-between mt-3 pb-3">
-                                                            <a href="#" class="btn btn-primary">Read more</a>
+                                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#breakModal2">Read more</a>
                                                             <div
                                                                 class="d-flex align-items-center justify-content-center foot">
                                                                 <p class="admin">Author - Francis Mercado</p>
@@ -218,8 +267,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col"></div>
-                                            <div class="col">
+                                            <div class="col d-flex justify-content-center">
                                                 <div class="card border-0 me-lg-4 mb-lg-0 mb-4">
                                                     <div class="backgroundEffect"></div>
                                                     <div class="pic"> <img class="" src="assets/img/break3.jpg" alt="">
@@ -233,7 +281,8 @@
                                                         </p>
                                                         <div
                                                             class="d-flex align-items-center justify-content-between mt-3 pb-3">
-                                                            <a href="#" class="btn btn-primary">Read more</a>
+                                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#breakModal3">Read more</a>
                                                             <div
                                                                 class="d-flex align-items-center justify-content-center foot">
                                                                 <p class="admin">Author - Sarah Madison</p>
@@ -248,7 +297,7 @@
                                 <div class="carousel-item">
                                     <div class="container break-align">
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col d-flex justify-content-center">
                                                 <div class="card border-0 mb-lg-0 mb-4">
                                                     <div class="backgroundEffect"></div>
                                                     <div class="pic"> <img class="" src="assets/img/break4.jpg" alt="">
@@ -263,7 +312,8 @@
                                                             have managed to win the GOLD PRIZE!</p>
                                                         <div
                                                             class="d-flex align-items-center justify-content-between mt-3 pb-3">
-                                                            <a href="#" class="btn btn-primary">Read more</a>
+                                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#breakModal4">Read more</a>
                                                             <div
                                                                 class="d-flex align-items-center justify-content-center foot">
                                                                 <p class="admin">Author - Christian Sanchez</p>
@@ -272,8 +322,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col"></div>
-                                            <div class="col">
+                                            <div class="col d-flex justify-content-center"></div>
+                                            <div class="col d-flex justify-content-center">
                                                 <div class="card border-0 mb-lg-0 mb-4">
                                                     <div class="backgroundEffect"></div>
                                                     <div class="pic"> <img class="" src="assets/img/values.jpg" alt="">
@@ -286,7 +336,8 @@
                                                             peaceful place for your personal time with God</p>
                                                         <div
                                                             class="d-flex align-items-center justify-content-between mt-3 pb-3">
-                                                            <a href="#" class="btn btn-primary">Read more</a>
+                                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#breakModal5">Read more</a>
                                                             <div
                                                                 class="d-flex align-items-center justify-content-center foot">
                                                                 <p class="admin">Author - Maria Locsin</p>
@@ -295,8 +346,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col"></div>
-                                            <div class="col">
+                                            <div class="col d-flex justify-content-center"></div>
+                                            <div class="col d-flex justify-content-center">
                                                 <div class="card border-0 mb-lg-0 mb-4">
                                                     <div class="backgroundEffect"></div>
                                                     <div class="pic"> <img class="" src="assets/img/global.jpg" alt="">
@@ -309,7 +360,8 @@
                                                             students applicants from all over the globe.</p>
                                                         <div
                                                             class="d-flex align-items-center justify-content-between mt-3 pb-3">
-                                                            <a href="#" class="btn btn-primary">Read more</a>
+                                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#breakModal6">Read more</a>
                                                             <div
                                                                 class="d-flex align-items-center justify-content-center foot">
                                                                 <p class="admin">Author - Christian Sanchez</p>
@@ -324,7 +376,7 @@
                                 <div class="carousel-item">
                                     <div class="container break-align">
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col d-flex justify-content-center">
                                                 <div class="card border-0 mb-lg-0 mb-4">
                                                     <div class="backgroundEffect"></div>
                                                     <div class="pic"> <img class="" src="assets/img/comp.jpg" alt="">
@@ -338,7 +390,8 @@
                                                             Competition 2023. </p>
                                                         <div
                                                             class="d-flex align-items-center justify-content-between mt-3 pb-3">
-                                                            <a href="#" class="btn btn-primary">Read more</a>
+                                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#breakModal7">Read more</a>
                                                             <div
                                                                 class="d-flex align-items-center justify-content-center foot">
                                                                 <p class="admin">Author - Aurora May</p>
@@ -370,6 +423,502 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Breakthru modal-->
+                <div class="modal fade" id="breakModal1" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="break-modal-content">
+                            <div class="break-modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">New
+                                    Innovation</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row container">
+                                    <div class="col-6">
+                                        <img class="break-modal-img" src="assets/img/break1.jpg" />
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>New Element</h4>
+                                        <p>Generating random paragraphs can be an excellent
+                                            way for writers to get their creative flow going
+                                            at the beginning of the day. The writer has no
+                                            idea what topic the random paragraph will be
+                                            about when it appears. This forces the writer to
+                                            use creativity to complete one of three common
+                                            writing challenges. The writer can use the
+                                            paragraph as the first one of a short story and
+                                            build upon it. A second option is to use the
+                                            random paragraph somewhere in a short story they
+                                            create. </p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p>The third option is to have the random
+                                            paragraph be the ending paragraph in a short
+                                            story. No matter which of these challenges is
+                                            undertaken, the writer is forced to use
+                                            creativity to incorporate the paragraph into
+                                            their writing.</p>
+                                        <br />
+                                        <h4>Creativity</h4>
+                                        <p>A random paragraph can also be an excellent
+                                            way
+                                            for a writer to tackle writers' block.
+                                            Writing
+                                            block can often happen due to being stuck
+                                            with a
+                                            current project that the writer is trying to
+                                            complete. By inserting a completely random
+                                            paragraph from which to begin, it can take
+                                            down
+                                            some of the issues that may have been
+                                            causing
+                                            the writers' block in the first place.
+
+                                            Beginning Writing Routine
+                                            Another productive way to use this tool to
+                                            begin
+                                            a daily writing routine. One way is to
+                                            generate
+                                            a random paragraph with the intention to try
+                                            to
+                                            rewrite it while still keeping the original
+                                            meaning. The purpose here is to just get the
+                                            writing started so that when the writer goes
+                                            onto their day's writing projects, words are
+                                            already flowing from their fingers.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="breakModal2" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="break-modal-content">
+                            <div class="break-modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Board Passers!</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row container">
+                                    <div class="col-6">
+                                        <img class="break-modal-img" src="assets/img/break2.jpg" />
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>New Element</h4>
+                                        <p>Generating random paragraphs can be an excellent
+                                            way for writers to get their creative flow going
+                                            at the beginning of the day. The writer has no
+                                            idea what topic the random paragraph will be
+                                            about when it appears. This forces the writer to
+                                            use creativity to complete one of three common
+                                            writing challenges. The writer can use the
+                                            paragraph as the first one of a short story and
+                                            build upon it. A second option is to use the
+                                            random paragraph somewhere in a short story they
+                                            create. </p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p>The third option is to have the random
+                                            paragraph be the ending paragraph in a short
+                                            story. No matter which of these challenges is
+                                            undertaken, the writer is forced to use
+                                            creativity to incorporate the paragraph into
+                                            their writing.</p>
+                                        <br />
+                                        <h4>Creativity</h4>
+                                        <p>A random paragraph can also be an excellent
+                                            way
+                                            for a writer to tackle writers' block.
+                                            Writing
+                                            block can often happen due to being stuck
+                                            with a
+                                            current project that the writer is trying to
+                                            complete. By inserting a completely random
+                                            paragraph from which to begin, it can take
+                                            down
+                                            some of the issues that may have been
+                                            causing
+                                            the writers' block in the first place.
+
+                                            Beginning Writing Routine
+                                            Another productive way to use this tool to
+                                            begin
+                                            a daily writing routine. One way is to
+                                            generate
+                                            a random paragraph with the intention to try
+                                            to
+                                            rewrite it while still keeping the original
+                                            meaning. The purpose here is to just get the
+                                            writing started so that when the writer goes
+                                            onto their day's writing projects, words are
+                                            already flowing from their fingers.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="breakModal3" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="break-modal-content">
+                            <div class="break-modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">HYBRID Technology</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row container">
+                                    <div class="col-6">
+                                        <img class="break-modal-img" src="assets/img/break3.jpg" />
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>New Element</h4>
+                                        <p>Generating random paragraphs can be an excellent
+                                            way for writers to get their creative flow going
+                                            at the beginning of the day. The writer has no
+                                            idea what topic the random paragraph will be
+                                            about when it appears. This forces the writer to
+                                            use creativity to complete one of three common
+                                            writing challenges. The writer can use the
+                                            paragraph as the first one of a short story and
+                                            build upon it. A second option is to use the
+                                            random paragraph somewhere in a short story they
+                                            create. </p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p>The third option is to have the random
+                                            paragraph be the ending paragraph in a short
+                                            story. No matter which of these challenges is
+                                            undertaken, the writer is forced to use
+                                            creativity to incorporate the paragraph into
+                                            their writing.</p>
+                                        <br />
+                                        <h4>Creativity</h4>
+                                        <p>A random paragraph can also be an excellent
+                                            way
+                                            for a writer to tackle writers' block.
+                                            Writing
+                                            block can often happen due to being stuck
+                                            with a
+                                            current project that the writer is trying to
+                                            complete. By inserting a completely random
+                                            paragraph from which to begin, it can take
+                                            down
+                                            some of the issues that may have been
+                                            causing
+                                            the writers' block in the first place.
+
+                                            Beginning Writing Routine
+                                            Another productive way to use this tool to
+                                            begin
+                                            a daily writing routine. One way is to
+                                            generate
+                                            a random paragraph with the intention to try
+                                            to
+                                            rewrite it while still keeping the original
+                                            meaning. The purpose here is to just get the
+                                            writing started so that when the writer goes
+                                            onto their day's writing projects, words are
+                                            already flowing from their fingers.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="breakModal4" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="break-modal-content">
+                            <div class="break-modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">GOLD PRIZE WINNER!</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row container">
+                                    <div class="col-6">
+                                        <img class="break-modal-img" src="assets/img/break4.jpg" />
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>New Element</h4>
+                                        <p>Generating random paragraphs can be an excellent
+                                            way for writers to get their creative flow going
+                                            at the beginning of the day. The writer has no
+                                            idea what topic the random paragraph will be
+                                            about when it appears. This forces the writer to
+                                            use creativity to complete one of three common
+                                            writing challenges. The writer can use the
+                                            paragraph as the first one of a short story and
+                                            build upon it. A second option is to use the
+                                            random paragraph somewhere in a short story they
+                                            create. </p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p>The third option is to have the random
+                                            paragraph be the ending paragraph in a short
+                                            story. No matter which of these challenges is
+                                            undertaken, the writer is forced to use
+                                            creativity to incorporate the paragraph into
+                                            their writing.</p>
+                                        <br />
+                                        <h4>Creativity</h4>
+                                        <p>A random paragraph can also be an excellent
+                                            way
+                                            for a writer to tackle writers' block.
+                                            Writing
+                                            block can often happen due to being stuck
+                                            with a
+                                            current project that the writer is trying to
+                                            complete. By inserting a completely random
+                                            paragraph from which to begin, it can take
+                                            down
+                                            some of the issues that may have been
+                                            causing
+                                            the writers' block in the first place.
+
+                                            Beginning Writing Routine
+                                            Another productive way to use this tool to
+                                            begin
+                                            a daily writing routine. One way is to
+                                            generate
+                                            a random paragraph with the intention to try
+                                            to
+                                            rewrite it while still keeping the original
+                                            meaning. The purpose here is to just get the
+                                            writing started so that when the writer goes
+                                            onto their day's writing projects, words are
+                                            already flowing from their fingers.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="breakModal5" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="break-modal-content">
+                            <div class="break-modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">New
+                                    Chapel</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row container">
+                                    <div class="col-6">
+                                        <img class="break-modal-img" src="assets/img/values.jpg" />
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>New Element</h4>
+                                        <p>Generating random paragraphs can be an excellent
+                                            way for writers to get their creative flow going
+                                            at the beginning of the day. The writer has no
+                                            idea what topic the random paragraph will be
+                                            about when it appears. This forces the writer to
+                                            use creativity to complete one of three common
+                                            writing challenges. The writer can use the
+                                            paragraph as the first one of a short story and
+                                            build upon it. A second option is to use the
+                                            random paragraph somewhere in a short story they
+                                            create. </p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p>The third option is to have the random
+                                            paragraph be the ending paragraph in a short
+                                            story. No matter which of these challenges is
+                                            undertaken, the writer is forced to use
+                                            creativity to incorporate the paragraph into
+                                            their writing.</p>
+                                        <br />
+                                        <h4>Creativity</h4>
+                                        <p>A random paragraph can also be an excellent
+                                            way
+                                            for a writer to tackle writers' block.
+                                            Writing
+                                            block can often happen due to being stuck
+                                            with a
+                                            current project that the writer is trying to
+                                            complete. By inserting a completely random
+                                            paragraph from which to begin, it can take
+                                            down
+                                            some of the issues that may have been
+                                            causing
+                                            the writers' block in the first place.
+
+                                            Beginning Writing Routine
+                                            Another productive way to use this tool to
+                                            begin
+                                            a daily writing routine. One way is to
+                                            generate
+                                            a random paragraph with the intention to try
+                                            to
+                                            rewrite it while still keeping the original
+                                            meaning. The purpose here is to just get the
+                                            writing started so that when the writer goes
+                                            onto their day's writing projects, words are
+                                            already flowing from their fingers.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="breakModal6" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="break-modal-content">
+                            <div class="break-modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">STA goes GLOBAL!</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row container">
+                                    <div class="col-6">
+                                        <img class="break-modal-img" src="assets/img/global.jpg" />
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>New Element</h4>
+                                        <p>Generating random paragraphs can be an excellent
+                                            way for writers to get their creative flow going
+                                            at the beginning of the day. The writer has no
+                                            idea what topic the random paragraph will be
+                                            about when it appears. This forces the writer to
+                                            use creativity to complete one of three common
+                                            writing challenges. The writer can use the
+                                            paragraph as the first one of a short story and
+                                            build upon it. A second option is to use the
+                                            random paragraph somewhere in a short story they
+                                            create. </p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p>The third option is to have the random
+                                            paragraph be the ending paragraph in a short
+                                            story. No matter which of these challenges is
+                                            undertaken, the writer is forced to use
+                                            creativity to incorporate the paragraph into
+                                            their writing.</p>
+                                        <br />
+                                        <h4>Creativity</h4>
+                                        <p>A random paragraph can also be an excellent
+                                            way
+                                            for a writer to tackle writers' block.
+                                            Writing
+                                            block can often happen due to being stuck
+                                            with a
+                                            current project that the writer is trying to
+                                            complete. By inserting a completely random
+                                            paragraph from which to begin, it can take
+                                            down
+                                            some of the issues that may have been
+                                            causing
+                                            the writers' block in the first place.
+
+                                            Beginning Writing Routine
+                                            Another productive way to use this tool to
+                                            begin
+                                            a daily writing routine. One way is to
+                                            generate
+                                            a random paragraph with the intention to try
+                                            to
+                                            rewrite it while still keeping the original
+                                            meaning. The purpose here is to just get the
+                                            writing started so that when the writer goes
+                                            onto their day's writing projects, words are
+                                            already flowing from their fingers.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="breakModal7" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="break-modal-content">
+                            <div class="break-modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">ICT-CSS 10 Awards</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row container">
+                                    <div class="col-6">
+                                        <img class="break-modal-img" src="assets/img/comp.jpg" />
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>New Element</h4>
+                                        <p>Generating random paragraphs can be an excellent
+                                            way for writers to get their creative flow going
+                                            at the beginning of the day. The writer has no
+                                            idea what topic the random paragraph will be
+                                            about when it appears. This forces the writer to
+                                            use creativity to complete one of three common
+                                            writing challenges. The writer can use the
+                                            paragraph as the first one of a short story and
+                                            build upon it. A second option is to use the
+                                            random paragraph somewhere in a short story they
+                                            create. </p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p>The third option is to have the random
+                                            paragraph be the ending paragraph in a short
+                                            story. No matter which of these challenges is
+                                            undertaken, the writer is forced to use
+                                            creativity to incorporate the paragraph into
+                                            their writing.</p>
+                                        <br />
+                                        <h4>Creativity</h4>
+                                        <p>A random paragraph can also be an excellent
+                                            way
+                                            for a writer to tackle writers' block.
+                                            Writing
+                                            block can often happen due to being stuck
+                                            with a
+                                            current project that the writer is trying to
+                                            complete. By inserting a completely random
+                                            paragraph from which to begin, it can take
+                                            down
+                                            some of the issues that may have been
+                                            causing
+                                            the writers' block in the first place.
+
+                                            Beginning Writing Routine
+                                            Another productive way to use this tool to
+                                            begin
+                                            a daily writing routine. One way is to
+                                            generate
+                                            a random paragraph with the intention to try
+                                            to
+                                            rewrite it while still keeping the original
+                                            meaning. The purpose here is to just get the
+                                            writing started so that when the writer goes
+                                            onto their day's writing projects, words are
+                                            already flowing from their fingers.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Breakthru modal-->
+
                 <div class="admission-back">
                     <div class="sec2" id="admission">
                         <h3 class="title-animation">
@@ -383,8 +932,8 @@
                                 <div>Pay Tuition Online</div>
                             </div>
                         </h3>
-                        <div class="row admission-row row-cols-4">
-                            <div class="col">
+                        <div class="row admission-row">
+                            <div class="col d-flex justify-content-center">
                                 <div class="admission-container">
                                     <div class="admission-card">
                                         <div class="slide slide1">
@@ -397,18 +946,216 @@
 
                                         <div class="slide slide2">
                                             <div class="admission-content">
-                                                <p >Click to check requirements</p>
-                                                <p><a class="admission-link-item" href="#">Pre-Kindergarten</a></p>
-                                                <p><a class="admission-link-item" href="#">Kindergarten</a></p>
-                                                <p><a class="admission-link-item" href="#">Grade One (1)</a></p>
-                                                <p><a class="admission-link-item" href="#">Grade Two (2)</a></p>
-                                                <p><a class="admission-link-item"href="#">Grade 3 to 6 </a></p>
+                                                <p>Click to check requirements</p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#prekinderModal">Pre-Kindergarten</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#kinderModal">Kindergarten</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#gr1Modal">Grade One (1)</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#gr2Modal">Grade Two (2)</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#gr3-6Modal">Grade 3 to 6 </a></p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+
+                            <div class="modal fade" id="prekinderModal" tabindex="-1" aria-labelledby="prekinderModal"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-md">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Pre-Kindergarten-Applicant
+                                            </h5>
+                                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button> -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img class="modal-img-container" src="assets/img/enroll-icon.jpg">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div class="container p-3">
+                                                    <p class="text-muted fw-bold lh-1">Must be 4 years old by June 1</p>
+                                                </div>
+                                                <div class="container">
+                                                    <ul>
+                                                        <li>Birth Certificate (NSO/PSA)</li>
+                                                        <li>Baptismal Certificate</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-primary enroll-btn" data-bs-toggle="modal"
+                                                data-bs-target="#enrollModal">Enroll Now!</a>
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="kinderModal" tabindex="-1" aria-labelledby="prekinderModal"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-md">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Kindergarten-Applicant
+                                            </h5>
+                                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button> -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img class="modal-img-container" src="assets/img/enroll-icon.jpg">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div class="container p-3">
+                                                    <p class="text-muted fw-bold lh-1">Must be 5 years old by June 1</p>
+                                                </div>
+                                                <div class="container">
+                                                    <ul>
+                                                        <li>Birth Certificate (NSO/PSA)</li>
+                                                        <li>Baptismal Certificate</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-primary enroll-btn" data-bs-toggle="modal"
+                                                data-bs-target="#enrollModal">Enroll Now!</a>
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="gr1Modal" tabindex="-1" aria-labelledby="prekinderModal"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Grade One (1) - Applicant
+                                            </h5>
+                                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button> -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img class="modal-img-container" src="assets/img/enroll-icon.jpg">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div class="container p-3">
+                                                    <p class="text-muted fw-bold lh-1">Must be 6 years old by June 1</p>
+                                                </div>
+                                                <div class="container">
+                                                    <ul>
+                                                        <li>Birth Certificate (NSO/PSA)</li>
+                                                        <li>Baptismal Certificate</li>
+                                                        <li>Report Card with the latest periodic grades and Learner
+                                                            Reference Number (photocopy with
+                                                            original for authentication)</li>
+                                                        <li>Photocopied Early Childhood Development Checklist</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-primary enroll-btn" data-bs-toggle="modal"
+                                                data-bs-target="#enrollModal">Enroll Now!</a>
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="gr2Modal" tabindex="-1" aria-labelledby="prekinderModal"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Grade Two (2) - Applicant
+                                            </h5>
+                                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button> -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img class="modal-img-container" src="assets/img/enroll-icon.jpg">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div class="container p-3">
+                                                    <!-- <p class="text-muted fw-bold lh-1">Must be 6 years old by June 1</p>-->
+                                                </div>
+                                                <div class="container">
+                                                    <ul>
+                                                        <li>Birth Certificate (NSO/PSA)</li>
+                                                        <li>Baptismal Certificate</li>
+                                                        <li>Report Card with the latest periodic grades and Learner
+                                                            Reference Number (photocopy with
+                                                            original for authentication)</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-primary enroll-btn" data-bs-toggle="modal"
+                                                data-bs-target="#enrollModal">Enroll Now!</a>
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="gr3-6Modal" tabindex="-1" aria-labelledby="prekinderModal"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Grade Three to Six (3 - 6) -
+                                                Applicant
+                                            </h5>
+                                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button> -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img class="modal-img-container" src="assets/img/enroll-icon.jpg">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div class="container p-3">
+                                                    <!-- <p class="text-muted fw-bold lh-1">Must be 6 years old by June 1</p>-->
+                                                </div>
+                                                <div class="container">
+                                                    <ul>
+                                                        <li>Birth Certificate (NSO/PSA)</li>
+                                                        <li>Baptismal Certificate</li>
+                                                        <li>Report Card with the latest periodic grades and Learner
+                                                            Reference Number (photocopy with
+                                                            original for authentication)</li>
+                                                        <li>Duly accomplished STA Recommendation Form</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-primary enroll-btn" data-bs-toggle="modal"
+                                                data-bs-target="#enrollModal">Enroll Now!</a>
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col d-flex justify-content-center">
                                 <div class="admission-container">
                                     <div class="admission-card">
                                         <div class="slide slide1">
@@ -422,16 +1169,185 @@
                                         <div class="slide slide2">
                                             <div class="admission-content">
                                                 <p>Click to check requirements</p>
-                                                <p><a class="admission-link-item" href="dummy.html">Grade 7</a></p>
-                                                <p><a class="admission-link-item" href="#">Grade 8</a></p>
-                                                <p><a class="admission-link-item" href="#">Grade 9</a></p>
-                                                <p><a class="admission-link-item" href="#">Grade 10</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#gr7Modal">Grade 7</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#gr8Modal">Grade 8</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#gr9Modal">Grade 9</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#gr10Modal">Grade 10</a></p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+
+                            <div class="modal fade" id="gr7Modal" tabindex="-1" aria-labelledby="prekinderModal"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Grade 7 -
+                                                Applicant
+                                            </h5>
+                                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button> -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img class="modal-img-container" src="assets/img/enroll-icon.jpg">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div class="container p-3">
+                                                    <!-- <p class="text-muted fw-bold lh-1">Must be 6 years old by June 1</p>-->
+                                                </div>
+                                                <div class="container">
+                                                    <ul>
+                                                        <li>Birth Certificate (NSO/PSA)</li>
+                                                        <li>Baptismal Certificate</li>
+                                                        <li>Report Card with the latest periodic grades and Learner
+                                                            Reference Number (photocopy with
+                                                            original for authentication)</li>
+                                                        <li>Duly accomplished STA Recommendation Form</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-primary enroll-btn" data-bs-toggle="modal"
+                                                data-bs-target="#enrollModal">Enroll Now!</a>
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="gr8Modal" tabindex="-1" aria-labelledby="prekinderModal"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Grade 8 -
+                                                Applicant
+                                            </h5>
+                                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button> -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img class="modal-img-container" src="assets/img/enroll-icon.jpg">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div class="container p-3">
+                                                    <!-- <p class="text-muted fw-bold lh-1">Must be 6 years old by June 1</p>-->
+                                                </div>
+                                                <div class="container">
+                                                    <ul>
+                                                        <li>Birth Certificate (NSO/PSA)</li>
+                                                        <li>Baptismal Certificate</li>
+                                                        <li>Report Card with the latest periodic grades and Learner
+                                                            Reference Number (photocopy with
+                                                            original for authentication)</li>
+                                                        <li>Duly accomplished STA Recommendation Form</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-primary enroll-btn" data-bs-toggle="modal"
+                                                data-bs-target="#enrollModal">Enroll Now!</a>
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="gr9Modal" tabindex="-1" aria-labelledby="prekinderModal"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Grade 9 -
+                                                Applicant
+                                            </h5>
+                                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button> -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img class="modal-img-container" src="assets/img/enroll-icon.jpg">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div class="container p-3">
+                                                    <!-- <p class="text-muted fw-bold lh-1">Must be 6 years old by June 1</p>-->
+                                                </div>
+                                                <div class="container">
+                                                    <ul>
+                                                        <li>Birth Certificate (NSO/PSA)</li>
+                                                        <li>Baptismal Certificate</li>
+                                                        <li>Report Card with the latest periodic grades and Learner
+                                                            Reference Number (photocopy with
+                                                            original for authentication)</li>
+                                                        <li>Duly accomplished STA Recommendation Form</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-primary enroll-btn" data-bs-toggle="modal"
+                                                data-bs-target="#enrollModal">Enroll Now!</a>
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="gr10Modal" tabindex="-1" aria-labelledby="prekinderModal"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Grade 10 -
+                                                Applicant
+                                            </h5>
+                                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button> -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img class="modal-img-container" src="assets/img/enroll-icon.jpg">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div class="container p-3">
+                                                    <!-- <p class="text-muted fw-bold lh-1">Must be 6 years old by June 1</p>-->
+                                                </div>
+                                                <div class="container">
+                                                    <ul>
+                                                        <li>Birth Certificate (NSO/PSA)</li>
+                                                        <li>Baptismal Certificate</li>
+                                                        <li>Report Card with the latest periodic grades and Learner
+                                                            Reference Number (photocopy with
+                                                            original for authentication)</li>
+                                                        <li>Duly accomplished STA Recommendation Form</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-primary enroll-btn" data-bs-toggle="modal"
+                                                data-bs-target="#enrollModal">Enroll Now!</a>
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col d-flex justify-content-center">
                                 <div class="admission-container">
                                     <div class="admission-card">
                                         <div class="slide slide1">
@@ -445,33 +1361,138 @@
                                         <div class="slide slide2">
                                             <div class="admission-content">
                                                 <p>Click to check requirements</p>
-                                                <p><a class="admission-link-item" href="#">HUMSS Grade 11</a></p>
-                                                <p><a class="admission-link-item" href="#">STEM Grade 11</a></p>
-                                                <p><a class="admission-link-item" href="#">ABM Grade 11</a></p>
-                                                <p><a class="admission-link-item" href="#">HUMSS Grade 12</a></p>
-                                                <p><a class="admission-link-item"href="#">STEM Grade 12</a></p>
-                                                <p><a class="admission-link-item"href="#">ABM Grade 12</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#shsModal">HUMSS Grade 11</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#shsModal">STEM Grade 11</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#shsModal">ABM Grade 11</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#shsModal">HUMSS Grade 12</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#shsModal">STEM Grade 12</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#shsModal">ABM Grade 12</a></p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-3 d-flex justify-content-center">
+
+                            <div class="col d-flex justify-content-center">
                                 <div class="admission-container">
                                     <div class="admission-card">
                                         <div class="slide slide1">
                                             <div>
-                                                <div class="icon icon4">
-                                                    <i class="fa fa-user-circle" aria-hidden="true">Post Payment
-                                                        Online</i>
+                                                <div class="icon icon3">
+                                                    <i class="fa fa-user-circle" aria-hidden="true">Senior High
+                                                        School</i>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="slide slide2">
                                             <div class="admission-content">
                                                 <p>Click to check requirements</p>
-                                                <p><a href="#" class="admission-link-item" >Online Enrollment</a></p>
-                                                <p><a href="#" class="admission-link-item" >Pay Online</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#shsModal">HUMSS Grade 11</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#shsModal">STEM Grade 11</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#shsModal">ABM Grade 11</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#shsModal">HUMSS Grade 12</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#shsModal">STEM Grade 12</a></p>
+                                                <p><a class="admission-link-item" data-bs-toggle="modal"
+                                                        data-bs-target="#shsModal">ABM Grade 12</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="shsModal" tabindex="-1" aria-labelledby="prekinderModal"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Senior High School -
+                                                Applicant
+                                            </h5>
+                                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button> -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img class="modal-img-container" src="assets/img/enroll-icon.jpg">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div class="container p-3">
+                                                    <!-- <p class="text-muted fw-bold lh-1">Must be 6 years old by June 1</p>-->
+                                                </div>
+                                                <div class="container">
+                                                    <ul>
+                                                        <li>Birth Certificate (NSO/PSA)</li>
+                                                        <li>Baptismal Certificate</li>
+                                                        <li>Report Card with the latest periodic grades and Learner
+                                                            Reference Number (photocopy with
+                                                            original for authentication)</li>
+                                                        <li>Certificate of Completion</li>
+                                                        <li>NCAE Result</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-primary enroll-btn" data-bs-toggle="modal"
+                                                data-bs-target="#enrollModal">Enroll Now!</a>
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col d-flex justify-content-center">
+                                <div class="admission-container">
+                                    <div class="admission-card">
+                                        <div class="slide slide1">
+                                            <div>
+                                                <div class="icon icon5">
+                                                    <i class="fa fa-user-circle" aria-hidden="true">PAYMENT OPTION -
+                                                        BANK</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide slide2">
+                                            <div class="admission-content">
+                                                <div class="alert-info">
+                                                    <b>BANK:</b><br /> Bank of the Philippine Islands (BPI)<br>
+                                                    <b>ACCOUNT NAME:</b><br /> St. Theresita's Academy<br><br />
+                                                    <b>ACCOUNT NUMBER:</b><br /> 1183-0015-03<br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <div class="admission-container">
+                                    <div class="admission-card">
+                                        <div class="slide slide1">
+                                            <div>
+                                                <div class="icon icon6">
+                                                    <i class="fa fa-user-circle" aria-hidden="true">PAYMENT OPTION -
+                                                        Remittance</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide slide2">
+                                            <div class="admission-content">
+                                                <div class="alert alert-success">
+                                                    <b>RECEIVER NAME:</b><br />Evangeline A. Pedregosa<br><br />
+                                                    <b>RECEIVER CELLPHONE #:</b><br />0947-7657171<br>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -480,6 +1501,36 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal fade" id="enrollModal" tabindex="-1" aria-labelledby="prekinderModal"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="enroll-modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Online Enrollment
+                                </h5>
+                                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button> -->
+                            </div>
+                            <div class="row enrollmodal">
+                                <div class="col-lg-6">
+                                    <p>For New Students / Transferees, please Fill up the enrollment form</p>
+                                    <a href="new-student.html" target="_blank" type="button"
+                                        class="btn btn-primary enroll-btn">Proceed to Online Enrollment</a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p>For continuing students please post your proof of payment</p>
+                                    <a href="olpay-student.html" target="_blank" type="button"
+                                        class="btn btn-primary enroll-btn">Post your payment</a>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="history-back">
                     <div class="sec-about" id="about">
@@ -726,7 +1777,6 @@
             cursor.style.left = e.clientX + "px",
                 cursor.style.top = e.clientY + "px";
         });
-
     </script>
 </body>
 
