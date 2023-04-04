@@ -210,6 +210,9 @@ body {
     #Main-wide-header {
         display: none !important;
     }
+    #smallremove {
+        display: none !important;
+    }
     .schoolname {
         font-size: 1em !important;
     }
@@ -239,9 +242,21 @@ body {
         left: 200px !important;
         overflow:visible;
     }
+    .page2-banner-text {
+        margin-top: 80px;
+        font-size: 1.5em !important;
+    }
+    .clouds {
+        overflow: visible !important;
+    }
+    #clouds {
+        overflow: visible;
+        margin-left: -160px !important;
+    }
 }
 
 @media screen and (max-width:768px) {
+    
 
     .schoolname {
         text-align: center;
@@ -249,9 +264,6 @@ body {
     }
     .theresian {
         font-size: 2em !important;
-    }
-    .btn-enroll {
-        
     }
 
     header img#students {
@@ -265,6 +277,32 @@ body {
         left: 10% !important;
         width: 32% !important;
         height: auto;
+    }
+    
+}
+@media screen and (max-width:1024px) {
+    
+
+    .schoolname {
+        text-align: center;
+        font-size: 2em;
+    }
+    .theresian {
+        font-size: 2em !important;
+    }
+
+    header img#students {
+        z-index: 0;
+        left: 100px;
+        overflow:visible;
+    }
+
+    .landingpage img {
+        top: 22%;
+    }
+    .page2-banner-text {
+        margin-top: 80px;
+        font-size: 3em;
     }
     
 }
