@@ -11,6 +11,7 @@ function scrollFunction() {
     document.getElementById("sta_logo").style.maxWidth = "80px";
   }
 
+  
   let sky = document.getElementById('sky');
   let clouds = document.getElementById('clouds');
   let facade = document.getElementById('facade');
