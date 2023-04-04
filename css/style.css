@@ -253,6 +253,11 @@ body {
         overflow: visible;
         margin-left: -160px !important;
     }
+    header img#students {
+        z-index: 0;
+        margin-left: 110px;
+        overflow:visible;
+    }
 }
 
 @media screen and (max-width:768px) {
