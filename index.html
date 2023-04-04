@@ -1,18 +1,111 @@
 <!DOCTYPE html>
 
 <head>
-    <title>St. Theresita's Academy</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>St. Theresita's Academy</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!--Bootstrap and Styles Links-->
-    <link rel="icon" type="image/x-icon" href="assets/img/sta-fav.ico" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <!--Fav-icon link-->
+  <link rel="icon" type="image/x-icon" href="assets/img/sta-fav.ico" />
 
-    <script src="js/bootstrap.bundle.min.js"></script>
+  <!--Bootstrap CSS Links-->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+  <!--Javascript links-->
+  <script src="js/bootstrap.bundle.min.js"></script>
+
 </head>
-<body>
-    
+
+<body onScroll="scrollFunction()">
+  <!--Navbar Section-->
+  <div class="navbar-container">
+    <!--Main Navbar-->
+    <div id="wide-navbar">
+      <nav id="nav-scroll" class="navbar navbar-expand-lg">
+        <div class="container">
+          <a href="#"><img class="sta_logo" id="sta_logo" src="assets/img/sta-logo.png"></a>
+          <a class="navbar-brand" id="logo" href="#">St. Theresita's Academy</a>
+
+          <div class="collapse navbar-collapse" id="navbareffect">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 nav-effect">
+
+              <li class="nav-item navbar-collapse-item"><a href="#" class="nav-link">Home</a></li>
+
+              <!-- <li class="nav-item"><a class="nav-link" href="#announce">Announcements</a></li>-->
+              <li class="nav-item navbar-collapse-item"><a class="nav-link" href="#break">Breakthrough</a>
+              </li>
+              <li class="nav-item navbar-collapse-item"><a class="nav-link" href="#admission">Admission</a>
+              </li>
+              <li class="nav-item navbar-collapse-item"><a class="nav-link" href="#about">About Us</a></li>
+              <li class="nav-item navbar-collapse-item"><a class="nav-link" type="button" data-bs-toggle="modal"
+                  data-bs-target="#modallogin">Login</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!--Main navbar-->
+
+    <!--responsive navbar-->
+    <div id="resp-navbar">
+      <nav class="navbar navbar-expand-lg navbar-dark p-3 bg-navbar" id="headerNav">
+        <div class="container-fluid">
+          <a class="navbar-brand d-block d-lg-none" href="#">
+            <img class="nav-img" src="assets/img/sta-logo.png" width="120" />
+          </a>
+          <div id="namelogo-small">
+            <a class="navbar-brand" id="logo" href="#">St. Theresita's Academy</a>
+          </div>
+
+          <button class="menu" data-bs-toggle="collapse" data-bs-target="#navbareffect" aria-controls="navbareffect"
+            aria-expanded="false" aria-label="Toggle navigation"
+            onclick="this.classList.toggle('opened');this.setAttribute('aria-expanded', this.classList.contains('opened'))"
+            aria-label="Main Menu">
+            <svg width="50" height="50" viewBox="0 0 100 100">
+              <path class="line line1"
+                d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+              <path class="line line2" d="M 20,50 H 80" />
+              <path class="line line3"
+                d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+            </svg>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbareffect">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 nav-effect">
+
+              <li class="nav-item navbar-collapse-item"><a href="#" class="nav-link">Home</a></li>
+
+              <!-- <li class="nav-item"><a class="nav-link" href="#announce">Announcements</a></li>-->
+              <li class="nav-item navbar-collapse-item"><a class="nav-link" href="#break">Breakthrough</a>
+              </li>
+              <li class="nav-item navbar-collapse-item"><a class="nav-link" href="#admission">Admission</a>
+              </li>
+              <li class="nav-item navbar-collapse-item"><a class="nav-link" href="#about">About Us</a></li>
+              <li class="nav-item navbar-collapse-item"><a class="nav-link" type="button" data-bs-toggle="modal"
+                  data-bs-target="#modallogin">Login</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!--responsive navbar-->
+
+    <!--Navbar Section-->
+  </div>
+
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    </div>
+  </div>
+
+
+
+
+  <!--Javascript Links-->
+  <script src="js/index.js"></script>
 </body>
+
 </html>

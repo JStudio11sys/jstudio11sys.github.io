@@ -1,0 +1,161 @@
+/* KodeGo Joshua Tobongbanua */
+body {
+    background-image: url(../assets/img/sky-background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/*Navbar Styles*/
+@media screen and (min-width:992px) {
+
+    #resp-navbar {
+        display: none !important;
+    }
+}
+
+
+
+@media screen and (max-width:992px) {
+
+    /*main navbar class*/
+    #wide-navbar {
+        display: none !important;
+    }
+    /*main navbar class*/
+
+    .navbar-collapse {
+        margin-left: -20px;
+        margin-right: -20px;
+        text-align: center;
+        background-color: #010133;
+        border-radius: 20px;
+    }
+
+    .navbar-collapse-item {
+        padding: 10px;
+    }
+
+
+    /*burger icon style*/
+    .menu {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        padding: 0;
+    }
+
+    .line {
+        fill: none;
+        stroke: rgb(255, 255, 255);
+        stroke-width: 6;
+        transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+            stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .line1 {
+        stroke-dasharray: 60 207;
+        stroke-width: 6;
+    }
+
+    .line2 {
+        stroke-dasharray: 60 60;
+        stroke-width: 6;
+    }
+
+    .line3 {
+        stroke-dasharray: 60 207;
+        stroke-width: 6;
+    }
+
+    .opened .line1 {
+        stroke-dasharray: 90 207;
+        stroke-dashoffset: -134;
+        stroke-width: 6;
+    }
+
+    .opened .line2 {
+        stroke-dasharray: 1 60;
+        stroke-dashoffset: -30;
+        stroke-width: 6;
+    }
+
+    .opened .line3 {
+        stroke-dasharray: 90 207;
+        stroke-dashoffset: -134;
+        stroke-width: 6;
+    }
+
+}
+@media screen and (max-width:768px) {
+    body {
+        background-size: unset;
+    }
+    
+}
+@media screen and (max-width:425px) {
+    #namelogo-small {
+        display: none !important;
+    }
+}
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(0deg, #ffffff00 0%, #03030370 100%, transparent);
+    transition: 0.5s
+}
+
+.sta_logo {
+    max-width: 70px;
+    margin-right: 15px;
+    transition: 0.5s;
+}
+
+.navbar a {
+    color: #fff;
+}
+
+#logo {
+    transition: 0.5s;
+}
+
+.nav-effect a {
+    text-decoration: none;
+    line-height: 25px;
+    font-weight: bold;
+
+    --b: 0.2em;
+    /* the thickness of the line */
+    --c: #00fff2;
+    /* the color */
+
+    color: #0000 !important;
+    padding-block: var(--b);
+    background:
+        linear-gradient(var(--c) 50%, #ffffff 0) 0% calc(100% - var(--_p, 0%))/100% 200%,
+        linear-gradient(var(--c) 0 0) 0% var(--_p, 0%)/var(--_p, 0%) var(--b) no-repeat;
+    -webkit-background-clip: text, padding-box;
+    background-clip: text, padding-box;
+    transition: .3s var(--_s, 0s) linear, background-size .3s calc(.3s - var(--_s, 0s));
+}
+
+.nav-effect a:hover {
+    --_p: 100%;
+    --_s: .3s;
+}
+
+/*Navbar Styles*/
+
+.jumbotron {
+    color: white;
+    background-image: url("../assets/img/sta-facade.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
