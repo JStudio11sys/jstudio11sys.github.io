@@ -278,6 +278,9 @@ body {
         width: 32% !important;
         height: auto;
     }
+    #clouds {
+        overflow: visible;
+    }
     
 }
 @media screen and (max-width:1024px) {
