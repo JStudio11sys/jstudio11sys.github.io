@@ -1,9 +1,52 @@
 /* KodeGo Joshua Tobongbanua */
+* {
+    cursor: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
+    scroll-behavior: smooth;
+}
 body {
     background-image: url(../assets/img/sky-background.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+/*Mouse cursor modifications*/
+
+.cursor {
+    position: fixed;
+    border-radius: 50% 50% 50% 50%;
+    border: 5px solid #053570;
+    transform: translateX(-50%) translateY(-50%);
+    pointer-events: none;
+    left: -100px;
+    top: 50%;
+    z-index: 9999;
+    box-shadow: 0 0  15px 0px #ffffff;
+    height: 40px;
+    width: 40px;
+} 
+
+.ripple {
+    pointer-events: none;
+    width: 10px;
+    height: 10px;
+    position: fixed;
+    border-radius: 50%;
+    border: 20px #ffffff;
+    box-shadow: 0 0  12px 1px #020202;
+    z-index: 9999;
+ }
+ 
+ @keyframes ripple-effect {
+    to {
+       transform:scale(15);
+       opacity: 0.01;
+    }
+ }
+
 
 /*Navbar Styles*/
 @media screen and (min-width:992px) {
@@ -151,6 +194,9 @@ body {
 
 /*Navbar Styles*/
 
+
+
+/*header styles*/
 .jumbotron {
     color: white;
     background-image: url("../assets/img/sta-facade.png");
@@ -159,3 +205,298 @@ body {
     background-size: cover;
     height: 100vh;
 }
+
+@media screen and (max-width:425px) {
+    #Main-wide-header {
+        display: none !important;
+    }
+    .schoolname {
+        font-size: 1em !important;
+    }
+    .theresian {
+        font-size: 2em !important;
+        margin-left: -20px !important;
+    }
+    .btn-enroll {
+         display:none !important;
+    }
+    .btn-enroll-small {
+        text-decoration: none;
+    background-image: linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%);
+    text-transform: uppercase;
+    font-size: 0.8em !important;
+    transition: 0.5s;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 20px;
+    }
+
+    header img#students {
+        z-index: 0;
+        left: 200px !important;
+        overflow:visible;
+    }
+}
+
+@media screen and (max-width:768px) {
+
+    .schoolname {
+        text-align: center;
+        font-size: 2em;
+    }
+    .theresian {
+        font-size: 2em !important;
+    }
+    .btn-enroll {
+        
+    }
+
+    header img#students {
+        z-index: 0;
+        left: 100px;
+        overflow:visible;
+    }
+
+    .landingpage img {
+        top: 32% !important;
+        left: 10% !important;
+        width: 32% !important;
+        height: auto;
+    }
+    
+}
+
+
+
+
+header {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    padding: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(0deg,
+            #083980 0%,
+            #ffffff00 100%);
+    z-index: 1000;
+}
+
+header img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+header img#logo {
+    mix-blend-mode: screen;
+}
+
+header img#students {
+    z-index: 0;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.landingpage {
+    top: 20%;
+    right: 0;
+    padding: 20px;
+    position: absolute;
+    color: #f1f1f1;
+    background: linear-gradient(-45deg, #0a0238de, #2f04eede, #23a6d5de, #027459de);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
+    height: 100vh;
+    width: 48%;
+    height: 60%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0 0 10px;
+    transition-duration: 2s;
+}
+
+.landingpage img {
+    top: 20%;
+    left: 5%;
+    width: 30%;
+    height: auto;
+}
+
+.landingpage-col {
+    right: 10px;
+    text-align: center;
+}
+
+.schoolname {
+    font-size: 1.8em;
+    padding: 5px;
+}
+
+.theresian {
+    font-size: 5em;
+    font-family: 'Brush Script MT';
+}
+
+.btn-enroll {
+    text-decoration: none;
+    background-image: linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%);
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+}
+
+.btn-enroll:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.page2-banner-text {
+    padding-top: 30%;
+    z-index: 1;
+    font-size: 60px;
+    color: #ffa600;
+    background: linear-gradient(90deg, #0a0a0a, #313130, #0a0a0a);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-stroke: 8px transparent;
+    animation-name: shake;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    text-align: center;
+}
+
+
+
+@keyframes floating {
+    0% {
+        transform: translate(0, 0px);
+    }
+
+    50% {
+        transform: translate(0, 15px);
+    }
+
+    100% {
+        transform: translate(0, -0px);
+    }
+}
+
+@keyframes cloud {
+    0% {
+        transform: translate(0, 0px);
+    }
+
+    50% {
+        transform: translate(50px, -0px);
+    }
+
+    100% {
+        transform: translate(px, 0px);
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
+
+.students {
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.clouds {
+    animation-name: cloud;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.shake {
+    animation-name: shake;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+/*header styles */
