@@ -140,6 +140,9 @@ body {
     #namelogo-small {
         display: none !important;
     }
+    .nav-img {
+        max-width: 80px;
+    }
 }
 
 
@@ -1317,7 +1320,7 @@ p {
     background: #60c5a8;
     border-radius: 50%;
   }
-  .pic img {
+  .pic .about-img {
     width: 100%;
     height: auto;
     border-radius: 50%;
