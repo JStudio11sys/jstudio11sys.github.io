@@ -130,18 +130,31 @@ body {
     }
 
 }
+@media screen and (max-width:992px) {
+    body {
+        background-size: unset;
+    }
+    .nav-img {
+        max-width: 100px;
+    }
+}
 @media screen and (max-width:768px) {
     body {
         background-size: unset;
     }
-    
+    .nav-img {
+        max-width: 80px;
+    }
 }
 @media screen and (max-width:425px) {
     #namelogo-small {
         display: none !important;
     }
     .nav-img {
-        max-width: 80px;
+        max-width: 60px;
+    }
+    body {
+        top: -10px;
     }
 }
 
@@ -1376,3 +1389,9 @@ p {
   }
   
 /*section styles */
+
+
+/*for login modal modifications*/
+.login-modal-top {
+    margin-top: 8px;
+}
