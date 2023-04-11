@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<head>
+    <title>JS Exer 1</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--Bootstrap CSS Links-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+
+    <!--Javascript links-->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <form action="#">
+            <div class="row w-50">
+                <div class="col-12">
+                    <h2>Machine Problem 1</h2>
+                </div>
+                <div class="col-6">
+                    <input type="number" id="enterNumber" class="form-control" />
+                </div>
+                <div class="col-6">
+                    <input type="submit" onclick="oddEven()" value="Check" class="form-control" />
+                </div>
+                <div class="col-12">
+                    <div class="p-2" id="result"> </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row w-50">
+                <div class="col-12">
+                    <h2>Machine Problem 2</h2>
+                </div>
+                <div class="col-6">
+                    <input type="text" id="enterLetter" class="form-control" maxlength="1" />
+                </div>
+                <div class="col-6">
+                    <input type="submit" onclick="vowelConsonant()" value="Check" class="form-control" />
+                </div>
+                <div class="col-12">
+                    <div class="p-2" id="result2"> </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function oddEven() {
+            let num1 = document.getElementById('enterNumber').value;
+
+            let testNumber = num1 % 2;
+
+            if (testNumber == 0) {
+                document.getElementById('result').innerHTML = "The number is EVEN";
+            }
+            else {
+                document.getElementById('result').innerHTML = "The number is ODD";
+            }
+        }
+        function vowelConsonant() {
+            let letter = document.getElementById('enterLetter').value;
+
+            if(letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u') {
+                document.getElementById('result2').innerHTML = "The letter is a VOWEL";
+            }
+            else if(letter == 'A' || letter == 'E' || letter == 'I' || letter == 'O' || letter == 'U') {
+                document.getElementById('result2').innerHTML = "The letter is a VOWEL";
+            }
+            else {
+                document.getElementById('result2').innerHTML = "The letter is a CONSONANT";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
