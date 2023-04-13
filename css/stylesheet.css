@@ -1,0 +1,53 @@
+/* KodeGo Mini Project 1 Revised Version 
+   Joshua Tobongbanua */
+
+/*color declarations */
+:root {
+    --logo-blue: #090566;
+    --logo-gold: #d8bb3f;
+    --logo-indigo: #4a4390;
+    --logo-maroon: #801517;
+    --logo-purple: #423048;
+    --logo-green: #567742;
+    --logo-white: #f8f3f3;
+    --pure-white: #ffffff;
+}
+
+/* universal style */
+* {
+    top: 0;
+    left: 0;
+    font-family: 'Oswald', sans-serif;
+}
+
+body {
+    background-color: var(--logo-white);
+}
+
+/* box */
+#flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#flex-nowrap {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+/*navbar*/
+nav {
+    padding: 10px;
+    background-color: var(--logo-blue);
+}
+
+.nav-logo {
+    max-width: 95px;
+    width: 100%;
+    height: auto;
+    padding-right: 20px;
+}
+
+
+
+/*navbar*/

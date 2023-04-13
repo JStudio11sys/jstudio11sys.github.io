@@ -10,10 +10,12 @@ function scrollFunction() {
       document.getElementById("nav-scroll").style.paddingTop = "2px";
       document.getElementById("logo").style.fontSize = "18px";
       document.getElementById("sta_logo").style.maxWidth = "50px";
+      document.getElementById("nav-scroll").style.backgroundColor = "#053570";
     } else {
       document.getElementById("nav-scroll").style.paddingTop = "70px";
       document.getElementById("logo").style.fontSize = "25px";
       document.getElementById("sta_logo").style.maxWidth = "80px";
+      document.getElementById("nav-scroll").style.backgroundColor = "";
     }
 }
 

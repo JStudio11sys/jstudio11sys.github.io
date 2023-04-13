@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<head>
+    <title>St. Theresita's Academy</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!--Fav-icon link-->
+    <link rel="icon" type="image/x-icon" href="assets/img/sta-fav.ico" />
+
+    <!--Bootstrap CSS Links-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+
+    <!--Javascript links-->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+    <h2>Machine Problem 1</h2>
+    <div id="machineOutput1"></div>
+    <br />
+    <h2>Machine Problem 2</h2>
+    <div id="machineOutput2"></div>
+    <br />
+    <h2>Machine Problem 3</h2>
+    <div id="machineOutput3"></div>
+
+    <script>
+        let staff = [{ name: "Oliver Queen", title: "CEO", gender: "male", age: 38, languages: ["english", "spanish"] },
+        { name: "Ben Hur", title: "Security consultant", gender: "male", age: 25, languages: ["latin", "italian"] },
+        { name: "Jessica Alba", title: "Admin Assistant", gender: "female", age: 23, languages: ["english", "spanish"] },
+        { name: "Pepper Piper", title: "Quality Assurance", gender: "female", age: 32, languages: ["english", "spanish"] },
+        { name: "Red Sullivan", title: "Project Manager", gender: "male", age: 27, languages: ["russian", "english"] },
+        { name: "Juan Dela Cruz", title: "Manager", age: 24, gender: "male", languages: ["russian", "french"] },
+        { name: "Anna Salvador", title: "Junior Dev", age: 21, gender: "female", languages: ["english", "french"] },
+        { name: "Mark Bautista", title: "Senior Fullstack Dev", age: 28, gender: "male", languages: ["russion", "spanish"] },
+        { name: "Micheal Garcia", title: "CEO", age: 40, gender: "male", languages: ["english", "latin"] }];
+
+        //machine problem 1
+        for (let i in staff) {
+
+            let staffNameAge = staff[i];
+            document.getElementById('machineOutput1').innerHTML += '<br>' + staffNameAge.name + ' - ' + staffNameAge.age + ' years of age';
+        }
+
+        //machine problem 2
+        let countAge = 0;
+        for (let i = 0; i < staff.length; i++) {
+            if (staff[i].age > 30) {
+                countAge++;
+            }
+        }
+        document.getElementById('machineOutput2').innerHTML += 'The number of staff with age 30 above: ' + countAge;
+
+        //machine problem 3
+        let countLanguage = 0;
+        for (let i = 0; i < staff.length; i++) {
+            if (staff[i].languages.includes('spanish')) {
+                countLanguage++;
+            }
+        }
+        document.getElementById('machineOutput3').innerHTML += 'The number of staff that knows spanish is: ' + countLanguage;
+
+    </script>
+
+</body>
+
+</html>
