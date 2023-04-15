@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<head>
+    <title>JS Exer 5</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="container d-flex justify-content-center">
+        <div>
+            <div id="displayInvoiceDetails"></div>
+        </div>
+    </div>
+    <br />
+    <div class="container d-flex justify-content-center">
+        <table id="displayItemDetails" class="table table-dark text-dark w-50">
+            <tr class="table text-dark">
+                <th class="p-3">
+                    Description
+                </th>
+                <th>
+                    Qty
+                </th>
+                <th class="p-3">
+                    Unit Price
+                </th>
+                <th class="p-3">
+                    Amount
+                </th>
+            </tr>
+        </table><br />
+        
+    </div>
+    <div class="container d-flex justify-content-center" id="totalAllItems"></div>
+
+    <script>
+        const displayDetails = (target, value) => {
+            document.getElementById(target).innerHTML += "<br />" + value;
+        };
+
+        let invoice = {
+            invoiceTo: "Juan Dela Cruz",
+            date: "2023-04-15",
+            address1: "810 Oroquieta Street Sta Cruz 1000",
+            address2: "Manila, Metro Manila, Philippines",
+            invoiceNumber: "6845", paymentMode: "COD"
+        };
+
+        let invoiceItems = [{ description: "Mouse", Qty: 3, unitPrice: 200 },
+        { description: "Keyboard", Qty: 3, unitPrice: 400 },
+        { description: "Monitor", Qty: 6, unitPrice: 5400 },
+        { description: "CPU Tower Case", Qty: 3, unitPrice: 1200 },
+        { description: "Headset", Qty: 3, unitPrice: 500 },
+        { description: "UPS", Qty: 1, unitPrice: 4000 },];
+
+        //display invoice details
+        let getDetails = invoice;
+        let changeDate = getDetails.date;
+        console.log(changeDate);
+
+        let yr = changeDate.slice(0, 4);
+        let mm = changeDate.slice(5, 7);
+        let day = changeDate.slice(8);
+        console.log(day);
+
+        let displayDateAs = day + "/" + mm + "/" + yr;
+
+        let address = [getDetails.address1, getDetails.address2];
+        displayDetails('displayInvoiceDetails', 'Fullname : ' + getDetails.invoiceTo);
+        displayDetails('displayInvoiceDetails', 'Address : ' + address);
+        displayDetails('displayInvoiceDetails', 'Invoice Number : ' + getDetails.invoiceNumber.padStart(10, "0"));
+        displayDetails('displayInvoiceDetails', 'Date : ' + displayDateAs);
+        displayDetails('displayInvoiceDetails', 'Payment Mode : ' + getDetails.paymentMode);
+
+        //display each items details
+        let totalAmountAllItems = 0; //testing coz it wont run inside for loop - catches an error in console log - and it works!
+        console.log(totalAmountAllItems);
+        for (let tableDisplay = 1; tableDisplay < invoiceItems.length; tableDisplay++) {
+            
+            let getItemDetails = invoiceItems[tableDisplay];
+            
+            let totalAmountPerItem = getItemDetails.Qty * getItemDetails.unitPrice;
+            console.log(totalAmountPerItem);
+
+            totalAmountAllItems += totalAmountPerItem;
+            console.log(totalAmountAllItems);
+
+            let createTableTr = document.createElement("tr");
+            createTableTr.innerHTML = "<td class='p-2'>" + getItemDetails.description + "</td>" + 
+            "<td class='p-2'>" + getItemDetails.Qty + "</td>" +
+            "<td class='p-2'>" + getItemDetails.unitPrice + "</td>" +
+            "<td class='p-2'>" + totalAmountPerItem + "</td>";
+            document.getElementById('displayItemDetails').appendChild(createTableTr);
+            document.getElementById('totalAllItems').innerHTML = "Total of all Items: " + totalAmountAllItems;
+        }
+        
+    </script>
+</body>
+
+</html>
