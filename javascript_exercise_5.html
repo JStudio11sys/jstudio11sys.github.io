@@ -1,106 +1,369 @@
 <!DOCTYPE html>
 
 <head>
-    <title>JS Exer 5</title>
+    <title>Practice JS</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-
-    <script src="js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
-    <div class="container d-flex justify-content-center">
-        <div>
-            <div id="displayInvoiceDetails"></div>
-        </div>
-    </div>
+<body onload="loopGrades()">
+
+    <form action="#" onsubmit="finalGrade();">
+        <h2>Grading System</h2>
+
+        Enter First Quarter Grade:
+        <select id="First_Qrtr">
+
+        </select><br />
+
+        Enter Second Quarter Grade:
+        <select id="Second_Qrtr">
+
+        </select><br />
+
+        Enter Third Quarter Grade:
+        <select id="Third_Qrtr">
+
+        </select><br />
+
+        Enter Fourth Quarter Grade:
+        <select id="Fourth_Qrtr">
+
+        </select><br />
+
+
+        <input type="submit" value="Compute Final Grade" />
+    </form>
     <br />
-    <div class="container d-flex justify-content-center">
-        <table id="displayItemDetails" class="table table-dark text-dark w-50">
-            <tr class="table text-dark">
-                <th class="p-3">
-                    Description
-                </th>
-                <th>
-                    Qty
-                </th>
-                <th class="p-3">
-                    Unit Price
-                </th>
-                <th class="p-3">
-                    Amount
-                </th>
-            </tr>
-        </table><br />
-        
-    </div>
-    <div class="container d-flex justify-content-center" id="totalAllItems"></div>
+    <div id="finalOutput"></div><br />
+    <div id="result"></div>
 
     <script>
-        const displayDetails = (target, value) => {
-            document.getElementById(target).innerHTML += "<br />" + value;
-        };
 
-        let invoice = {
-            invoiceTo: "Juan Dela Cruz",
-            date: "2023-04-15",
-            address1: "810 Oroquieta Street Sta Cruz 1000",
-            address2: "Manila, Metro Manila, Philippines",
-            invoiceNumber: "6845", paymentMode: "COD"
-        };
+        function finalGrade() {
+            let firstQuarter = parseInt(document.getElementById('First_Qrtr').value);
+            let secondQuarter = parseInt(document.getElementById('Second_Qrtr').value);
+            let thirdQuarter = parseInt(document.getElementById('Third_Qrtr').value);
+            let fourthQuarter = parseInt(document.getElementById('Fourth_Qrtr').value);
 
-        let invoiceItems = [{ description: "Mouse", Qty: 3, unitPrice: 200 },
-        { description: "Keyboard", Qty: 3, unitPrice: 400 },
-        { description: "Monitor", Qty: 6, unitPrice: 5400 },
-        { description: "CPU Tower Case", Qty: 3, unitPrice: 1200 },
-        { description: "Headset", Qty: 3, unitPrice: 500 },
-        { description: "UPS", Qty: 1, unitPrice: 4000 },];
+            console.log("value of first qrtr : " + firstQuarter);
+            console.log("value of second qrtr : " + secondQuarter);
+            console.log("value of third qrtr : " + thirdQuarter);
+            console.log("value of fourth qrtr : " + fourthQuarter);
 
-        //display invoice details
-        let getDetails = invoice;
-        let changeDate = getDetails.date;
-        console.log(changeDate);
+            let totalGrade = firstQuarter + secondQuarter + thirdQuarter + fourthQuarter;
+            let finalGradeOutput = totalGrade / 4;
 
-        let yr = changeDate.slice(0, 4);
-        let mm = changeDate.slice(5, 7);
-        let day = changeDate.slice(8);
-        console.log(day);
+            document.getElementById('finalOutput').innerHTML = "Final Average Grade is: " + finalGradeOutput;
 
-        let displayDateAs = day + "/" + mm + "/" + yr;
+            let achievement =  document.getElementById('result');
 
-        let address = [getDetails.address1, " " + getDetails.address2];
-        displayDetails('displayInvoiceDetails', 'Fullname : ' + getDetails.invoiceTo);
-        displayDetails('displayInvoiceDetails', 'Address : ' + address);
-        displayDetails('displayInvoiceDetails', 'Invoice Number : ' + getDetails.invoiceNumber.padStart(10, "0"));
-        displayDetails('displayInvoiceDetails', 'Date : ' + displayDateAs);
-        displayDetails('displayInvoiceDetails', 'Payment Mode : ' + getDetails.paymentMode);
-
-        //display each items details
-        let totalAmountAllItems = 0; //testing coz it wont run inside for loop - catches an error in console log - and it works!
-        console.log(totalAmountAllItems);
-        for (let tableDisplay = 1; tableDisplay < invoiceItems.length; tableDisplay++) {
-            
-            let getItemDetails = invoiceItems[tableDisplay];
-            
-            let totalAmountPerItem = getItemDetails.Qty * getItemDetails.unitPrice;
-            console.log(totalAmountPerItem);
-
-            totalAmountAllItems += totalAmountPerItem;
-            console.log(totalAmountAllItems);
-
-            let createTableTr = document.createElement("tr");
-            createTableTr.innerHTML = "<td class='p-2'>" + getItemDetails.description + "</td>" + 
-            "<td class='p-2'>" + getItemDetails.Qty + "</td>" +
-            "<td class='p-2'>" + getItemDetails.unitPrice + "</td>" +
-            "<td class='p-2'>" + totalAmountPerItem + "</td>";
-            document.getElementById('displayItemDetails').appendChild(createTableTr);
-            document.getElementById('totalAllItems').innerHTML = "Total of all Items: " + totalAmountAllItems;
+            if (finalGradeOutput < 75) {
+               achievement.innerHTML = "Sorry! Your Failed! Try to prioritize your studies next time!";
+            }
+            else if ((finalGradeOutput >= 75) && (finalGradeOutput <= 80)) {
+                achievement.innerHTML = "Passing Grade! Keep Improving!";
+            }
+            else if ((finalGradeOutput > 80) && (finalGradeOutput <= 85)) {
+                achievement.innerHTML = "Passing Grade! Road to Achievements!";
+            }
+            else if ((finalGradeOutput > 85) && (finalGradeOutput <= 90)) {
+                achievement.innerHTML = "Passing Grade! Bronze Achiever!";
+            }
+            else if ((finalGradeOutput >= 90) && (finalGradeOutput <= 95)) {
+                achievement.innerHTML = "Passing Grade! Silver Achiever!";
+            }
+            else if ((finalGradeOutput >= 95) && (finalGradeOutput <= 100)) {
+                achievement.innerHTML = "Passing Grade! GOLD ACHIEVER!";
+            }
+            else {
+                achievement.innerHTML = "Grade is Invalid!";
+            }
         }
+
+        function loopGrades() {
+            let grades = 60;
+            let showGrade = "<option value='0'>--Select Grade--</option>";
+
+            for (grades; grades <= 100; grades++) {
+                showGrade += "<option value='"+ grades +"'>"+ grades +"</option>";
+
+                document.getElementById('First_Qrtr').innerHTML = showGrade;
+                document.getElementById('Second_Qrtr').innerHTML = showGrade;
+                document.getElementById('Third_Qrtr').innerHTML = showGrade;
+                document.getElementById('Fourth_Qrtr').innerHTML = showGrade;
+                console.log(showGrade);
+            }
+        }
+
+        const addDisplayResult = (target, value) => {
+            document.getElementById(target).innerHTML += "<br />" + value;
+        }
+
+
+//function methods
+        //<div id="methods_result"></div>
+        //breaking down a string function
+
+        //length
+        const statement = "A quick brown fox jumps over the lazy dog";
+        addDisplayResult("methods_result", statement.length);
+
+        //slice
+        addDisplayResult("methods_result", statement.slice(0, 10));  //(starting, ending) - (0, 10)
+        addDisplayResult("methods_result", statement.slice(-10));  //negative means reverse, starts from the end 
+
+        //substr
+        addDisplayResult("methods_result", statement.substr(0, 10));  //(from, to)
+        addDisplayResult("methods_result", statement.substr(-10));  //negative means reverse, starts from the end 
+
+        //substring
+        addDisplayResult("methods_result", statement.substring(0, 10));  //identical to slice, but dont accept negatives
+
+        //replace - first appearance only
+        addDisplayResult("methods_result", statement.replace("quick", "slow")); //(what string to replace, replace string with this) 
+
+        //replaceAll - replace all string
+        addDisplayResult("methods_result", statement.replaceAll("quick", "slow")); //(what string to replace, replace string with this) 
+
+        //replace               //g means global - all appearances will be replaced //  / string /g  replaces specific string
+        addDisplayResult("methods_result", statement.replace(/ quick /g, "slow")); //(what string to replace, replace string with this) 
+       
+        //same output as global   //gi  means global case insensitive - captures string not case sensitive
+        addDisplayResult("methods_result", statement.replaceAll(" quick ", "slow")); //(what string to replace, replace string with this) 
+    
+        //lowercase
+        addDisplayResult("methods_result", statement.toLowerCase()); //change all to lower case
+
+        //uppercase
+        addDisplayResult("methods_result", statement.toUpperCase()); //change all to lower case
+
+        //concat
+        let addedText = "Hello world!";
+        addDisplayResult("methods_result", statement.concat("", addedText)); //additional text
+
+        //trim
+        let newStr = "     TEST Statement for Trim";
+        addDisplayResult("methods_result", newStr.trim()); // trim removes the spaces on both sides
+        addDisplayResult("methods_result", newStr.trimStart()); // trim removes first spaces same with trimLeft
+        addDisplayResult("methods_result", newStr.trimEnd()); // trim removes last spaces   same with trimRight
+
+        //padding
+        let invoiceNumber = "1234"; //00001234
+        addDisplayResult("methods_result", invoiceNumber.padStart(8, "0")); //adds string at the start (max length, what string to add)
+        addDisplayResult("methods_result", invoiceNumber.padEnd(8, "0")); //adds string at the end
+
+        //characterAt
+        addDisplayResult("methods_result", statement.charAt(0)); // gets the character on specific index (index)
+
+        //charCodeAt
+        addDisplayResult("methods_result", statement.charCodeAt(0)); //gets the unicode of a character, similar to ASCII but no zeros at the start
+
+        //split // converts string into an array
+        addDisplayResult("methods_result", statement.split(" ")); //get every item in the string
+        addDisplayResult("methods_result", statement.split(" ".length)); // counts how many words in a string
+        addDisplayResult("methods_result", statement.split("-")); //splits the string from a specific point, example string splits on -
+        addDisplayResult("methods_result", statement.split(" ", 3)); // 3 is the limit, limit how many strings will be split
         
-    </script>
+        statement.split(" ").forEach((value) => {
+            console.log(value);
+        });
+
+        //search
+        addDisplayResult("methods_result", statement.indexOf('programmer')); // searches the index of the string first appearance
+        addDisplayResult("methods_result", statement.lastIndexOf('programmer')); // last occurence of the string
+        addDisplayResult("methods_result", statement.indexOf('programmer', 26)); // search on specific starting point
+        addDisplayResult("methods_result", statement.search('programmer')); // cannot search on specific position
+
+        addDisplayResult("methods_result", statement.match('programmer')); //returns arrays with matches
+        addDisplayResult("methods_result", statement.matchAll('programmer')); //return all arrays with matches
+
+        //displays the arrays from matchAll
+        document.getElementById('methods_result').innerHTML += Array.from(statement.matchAll('one')); //case sensitive
+        document.getElementById('methods_result').innerHTML += Array.from(statement.matchAll('/one/gi')); //not case sensitive
+  
+        addDisplayResult("methods_result", statement.includes("one")); //only checks if the value is true if existing or not
+
+        addDisplayResult("methods_result", statement.startsWith("one", 7)); // checks if the statement/string starts with ("one") - returns true or false
+        //7 is the starting point, your change the starting point
+
+        addDisplayResult("methods_result", statement.endsWith("A", 7)); // checks of the statement/string ends with ("A") - returns with true or false
+        //7 is the end point in checking
+
+        //literals
+        addDisplayResult("methods_result", `Template Literal sample ${newStr}`); //we can attach a variable string
+        addDisplayResult("methods_result", `We shouldn't have to`); //with the backtick, you can put quotations inside the string
+        
+        let firstname = 'Joshua';
+        let lastname = 'Tobongbanua';
+        addDisplayResult("methods_result", `First Name: ${firstname}, Last Name: ${lastname}`);
+
+
+        /////////////
+
+        //array methods
+        //<div id="arrayMethodsResult"></div>
+
+        let students =["lyks", "nicole", "jerold", "joshua", "Angelo", "Meloy", "Revelyn", "Ralph"];
+
+        let students1 = ["Rommel", "Gil", "Ronnie", "David"];
+
+        //display array with ,
+        addDisplayResult("arrayMethodsResult", students);
+
+        //seperator
+        addDisplayResult("arrayMethodsResult", students.join("-"));  // in this example, the separator is -
+
+        //pop
+        addDisplayResult("arrayMethodsResult", students.pop()); // gets the last item in the array
+
+        //push
+        students.push("Carlo");
+        students.push("Ralph");
+        addDisplayResult("arrayMethodsResult", students.join(" - ")); // add new string in the array , always add item at the end
+        
+        students.shift(); // remove first item in the array
+        addDisplayResult("arrayMethodsResult", students.join("-"));
+
+        students.unshift("josh"); // add first item in the array
+        addDisplayResult("arrayMethodsResult", students.join("-"));
+
+        addDisplayResult("arrayMethodsResult", students.length); //counts the array 
+
+        //remove index value
+        delete students[5]; //  this will delete the 5th index
+        students[5] = "Gil"; // this will add Gil to the 5th index
+        addDisplayResult("arrayMethodsResult", students.join("-")); // in the output you notice that fifth index was deleted
+
+        //combine sets of array
+        students.concat(students1); // this will combine the two sets of arrays
+
+        addDisplayResult("arrayMethodsResult", students.concat(students1).join(" | ")); // display combination
+
+
+        let numbers = [1, 2, 3, 4, 5];
+        let numbers2 = [6, 7, ,8, 9, 10];
+        let numbers3 = [20, 30, 40, 50];
+        let allNumbers = numbers.concat(numbers2, numbers3);
+        addDisplayResult("arrayMethodsResult", allNumbers.join(" * "));
+
+
+        //splice and slice
+        // splice();  add new items in an array
+
+        numbers3.splice(2, 0, 90, 200); //this will ad 90 and 200 to numbers3 array (index, deletion, addition, addition)
+        addDisplayResult("arrayMethodsResult", numbers3.join(" * "));
+
+        //string splice
+        students.splice(4, 0, "Juan", "Pedro", "Cardo"); //in deletion you can put the number of items to remove
+        addDisplayResult("arrayMethodsResult", students.join(" - "));
+
+        //slice(); cuts the array
+        let slicedArray = students.slice(1, 2);
+        addDisplayResult("arrayMethodsResult", slicedArray.join(" - "));
+
+
+        //sort 
+        addDisplayResult("arrayMethodsResult", students.sort().join(" - ")); //automatically sorts the string alphabetically
+
+        students.sort();// this will sort the string in an array
+        addDisplayResult("arrayMethodsResult", students.join(" - "));
+
+        students.reverse(); // this will reverse sort the strings in an array
+        addDisplayResult("arrayMethodsResult", students.join(" - "));
+
+        numbers3.sort();//this will sort the number by the frst digit
+        addDisplayResult("arrayMethodsResult", numbers3.join(" - ")); 
+
+        numbers3.sort((num1, num2) => {return num2 - num1}); // this will sort the number by its value
+        addDisplayResult("arrayMethodsResult", numbers3.join(" - "));
+
+        //mapping
+        numbers3 = [20, 30, 40, 50, 60];
+        const mapNumber = numbers3.map((value, index, array) => {
+            return value + 5; // this will add 5 to every index in the array
+            //return value "Php" + value;
+
+            //if(index == 1){
+            //    return value + 5;    this will add 5 to the specified index
+            //}
+        });
+        addDisplayResult("arrayMethodsResult", mapNumber.join(" - "));
+
+        // in foreach you cannot return
+        let newUpdateNumbers = [];
+        numbers3.forEach((value, index, array) => {
+            newUpdateNumbers.push("Php" + (value + 5));
+        });
+        addDisplayResult("arrayMethodsResult", newUpdateNumbers.join(" - "));
+
+
+
+        //filter function
+        numbers3 = [20, 30, 40, 50, 60];
+
+        let filterNumber = numbers3.filter((value, index, array) => { // this will filter the numbers according to its condition
+            return value > 30; //condition
+        });
+        addDisplayResult("arrayMethodsResult", filterNumber.join(" - "));
+
+        //reduce
+        let sum = numbers3.reduce((total, value, index, array) => { //adds all values in the array
+            return total + value;
+        });
+
+        //indexOf
+        students =["lyks", "nicole", "jerold", "joshua", "Angelo", "Meloy", "Revelyn", "Ralph"];
+
+        addDisplayResult("arrayMethodsResult", students.indexOf("Revelyn")); // this will tell the number of index where the string is located
+
+        addDisplayResult("arrayMethodsResult", students.lastIndexOf("Revelyn")); //this will tell the index of where the last string is located
+
+
+        //find function
+        let findStudents = students.find((value, index, array) => {
+            if(value == "Pedro"){
+                return value;
+            }
+        }); //this will return if there is a string existing
+        addDisplayResult("arrayMethodsResult", findStudents.join(" - "));
+
+        //findIndex function
+        let findStudentsIndex = students.findIndex((value, index, array) => {
+            if(value == "Pedro"){
+                return value;
+            }
+        }); //this will return if there is a string existing
+        addDisplayResult("arrayMethodsResult", findStudentsIndex.join(" - "));
+
+
+        let numberGreaterThan30 = numbers3.find((value, index, array) => { //will return the value that is first true
+            return value > 30; 
+        });
+        addDisplayResult("arrayMethodsResult", numberGreaterThan30.join(" - ")); 
+
+
+
+        numberGreaterThan30 = numbers3.findIndex((value, index, array) => { //will return the index that is first true
+            return value > 30; 
+        });
+        addDisplayResult("arrayMethodsResult", numberGreaterThan30.join(" - ")); 
+
+
+        //spread operator
+        ["Lyks", "Nicole", "Jerold", "Angelo", "Meloy", "Revelyn", "Ralph"] = students;
+
+        students = [students1, students2, ...studentsRest];
+        addDisplayResult("arrayMethodsResult", students1);  //this will display only the first index
+        addDisplayResult("arrayMethodsResult", students2); //this will display only the second index
+        addDisplayResult("arrayMethodsResult", studentsRest.join(" - ")); //this will display the rest of the not specified index
+  
+        
+
+  </script>
+
 </body>
 
 </html>
