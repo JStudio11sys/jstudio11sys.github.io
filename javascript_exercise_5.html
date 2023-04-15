@@ -71,7 +71,7 @@
 
         let displayDateAs = day + "/" + mm + "/" + yr;
 
-        let address = [getDetails.address1, getDetails.address2];
+        let address = [getDetails.address1, " " + getDetails.address2];
         displayDetails('displayInvoiceDetails', 'Fullname : ' + getDetails.invoiceTo);
         displayDetails('displayInvoiceDetails', 'Address : ' + address);
         displayDetails('displayInvoiceDetails', 'Invoice Number : ' + getDetails.invoiceNumber.padStart(10, "0"));
