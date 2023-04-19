@@ -91,15 +91,18 @@
             let displaySolution = 0;
 
             console.log(operator);
-
+            let exponent = Math.pow(getNum1, getNum2);
             switch(operator){
                 case '+': displaySolution = getNum1 + getNum2;
-                case '-': displaySolution = getNum1 - getNum2;
-                case '*': displaySolution = getNum1 * getNum2;
-                case '/': displaySolution = getNum1 / getNum2;
-                case 'exp': displaySolution = Math.pow(getNum1, getNum2);
                 break;
-
+                case '-': displaySolution = getNum1 - getNum2;
+                break;
+                case '*': displaySolution = getNum1 * getNum2;
+                break;
+                case '/': displaySolution = getNum1 / getNum2;
+                break;
+                case 'exp': displaySolution = exponent;
+                break;
             }
             document.getElementById('calculatorResult').innerHTML = "Solution : " + displaySolution;
         }
