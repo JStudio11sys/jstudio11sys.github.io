@@ -360,8 +360,131 @@
         addDisplayResult("arrayMethodsResult", students2); //this will display only the second index
         addDisplayResult("arrayMethodsResult", studentsRest.join(" - ")); //this will display the rest of the not specified index
   
-        
 
+
+        //date
+
+        let currDate = new Date(); // this will display the current timestamp of your machine
+        addDisplayResult("date_methods_result", currDate);
+
+        let specificDate = new Date("2023-04-15"); //specify date
+        addDisplayResult("date_methods_result", specificDate);
+
+        specificDate = new Date('April 1, 2023 02:00:30'); //specify date
+        addDisplayResult("date_methods_result", specificDate);
+
+        specificDate = new Date('April 1, 2023 02:00:30'); //specify date
+        addDisplayResult("date_methods_result", specificDate);
+
+        specificDate = new Date(2020, 4, 22, 14, 56, 30); //specify date  year, month, date, hour, minutes, seconds
+        addDisplayResult("date_methods_result", specificDate);
+
+        //20   will result to 1920 -  due to millenium bug
+
+        addDisplayResult("date_methods_result", specificDate.toUTCString); // will result until GMT only
+
+        addDisplayResult("date_methods_result", specificDate.toISOString); // will result a different timestamp format
+        
+        addDisplayResult("date_methods_result", specificDate.toDateString); // will result a basic timestamp only
+
+        addDisplayResult("date_methods_result", specificDate.getDay()); // will display the day in array number
+
+        addDisplayResult("date_methods_result",days[specificDate.getDay()]); //display full text day from array
+        addDisplayResult("date_methods_result",months[specificDate.getMonth()]); //display full text month from array
+
+        addDisplayResult("date_methods_result", specificDate.getTime()); //since 1970 - counts the time
+
+
+        //setDate
+        addDisplayResult("date_methods_result", specificDate.setDate(3)); //set the date
+
+
+        const dateFormatter = (date, format) => {  //date solution for JS Exer 5
+            
+            let year = date.getFullYear();
+            let month = date.getMonth();
+            let day = date.getDate();
+            let hour = date.getHours();
+            let minute = date.getMinutes();
+            let second = date.getSeconds();
+
+           // switch(format) {
+           //     case 'yyyy/mm/dd';
+           //             return year + '/' + month + '/' + day;
+           // }
+
+           let formattedDate = format.replace('yyyy', year);
+           formattedDate = formattedDate.replace('mm', month.toString().padStart(2, '0'));
+           formattedDate = formattedDate.replace('dd', day.toString().padStart(2, '0'));
+           formattedDate = formattedDate.replace('MM', minute.toString().padStart(2, '0'));
+           formattedDate = formattedDate.replace('hh', hour.toString().padStart(2, '0'));
+           formattedDate = formattedDate.replace('ms', seconds.toString().padStart(2, '0'));
+
+           return formattedDate;
+        }
+
+const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+//Math Methods
+//display - math_methods_result
+
+addDisplayResult("math_methods_result", Math.PI); //returns PI value
+
+addDisplayResult("math_methods_result", Math.SQRT2); //square root of 2
+
+addDisplayResult("math_methods_result", Math.round(12.4)); //round off number  
+
+addDisplayResult("math_methods_result", Math.ceil(12.4)); //this will round to the next number even below .5 
+addDisplayResult("math_methods_result", Math.floor(12.4)); //this will round to the current number even higher than .5
+
+
+let testNum = 12.567
+addDisplayResult("math_methods_result", testNum.tofixed(5)); //add decimal places // specify decimal places
+
+
+//random
+addDisplayResult("math_methods_result", Math.floor(Math.random() * 10) + 1); //results a random number from 0 to 10
+
+
+const  alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
+addDisplayResult("math_methods_result", alphabet.charAt(Math.floor(Math.random() * 36) + 1)); //displays random character
+
+addDisplayResult("math_methods_result", emlployees[math.floor(Math.random() * employees.length)].firstname); //displays random name from array list
+
+
+//regex   - regular expression
+
+//pattern /modifier  
+//pattern is the word we are looking for
+//example replace hello with hi  ->     string.replace("hello", "hi");
+
+//with regular expression
+string.replace(/hello/g, "hi"); //g means global    i means not case sensitive
+
+
+
+const statement2 = "A good programmer is someone who always looks both ways";
+
+//check if g exists in the statement
+statement2.match(/g/g);
+
+addDisplayResult("methods_result", statement2.match(/g/g).length);
+addDisplayResult("methods_result", statement2.match(/oo/g).length);
+addDisplayResult("methods_result", statement2.match(/A/gi).length);
+
+
+var regExSixDigit = /^\/d{6}$/   // ^ means start of array string  /d means check if number or digit   $ means end of string check
+
+        const validateNumber = () => {
+            let inputStr = document.getElementById('input_fld1').value;
+            addDisplayResult("methods_result", regExSixDigit.test(inputStr));
+
+        }
+
+        //how to check if mail is valid
+        const regExEmail = /^([a-zA-Z0-9_.-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2, 6})+$/;   ///this are the character values that are valid
+        addDisplayResult("methods_result", regExEmail.test(emailStr));
   </script>
 
 </body>

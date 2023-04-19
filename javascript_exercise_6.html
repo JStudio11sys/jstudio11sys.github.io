@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Practice JS</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <script src="js/bootstrap.bundle.min.js"></script>
+</head>
+<body onload="generateRandomDigit()">
+
+        <div class="row p-5">
+            <div class="col-4 text-center">First Digit</div>
+            <div class="col-4 text-center">Second Digit</div>
+            <div class="col-4 text-center">Third Digit</div>
+            <div class="col">
+                <input type="number" class="form-control" id="enterFirstNum">
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" id="enterSecondNum">
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" id="enterThirdNum">
+            </div>
+            <div class="col-12 p-3 text-center">
+                <button type="button" class="btn btn-success" onclick="CalculateScore()">Compute</button>
+            </div>
+            <div class="col-12 p-1 text-center">
+                <div id="digitNames"></div>
+            </div>
+            <div class="col-12 p-2 text-center">
+                <div id="resultAve">Digit Names</div>
+            </div>
+            <div class="col-12 p-2 text-center">
+                <div id="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const generateRandomDigit = () => {
+            for(let i=1; i <= 3; i++) {
+                if(i === 1 ){
+                    document.getElementById("enterFirstNum").value = Math.floor((Math.random() * 50) + 51); // this results to a random number within 50 -100
+                }
+                if(i === 2 ){
+                    document.getElementById("enterSecondNum").value = Math.floor((Math.random() * 50) + 51); // this results to a random number within 50 -100
+                }
+                if(i === 3 ){
+                    document.getElementById("enterThirdNum").value = Math.floor((Math.random() * 50) + 51); // this results to a random number within 50 -100
+                }
+            }
+            
+        }
+
+        const CalculateScore = () => {
+            let num1 = parseInt(document.getElementById('enterFirstNum').value);
+            let num2 = parseInt(document.getElementById('enterSecondNum').value);
+            let num3 = parseInt(document.getElementById('enterThirdNum').value);
+            let averageScore = (num1 + num2 + num3) / 3;
+
+            console.log(num1);
+            console.log(num2);
+            console.log(num3);
+            console.log(averageScore);
+
+            let achievement =  document.getElementById('result');
+
+            document.getElementById('resultAve').innerHTML = "The Average Score is : " + averageScore;
+            console.log(averageScore);
+
+            if (averageScore < 75) {
+               achievement.innerHTML = "Sorry! Your Failed!";
+            }
+            else if ((averageScore >= 75) && (averageScore <= 80)) {
+                achievement.innerHTML = "Passing SScore! Keep Improving!";
+            }
+            else if ((averageScore > 80) && (averageScore <= 85)) {
+                achievement.innerHTML = "Passing Score! Road to Achievements!";
+            }
+            else if ((averageScore > 85) && (averageScore <= 90)) {
+                achievement.innerHTML = "Passing Score! Bronze Achiever!";
+            }
+            else if ((averageScore >= 90) && (averageScore <= 95)) {
+                achievement.innerHTML = "Passing Score! Silver Achiever!";
+            }
+            else if ((averageScore >= 95) && (averageScore <= 100)) {
+                achievement.innerHTML = "Passing Score! GOLD ACHIEVER!";
+            }
+            else {
+                achievement.innerHTML = "Score is Invalid!";
+        }
+
+
+
+            let digit1 = document.getElementById('enterFirstNum').value;
+            let digit2 = document.getElementById('enterSecondNum').value;
+            let digit3 = document.getElementById('enterThirdNum').value;
+
+            let toBeConvertedDigit = digit1 + digit2 + digit3;
+            console.log(toBeConvertedDigit);
+
+            let getDigit = 0; 
+            let digitName = 0;
+
+            for(let i=0; i < toBeConvertedDigit.length; i++){
+                getDigit = toBeConvertedDigit[i];
+                console.log(getDigit);
+                const separator = getDigit;
+                switch(separator){
+                    case '0': digitName = "Zero";
+                    break; 
+
+                    case '1': digitName = "One";
+                    break;
+
+                    case '2': digitName = "Two";
+                    break;
+
+                    case '3': digitName = "Three";
+                    break;
+
+                    case '4': digitName = "Four";
+                    break;
+                    
+                    case '5': digitName = "Five";
+                    break;
+                    
+                    case '6': digitName = "Six";
+                    break;
+                    
+                    case '7': digitName = "Seven";
+                    break;
+                    
+                    case '8': digitName = "Eight";
+                    break;
+                    
+                    case '9': digitName = "Nine";
+                    break;
+                }
+                document.getElementById('digitNames').innerHTML += "<br />" + digitName;
+            }
+    }
+    </script>
+</body>
+</html>
