@@ -250,32 +250,32 @@
     color:#b39ddb;
   }
 
-  /* ── Projects ── */
-  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-  .project-card{
+  /* ── s ── */
+  .s-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+  .-card{
     background:var(--card);border:1px solid var(--border);border-radius:12px;
     padding:1.5rem;display:flex;flex-direction:column;gap:0.65rem;
     transition:border-color 0.2s,transform 0.2s;
   }
-  .project-card:hover{border-color:rgba(0,229,255,0.4);transform:translateY(-2px)}
-  .project-top{display:flex;justify-content:space-between;align-items:flex-start}
-  .project-icon{
+  .-card:hover{border-color:rgba(0,229,255,0.4);transform:translateY(-2px)}
+  .-top{display:flex;justify-content:space-between;align-items:flex-start}
+  .-icon{
     width:40px;height:40px;border-radius:10px;
     background:rgba(0,229,255,0.08);border:1px solid var(--border);
     display:flex;align-items:center;justify-content:center;font-size:1.1rem;
   }
-  .project-links{display:flex;gap:0.4rem}
-  .project-link{
+  .-links{display:flex;gap:0.4rem}
+  .-link{
     font-size:0.7rem;font-family:'Space Mono',monospace;
     padding:0.2rem 0.55rem;border-radius:5px;
     background:rgba(0,229,255,0.07);border:1px solid var(--border);
     color:var(--accent);text-decoration:none;
     transition:background 0.2s;
   }
-  .project-link:hover{background:rgba(0,229,255,0.14)}
-  .project-name{font-size:1rem;font-weight:700}
-  .project-desc{font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1}
-  .project-stack{display:flex;flex-wrap:wrap;gap:0.35rem}
+  .-link:hover{background:rgba(0,229,255,0.14)}
+  .-name{font-size:1rem;font-weight:700}
+  .-desc{font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1}
+  .-stack{display:flex;flex-wrap:wrap;gap:0.35rem}
 
   /* ── Contact ── */
   .contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:2rem}
@@ -378,11 +378,11 @@
     /* Keep text blocks left-aligned inside centered sections */
     .tl-desc,.tl-company,.tl-role,.tl-date,
     .edu-school,.edu-degree,
-    .project-desc,.project-name,
+    .-desc,.-name,
     .bio, p{text-align:left}
     .about-grid,.edu-grid,.-grid,.contact-grid{grid-template-columns:1fr}
     .skills-grid{grid-template-columns:1fr}
-    .skill-pills,.project-stack,.edu-meta,.social-row,.project-links{justify-content:center}
+    .skill-pills,.-stack,.edu-meta,.social-row,.-links{justify-content:center}
     .section-title,.section-label,.stat-num,.stat-label{text-align:center}
     .timeline::before{left:11px}
     .tl-item{gap:1rem}
@@ -448,7 +448,7 @@
     <a class="nav-link" href="#skills"><span class="dot"></span>Skills</a>
     <a class="nav-link" href="#experience"><span class="dot"></span>Experience</a>
     <a class="nav-link" href="#education"><span class="dot"></span>Education</a>
-    <a class="nav-link" href="#projects"><span class="dot"></span>My Life</a>
+    <a class="nav-link" href="#life"><span class="dot"></span>My Life</a>
     <a class="nav-link" href="#contact"><span class="dot"></span>Contact</a>
   </nav>
 
@@ -496,7 +496,7 @@
       <a class="nav-link" href="#skills"><span class="dot"></span>Skills</a>
       <a class="nav-link" href="#experience"><span class="dot"></span>Experience</a>
       <a class="nav-link" href="#education"><span class="dot"></span>Education</a>
-      <a class="nav-link" href="#projects"><span class="dot"></span>Projects</a>
+      <a class="nav-link" href="#life"><span class="dot"></span>My Life</a>
       <a class="nav-link" href="#contact"><span class="dot"></span>Contact</a>
     </nav>
   </aside>
