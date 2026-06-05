@@ -1,173 +1,1111 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
-
 <head>
-    <meta charset="utf-8">
-    <title>Joshua Tobongbanua</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Name — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#050d1a;
+    --bg2:#0a1628;
+    --bg3:#0d1f38;
+    --accent:#00e5ff;
+    --accent2:#7c4dff;
+    --text:#e8f4fc;
+    --muted:#6b8cad;
+    --border:rgba(0,229,255,0.15);
+    --card:rgba(10,22,40,0.9);
+    --glow:rgba(0,229,255,0.08);
+  }
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Syne',sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
+    cursor:none;
+  }
+  a,button,[role="button"]{cursor:none}
 
-    <!-- Template Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
+  /* ── Custom cursor ── */
+  #cursor-dot{
+    position:fixed;width:10px;height:10px;border-radius:50%;
+    background:var(--accent);pointer-events:none;z-index:9999;
+    left:0;top:0;
+    will-change:transform;
+    box-shadow:0 0 10px var(--accent),0 0 20px rgba(0,229,255,0.4);
+    mix-blend-mode:screen;
+    transition:width 0.15s,height 0.15s,background 0.15s,box-shadow 0.15s,opacity 0.15s;
+  }
+  #cursor-ring{
+    position:fixed;width:40px;height:40px;border-radius:50%;
+    border:1.5px solid rgba(0,229,255,0.7);pointer-events:none;z-index:9998;
+    left:0;top:0;
+    will-change:transform;
+    mix-blend-mode:screen;
+    transition:width 0.3s cubic-bezier(.25,.46,.45,.94),
+                height 0.3s cubic-bezier(.25,.46,.45,.94),
+                border-color 0.3s,opacity 0.2s,background 0.3s;
+  }
+  body.cursor-hover #cursor-dot{
+    width:14px;height:14px;background:#fff;
+    box-shadow:0 0 14px #fff,0 0 30px rgba(0,229,255,0.6);
+  }
+  body.cursor-hover #cursor-ring{
+    width:60px;height:60px;
+    border-color:rgba(0,229,255,1);
+    background:rgba(0,229,255,0.04);
+  }
+  body.cursor-click #cursor-dot{width:7px;height:7px}
+  body.cursor-click #cursor-ring{width:30px;height:30px;background:rgba(0,229,255,0.1)}
 
-    <!-- Template CSS Files -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/preloader.min.css" rel="stylesheet">
-    <link href="css/circle.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/fm.revealator.jquery.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+  /* Magnetic pull indicator on interactive elements */
+  .mag-target{transition:transform 0.3s cubic-bezier(.25,.46,.45,.94),box-shadow 0.3s}
 
-    <!-- CSS Skin File -->
-    <link href="css/skins/green.css" rel="stylesheet">
+  /* ── Mouse glow on background ── */
+  #mouse-glow{
+    position:fixed;width:700px;height:700px;border-radius:50%;
+    pointer-events:none;z-index:0;
+    left:0;top:0;
+    will-change:transform;
+    background:radial-gradient(circle,
+      rgba(0,229,255,0.07) 0%,
+      rgba(124,77,255,0.04) 35%,
+      rgba(0,229,255,0.015) 60%,
+      transparent 70%);
+    transition:opacity 0.5s;
+  }
 
-    <!-- Live Style Switcher - demo only -->
-    <link rel="alternate stylesheet" type="text/css" title="blue" href="css/skins/blue.css" />
-    <link rel="alternate stylesheet" type="text/css" title="green" href="css/skins/green.css" />
-    <link rel="alternate stylesheet" type="text/css" title="yellow" href="css/skins/yellow.css" />
-    <link rel="alternate stylesheet" type="text/css" title="blueviolet" href="css/skins/blueviolet.css" />
-    <link rel="alternate stylesheet" type="text/css" title="goldenrod" href="css/skins/goldenrod.css" />
-    <link rel="alternate stylesheet" type="text/css" title="magenta" href="css/skins/magenta.css" />
-    <link rel="alternate stylesheet" type="text/css" title="orange" href="css/skins/orange.css" />
-    <link rel="alternate stylesheet" type="text/css" title="purple" href="css/skins/purple.css" />
-    <link rel="alternate stylesheet" type="text/css" title="red" href="css/skins/red.css" />
-    <link rel="alternate stylesheet" type="text/css" title="yellowgreen" href="css/skins/yellowgreen.css" />
-    <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
+  /* ── Canvas stars ── */
+  #stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
 
-    <!-- Modernizr JS File -->
-    <script src="js/modernizr.custom.js"></script>
+  /* ── Layout ── */
+  .wrapper{display:flex;min-height:100vh;position:relative;z-index:1}
+
+  /* ── Sidebar ── */
+  aside{
+    width:280px;min-width:280px;
+    background:var(--bg2);
+    border-right:1px solid var(--border);
+    padding:2.5rem 1.5rem;
+    display:flex;flex-direction:column;align-items:center;gap:1.25rem;
+    position:sticky;top:0;height:100vh;overflow-y:auto;
+  }
+  .avatar-wrap{
+    position:relative;width:130px;height:130px;flex-shrink:0;
+  }
+  .avatar-ring{
+    position:absolute;inset:-3px;border-radius:50%;
+    background:conic-gradient(var(--accent),var(--accent2),var(--accent));
+    animation:spin 8s linear infinite;
+    z-index:0;
+  }
+  .avatar-inner{
+    position:absolute;inset:3px;border-radius:50%;
+    background:var(--bg3);
+    overflow:hidden;
+    z-index:1;
+  }
+  .avatar-inner img{
+    width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .name{font-size:1rem;font-weight:800;text-align:center;letter-spacing:-0.02em}
+  .title-tag{
+    font-family:'Space Mono',monospace;font-size:0.72rem;
+    color:var(--accent);background:rgba(0,229,255,0.08);
+    border:1px solid var(--border);border-radius:4px;
+    padding:0.3rem 0.75rem;text-align:center;letter-spacing:0.05em;
+  }
+  .bio{font-size:0.82rem;color:var(--muted);text-align:center;line-height:1.65}
+  .divider{width:100%;height:1px;background:var(--border)}
+  .social-row{display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center}
+  .social-btn{
+    width:36px;height:36px;border-radius:8px;
+    background:var(--bg3);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--muted);text-decoration:none;font-size:0.95rem;
+    transition:all 0.2s;cursor:pointer;
+  }
+  .social-btn:hover{color:var(--accent);border-color:var(--accent);background:rgba(0,229,255,0.06)}
+  .nav-links{display:flex;flex-direction:column;gap:0.35rem;width:100%}
+  .nav-link{
+    display:flex;align-items:center;gap:0.6rem;
+    padding:0.6rem 0.85rem;border-radius:8px;
+    font-size:0.85rem;font-weight:600;color:var(--muted);
+    text-decoration:none;transition:all 0.2s;letter-spacing:0.03em;
+    border:1px solid transparent;
+  }
+  .nav-link:hover,.nav-link.active{
+    color:var(--accent);background:rgba(0,229,255,0.06);
+    border-color:var(--border);
+  }
+  .nav-link span.dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--muted);transition:background 0.2s;flex-shrink:0;
+  }
+  .nav-link:hover span.dot,.nav-link.active span.dot{background:var(--accent)}
+
+  /* ── Main content ── */
+  main{flex:1;padding:2.5rem 3rem;width:0;min-width:0}
+
+  section{margin-bottom:4rem}
+  .section-label{
+    font-family:'Space Mono',monospace;
+    font-size:0.7rem;letter-spacing:0.15em;color:var(--accent);
+    text-transform:uppercase;margin-bottom:0.5rem;
+  }
+  .section-title{
+    font-size:2rem;font-weight:800;
+    letter-spacing:-0.03em;margin-bottom:1.75rem;
+  }
+  .section-title span{color:var(--accent)}
+
+  /* ── About ── */
+  .about-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.5rem}
+  .stat-card{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;
+    padding:1.25rem 1.5rem;
+    transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+  }
+  .stat-card:hover{border-color:rgba(0,229,255,0.4);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.3),0 0 16px rgba(0,229,255,0.1)}
+  .stat-num{font-size:2rem;font-weight:800;color:var(--accent);line-height:1}
+  .stat-label{font-size:0.8rem;color:var(--muted);margin-top:0.3rem}
+
+  /* ── Skills ── */
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+  .skill-group{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;
+    transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+  }
+  .skill-group:hover{border-color:rgba(0,229,255,0.4);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.3),0 0 16px rgba(0,229,255,0.1)}
+  .skill-group-title{
+    font-family:'Space Mono',monospace;font-size:0.72rem;
+    letter-spacing:0.1em;color:var(--accent);margin-bottom:0.85rem;
+  }
+  .skill-pills{display:flex;flex-wrap:wrap;gap:0.4rem}
+  .pill{
+    font-size:0.75rem;font-weight:600;
+    padding:0.25rem 0.6rem;border-radius:6px;
+    background:rgba(0,229,255,0.07);
+    border:1px solid rgba(0,229,255,0.18);
+    color:var(--text);
+  }
+
+  /* ── Experience ── */
+  .timeline{display:flex;flex-direction:column;gap:0;position:relative}
+  .timeline::before{
+    content:'';position:absolute;left:11px;top:6px;bottom:0;
+    width:1px;background:var(--border);
+  }
+  .tl-item{display:flex;gap:1.5rem;position:relative;padding-bottom:2rem}
+  .tl-dot{
+    width:24px;height:24px;border-radius:50%;flex-shrink:0;
+    background:var(--bg2);border:2px solid var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;z-index:1;margin-top:2px;
+  }
+  .tl-dot::after{
+    content:'';width:8px;height:8px;border-radius:50%;
+    background:var(--accent);
+  }
+  .tl-body{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;
+    padding:1.25rem 1.5rem;flex:1;
+    transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+  }
+  .tl-body:hover{border-color:rgba(0,229,255,0.4);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.3),0 0 16px rgba(0,229,255,0.1)}
+  .tl-company{font-size:1rem;font-weight:700;color:var(--text)}
+  .tl-role{font-size:0.82rem;color:var(--accent);margin:0.2rem 0}
+  .tl-date{
+    font-family:'Space Mono',monospace;font-size:0.7rem;
+    color:var(--muted);margin-bottom:0.75rem;
+  }
+  .tl-desc{font-size:0.85rem;color:var(--muted);line-height:1.65}
+
+  /* ── Education ── */
+  .edu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+  .edu-card{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;
+    padding:1.5rem;position:relative;overflow:hidden;
+    transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+  }
+  .edu-card:hover{border-color:rgba(0,229,255,0.4);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.3),0 0 16px rgba(0,229,255,0.1)}
+  .edu-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+  }
+  .edu-school{font-size:1.1rem;font-weight:800;letter-spacing:-0.01em;margin-bottom:0.5rem}
+  .edu-degree{font-size:0.82rem;color:var(--muted);margin-bottom:0.75rem}
+  .edu-meta{display:flex;gap:1rem;flex-wrap:wrap}
+  .edu-badge{
+    font-family:'Space Mono',monospace;font-size:0.7rem;
+    padding:0.25rem 0.6rem;border-radius:6px;
+    background:rgba(124,77,255,0.1);border:1px solid rgba(124,77,255,0.25);
+    color:#b39ddb;
+  }
+
+  /* ── Projects ── */
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+  .project-card{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;
+    padding:1.5rem;display:flex;flex-direction:column;gap:0.65rem;
+    transition:border-color 0.2s,transform 0.2s;
+  }
+  .project-card:hover{border-color:rgba(0,229,255,0.4);transform:translateY(-2px)}
+  .project-top{display:flex;justify-content:space-between;align-items:flex-start}
+  .project-icon{
+    width:40px;height:40px;border-radius:10px;
+    background:rgba(0,229,255,0.08);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+  }
+  .project-links{display:flex;gap:0.4rem}
+  .project-link{
+    font-size:0.7rem;font-family:'Space Mono',monospace;
+    padding:0.2rem 0.55rem;border-radius:5px;
+    background:rgba(0,229,255,0.07);border:1px solid var(--border);
+    color:var(--accent);text-decoration:none;
+    transition:background 0.2s;
+  }
+  .project-link:hover{background:rgba(0,229,255,0.14)}
+  .project-name{font-size:1rem;font-weight:700}
+  .project-desc{font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1}
+  .project-stack{display:flex;flex-wrap:wrap;gap:0.35rem}
+
+  /* ── Contact ── */
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:2rem}
+  .contact-card{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;
+    padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;
+    text-decoration:none;color:var(--text);transition:all 0.2s;
+  }
+  .contact-card:hover{border-color:rgba(0,229,255,0.4);background:var(--glow)}
+  .contact-icon{
+    width:44px;height:44px;border-radius:10px;
+    background:rgba(0,229,255,0.07);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.15rem;color:var(--accent);flex-shrink:0;
+  }
+  .contact-label{font-size:0.75rem;color:var(--muted);margin-bottom:0.15rem}
+  .contact-val{font-size:0.6rem;font-weight:500}
+
+  /* ── Footer ── */
+  footer{
+    border-top:1px solid var(--border);padding:1rem 3rem;
+    font-family:'Space Mono',monospace;font-size:0.7rem;
+    color:var(--muted);display:flex;justify-content:space-between;align-items:center;
+    position:relative;z-index:1;
+  }
+
+  /* ── Flip title ── */
+  .title-tag{
+    font-family:'Space Mono',monospace;font-size:0.72rem;
+    color:var(--accent);background:rgba(0,229,255,0.08);
+    border:1px solid var(--border);border-radius:4px;
+    padding:0.3rem 0.75rem;text-align:center;letter-spacing:0.05em;
+    perspective:400px;
+  }
+  .flip-word{
+    color: aliceblue;
+    display:inline-block;
+    transition:transform 0.4s cubic-bezier(.4,0,.2,1),opacity 0.4s;
+    transform-origin:center top;
+    transform:rotateX(0deg);
+    opacity:1;
+  }
+  .flip-word.flip-out{
+    transform:rotateX(90deg);
+    opacity:0;
+  }
+  .flip-word.flip-in{
+    transform:rotateX(-90deg);
+    opacity:0;
+    transition:none;
+  }
+
+  /* ── Animations ── */
+  .fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+  .fade-in.visible{opacity:1;transform:none}
+
+  /* ── Mobile header (shown only on mobile) ── */
+  .mobile-header{
+    display:none;
+    flex-direction:column;align-items:center;
+    gap:0.85rem;
+    padding:2rem 1.5rem 1.5rem;
+    border-bottom:1px solid var(--border);
+    background:var(--bg2);
+    position:relative;z-index:1;
+    text-align:center;
+  }
+  .mobile-header .avatar-wrap{
+    width:110px;height:110px;
+  }
+  .mobile-header .name{font-size:1.4rem;font-weight:800;letter-spacing:-0.02em}
+  .mobile-header .title-tag{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--accent);background:rgba(0,229,255,0.08);border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.75rem;letter-spacing:0.05em}
+  .mobile-header .bio{font-size:0.82rem;color:var(--muted);line-height:1.65;max-width:340px}
+  .mobile-header .social-row{display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center}
+  .mobile-nav{
+    display:none;
+    flex-wrap:wrap;justify-content:center;gap:0.4rem;
+    padding:0.75rem 1rem;
+    border-bottom:1px solid var(--border);
+    background:var(--bg);
+    position:sticky;top:0;z-index:10;
+    backdrop-filter:blur(12px);
+  }
+  .mobile-nav .nav-link{
+    padding:0.4rem 0.75rem;font-size:0.78rem;border-radius:20px;
+  }
+
+  @media(max-width:900px){
+    aside{display:none}
+    .mobile-header{display:flex}
+    .mobile-nav{display:flex}
+    .wrapper{flex-direction:column}
+    main{
+      padding:1.5rem 1rem;
+      max-width:100%;
+      margin:0 auto;
+      width:100%;
+    }
+    section{text-align:center}
+    /* Keep text blocks left-aligned inside centered sections */
+    .tl-desc,.tl-company,.tl-role,.tl-date,
+    .edu-school,.edu-degree,
+    .project-desc,.project-name,
+    .bio, p{text-align:left}
+    .about-grid,.edu-grid,.projects-grid,.contact-grid{grid-template-columns:1fr}
+    .skills-grid{grid-template-columns:1fr}
+    .skill-pills,.project-stack,.edu-meta,.social-row,.project-links{justify-content:center}
+    .section-title,.section-label,.stat-num,.stat-label{text-align:center}
+    .timeline::before{left:11px}
+    .tl-item{gap:1rem}
+    .contact-card{justify-content:center}
+    footer{padding:1rem;flex-direction:column;gap:0.4rem;text-align:center}
+    /* About paragraph */
+    #about > p{text-align:left}
+  }
+</style>
 </head>
+<body>
 
-<body class="home">
-<!-- Live Style Switcher Starts - demo only -->
-<div id="switcher" class="">
-    <div class="content-switcher">
-        <h4>STYLE SWITCHER</h4>
-        <ul>
-            <li>
-                <a href="#" onclick="setActiveStyleSheet('purple');" title="purple" class="color"><img src="img/styleswitcher/purple.png" alt="purple"/></a>
-            </li>
-            <li>
-                <a href="#" onclick="setActiveStyleSheet('red');" title="red" class="color"><img src="img/styleswitcher/red.png" alt="red"/></a>
-            </li>
-            <li>
-                <a href="#" onclick="setActiveStyleSheet('blueviolet');" title="blueviolet" class="color"><img src="img/styleswitcher/blueviolet.png" alt="blueviolet"/></a>
-            </li>
-            <li>
-                <a href="#" onclick="setActiveStyleSheet('blue');" title="blue" class="color"><img src="img/styleswitcher/blue.png" alt="blue"/></a>
-            </li>
-            <li>
-                <a href="#" onclick="setActiveStyleSheet('goldenrod');" title="goldenrod" class="color"><img src="img/styleswitcher/goldenrod.png" alt="goldenrod"/></a>
-            </li>
-            <li>
-                <a href="#" onclick="setActiveStyleSheet('magenta');" title="magenta" class="color"><img src="img/styleswitcher/magenta.png" alt="magenta"/></a>
-            </li>
-            <li>
-                <a href="#" onclick="setActiveStyleSheet('yellowgreen');" title="yellowgreen" class="color"><img src="img/styleswitcher/yellowgreen.png" alt="yellowgreen"/></a>
-            </li>
-            <li>
-                <a href="#" onclick="setActiveStyleSheet('orange');" title="orange" class="color"><img src="img/styleswitcher/orange.png" alt="orange"/></a>
-            </li>
-            <li>
-                <a href="#" onclick="setActiveStyleSheet('green');" title="green" class="color"><img src="img/styleswitcher/green.png" alt="green"/></a>
-            </li>
-            <li>
-                <a href="#" onclick="setActiveStyleSheet('yellow');" title="yellow" class="color"><img src="img/styleswitcher/yellow.png" alt="yellow"/></a>
-            </li>
-        </ul>
-           <div id="hideSwitcher">&times;</div>
+<!-- Custom cursor elements -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="mouse-glow"></div>
+
+<canvas id="stars"></canvas>
+
+<div class="wrapper">
+
+  <!-- ── Mobile Header (avatar + info shown on mobile) ── -->
+  <div class="mobile-header">
+    <div class="avatar-wrap">
+      <div class="avatar-ring"></div>
+      <div class="avatar-inner">
+        <img src="pp.jpg" alt="Profile photo" />
+      </div>
     </div>
-</div>
-<div id="showSwitcher" class="styleSecondColor"><i class="fa fa-cog fa-spin"></i></div>
-<!-- Live Style Switcher Ends - demo only -->
-<!-- Header Starts -->
-<header class="header" id="navbar-collapse-toggle">
-    <!-- Fixed Navigation Starts -->
-    <ul class="icon-menu d-none d-lg-block revealator-slideup revealator-once revealator-delay1">
-        <li class="icon-box active">
-            <i class="fa fa-home"></i>
-            <a href="index.html">
-                <h2>Home</h2>
-            </a>
-        </li>
-        <li class="icon-box">
-            <i class="fa fa-user"></i>
-            <a href="about.html">
-                <h2>About</h2>
-            </a>
-        </li>
-        <!-- <li class="icon-box">
-            <i class="fa fa-briefcase"></i>
-            <a href="portfolio.html">
-                <h2>Portfolio</h2>
-            </a>
-        </li> -->
-        <li class="icon-box">
-            <i class="fa fa-envelope-open"></i>
-            <a href="contact.html">
-                <h2>Contact</h2>
-            </a>
-        </li>
-        <li class="icon-box">
-            <i class="fa fa-comments"></i>
-            <a href="blog.html">
-                <h2>Blog</h2>
-            </a>
-        </li>
-    </ul>
-    <!-- Fixed Navigation Ends -->
-    <!-- Mobile Menu Starts -->
-    <nav role="navigation" class="d-block d-lg-none">
-        <div id="menuToggle">
-            <input type="checkbox" />
-            <span></span>
-            <span></span>
-            <span></span>
-            <ul class="list-unstyled" id="menu">
-                <li class="active"><a href="index.html"><i class="fa fa-home"></i><span>Home</span></a></li>
-                <li><a href="about.html"><i class="fa fa-user"></i><span>About</span></a></li>
-                <!-- <li><a href="portfolio.html"><i class="fa fa-folder-open"></i><span>Portfolio</span></a></li> -->
-                <li><a href="contact.html"><i class="fa fa-envelope-open"></i><span>Contact</span></a></li>
-                <li><a href="blog.html"><i class="fa fa-comments"></i><span>Blog</span></a></li>
-            </ul>
-        </div>
+    <div class="name">Joshua Tobongbanua</div>
+    <div class="title-tag">I am a <b><span class="flip-word"></span></b></div>
+    <p class="bio">Software Developer by profession, musician by passion, gamer by choice, and rider by adventure. 
+      I enjoy building software solutions, exploring new technologies, creating music, diving into immersive games, 
+      and hitting the road on two wheels. Always learning, creating, and seeking the next challenge—whether it's in code, music, gaming, or the journey ahead.</p>    <div class="social-row">
+      <!-- <a class="social-btn" href="https://github.com/" target="_blank" title="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      </a> -->
+      <a class="social-btn" href="https://www.linkedin.com/in/joshua-tobongbanua-a39aa6187/" target="_blank" title="LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a class="social-btn" href="https://www.facebook.com/joshua.tobongbanua.328801" target="_blank" title="Facebook">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.009 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.017 1.792-4.687 4.533-4.687 1.313 0 2.686.235 2.686.235v2.961h-1.514c-1.491 0-1.956.926-1.956 1.875v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.082 24 18.092 24 12.073z"/>
+        </svg>
+      </a>
+      <a class="social-btn" href="mailto:jtobongbanua.aps@gmail.com" title="Gmail">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+      <a class="social-btn" href="mailto:joshua@autopartneredsolutions.com" title="Company Mail">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+      <a class="social-btn" href="https://www.youtube.com/@JStudio11" target="_blank" title="YouTube">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M23.498 6.186a2.99 2.99 0 0 0-2.104-2.117C19.548 3.5 12 3.5 12 3.5s-7.548 0-9.394.569A2.99 2.99 0 0 0 .502 6.186C0 8.05 0 12 0 12s0 3.95.502 5.814a2.99 2.99 0 0 0 2.104 2.117C4.452 20.5 12 20.5 12 20.5s7.548 0 9.394-.569a2.99 2.99 0 0 0 2.104-2.117C24 15.95 24 12 24 12s0-3.95-.502-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── Mobile Nav ── -->
+  <nav class="mobile-nav">
+    <a class="nav-link active" href="#about"><span class="dot"></span>About</a>
+    <a class="nav-link" href="#skills"><span class="dot"></span>Skills</a>
+    <a class="nav-link" href="#experience"><span class="dot"></span>Experience</a>
+    <a class="nav-link" href="#education"><span class="dot"></span>Education</a>
+    <a class="nav-link" href="#projects"><span class="dot"></span>Projects</a>
+    <a class="nav-link" href="#contact"><span class="dot"></span>Contact</a>
+  </nav>
+
+  <!-- ── Sidebar ── -->
+  <aside>
+    <div class="avatar-wrap">
+      <div class="avatar-ring"></div>
+      <div class="avatar-inner">
+        <img src="" alt="Profile photo" />
+      </div>
+    </div>
+    <div class="name">Joshua Tobongbanua</div>
+    <div class="title-tag">I am a <span class="flip-word"></span></div>
+    <p class="bio">Software Developer by profession, musician by passion, gamer by choice, and rider by adventure. 
+      I enjoy building software solutions, exploring new technologies, creating music, diving into immersive games, 
+      and hitting the road on two wheels. Always learning, creating, and seeking the next challenge—whether it's in code, music, gaming, or the journey ahead.</p>
+    <div class="divider"></div>
+    <div class="social-row">
+      <!-- <a class="social-btn" href="https://github.com/" target="_blank" title="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      </a> -->
+      <a class="social-btn" href="https://www.linkedin.com/in/joshua-tobongbanua-a39aa6187/" target="_blank" title="LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a class="social-btn" href="https://www.facebook.com/joshua.tobongbanua.328801" target="_blank" title="Facebook">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.009 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.017 1.792-4.687 4.533-4.687 1.313 0 2.686.235 2.686.235v2.961h-1.514c-1.491 0-1.956.926-1.956 1.875v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.082 24 18.092 24 12.073z"/>
+        </svg>
+      </a>
+      <a class="social-btn" href="mailto:jtobongbanua.aps@gmail.com" title="Gmail">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+      <a class="social-btn" href="mailto:joshua@autopartneredsolutions.com" title="Company Mail">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+      <a class="social-btn" href="https://www.youtube.com/@JStudio11" target="_blank" title="YouTube">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M23.498 6.186a2.99 2.99 0 0 0-2.104-2.117C19.548 3.5 12 3.5 12 3.5s-7.548 0-9.394.569A2.99 2.99 0 0 0 .502 6.186C0 8.05 0 12 0 12s0 3.95.502 5.814a2.99 2.99 0 0 0 2.104 2.117C4.452 20.5 12 20.5 12 20.5s7.548 0 9.394-.569a2.99 2.99 0 0 0 2.104-2.117C24 15.95 24 12 24 12s0-3.95-.502-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/>
+        </svg>
+      </a>
+    </div>
+    <div class="divider"></div>
+    <nav class="nav-links">
+      <a class="nav-link active" href="#about"><span class="dot"></span>About</a>
+      <a class="nav-link" href="#skills"><span class="dot"></span>Skills</a>
+      <a class="nav-link" href="#experience"><span class="dot"></span>Experience</a>
+      <a class="nav-link" href="#education"><span class="dot"></span>Education</a>
+      <a class="nav-link" href="#projects"><span class="dot"></span>Projects</a>
+      <a class="nav-link" href="#contact"><span class="dot"></span>Contact</a>
     </nav>
-    <!-- Mobile Menu Ends -->
-</header>
-<!-- Header Ends -->
-<!-- Main Content Starts -->
-<section class="container-fluid main-container container-home p-0 revealator-slideup revealator-once revealator-delay1">
-    <div class="color-block d-none d-lg-block"></div>
-    <div class="row home-details-container align-items-center">
-        <div class="col-lg-4 bg position-fixed d-none d-lg-block"></div>
-        <div class="col-12 col-lg-8 offset-lg-4 home-details text-left text-sm-center text-lg-left">
-            <div>
-                <img src="img/img-mobile.jpg" class="img-fluid main-img-mobile d-none d-sm-block d-lg-none" alt="my picture" />
-                <h6 class="text-uppercase open-sans-font mb-0 d-block d-sm-none d-lg-block">Hello world!</h6>
-                <h1 class="text-uppercase poppins-font"><span>I'm</span> Joshua Tobongbanua</h1>
-                <p class="open-sans-font">Software Developer</p>
-                <a href="about.html" class="btn btn-about">more about me</a>
-            </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main>
+
+    <!-- About -->
+    <section id="about" class="fade-in">
+      <p class="section-label">// Hello World!</p>
+      <h1 class="section-title">Hi, I'm <span>Joshua Tobongbanua</span></h1>
+      <p style="color:var(--muted);line-height:1.8;max-width:620px;font-size:0.95rem">
+        Software Developer and Technical Lead focused on full-stack development, automation, and 
+        AI-powered solutions. I build scalable web applications, streamline business processes, and 
+        leverage modern technologies to deliver efficient, reliable, and maintainable software.
+      </p>
+      <div class="about-grid" style="margin-top:1.75rem">
+        <div class="stat-card">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Years of Developer Experience<br />Team Leader<br />QA Analyst</div>
         </div>
+        <div class="stat-card">
+          <div class="stat-num">12+</div>
+          <div class="stat-label">Years of Teaching Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Technologies Used</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Problems Solved</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="fade-in">
+      <p class="section-label">// Skills</p>
+      <h2 class="section-title">Tech <span>Stack</span></h2>
+
+      <div class="skills-grid">
+
+        <div class="skill-group">
+          <div class="skill-group-title">LANGUAGES</div>
+          <div class="skill-pills">
+            <span class="pill">TypeScript</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">PHP</span>
+            <span class="pill">Python</span>
+            <span class="pill">SQL</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">FRONTEND</div>
+          <div class="skill-pills">
+            <span class="pill">React</span>
+            <span class="pill">HTML</span>
+            <span class="pill">CSS</span>
+            <span class="pill">Tailwind CSS</span>
+            <span class="pill">jQuery</span>
+            <span class="pill">jqGrid</span>
+            <span class="pill">AJAX</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">BACKEND</div>
+          <div class="skill-pills">
+            <span class="pill">Node.js</span>
+            <span class="pill">PHP</span>
+            <span class="pill">Python</span>
+            <span class="pill">REST APIs</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">DATABASE</div>
+          <div class="skill-pills">
+            <span class="pill">MariaDB</span>
+            <span class="pill">PostgreSQL</span>
+            <span class="pill">Supabase</span>
+            <span class="pill">SQL</span>
+            <span class="pill">phpMyAdmin</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">AI & AUTOMATION</div>
+          <div class="skill-pills">
+            <span class="pill">Machine Learning</span>
+            <span class="pill">TensorFlow</span>
+            <span class="pill">Lovable</span>
+            <span class="pill">Retell AI</span>
+            <span class="pill">AI Tools</span>
+            <span class="pill">Puppeteer</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">TOOLS & DEVOPS</div>
+          <div class="skill-pills">
+            <span class="pill">Git</span>
+            <span class="pill">AWS</span>
+            <span class="pill">Linux</span>
+            <span class="pill">Shell Scripting</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="fade-in">
+      <p class="section-label">// career</p>
+      <h2 class="section-title">Work <span>Experience</span></h2>
+
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-company">Ariintel / Auto PARTnered Solutions</div>
+            <div class="tl-role">Software Developer / QA / AI Development Lead</div>
+            <div class="tl-date">September 2023 — Present</div>
+            <p class="tl-desc">
+              • Lead full-stack web application development and technical implementation.<br>
+              • Manage QA activities including testing, validation, code reviews, and release readiness.<br>
+              • Design and deploy AI-powered automations and workflow optimization solutions.<br>
+              • Collaborate with stakeholders to deliver scalable, reliable, and business-focused applications.<br>
+              • Support system maintenance, troubleshooting, deployment, and continuous improvement initiatives.
+            
+              <br><br />
+              Responsibilities include full-stack development, quality assurance, technical leadership, AI integration, automation development, code reviews, functional testing, troubleshooting, deployment support, and mentoring team members. Drive the adoption of AI-powered tools and workflow automations to reduce manual effort, improve productivity, and enhance system capabilities.
+              <br><br />
+            
+              <strong>Tech Stack:</strong> PHP, Python, JavaScript, TypeScript, React, Node.js, HTML, CSS, Tailwind CSS, jQuery, jqGrid, AJAX, REST APIs, SQL, MariaDB, PostgreSQL, Supabase, TensorFlow, Retell AI, Puppeteer, Git, AWS, Linux, Shell Scripting, phpMyAdmin, Machine Learning, and AI Tools.
+            </p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-company">St. Theresita's Academy</div>
+            <div class="tl-role">System Developer & Administrator</div>
+            <div class="tl-date">2015 — 2020</div>
+            <p class="tl-desc">
+              Designed, developed, and maintained internal school systems including
+              the STA File Management System and Student Computer Laboratory
+              Management System. Managed system administration and provided
+              technical support for school operations.
+            </p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-company">St. Theresita's Academy</div>
+            <div class="tl-role">JHS / SHS Teacher & Computer Instructor</div>
+            <div class="tl-date">2011 — 2023</div>
+            <p class="tl-desc">
+              Taught Computer Education subjects for Junior and Senior High School.
+              Covered Web Development, Java Programming, Desktop Publishing,
+              Project Management, Graphic Design, Computer System Servicing (CSS-NCII),
+              Empowerment Technologies, and Disaster Readiness and Risk Reduction.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="fade-in">
+      <p class="section-label">// academics</p>
+      <h2 class="section-title">Edu<span>cation</span></h2>
+
+      <div class="edu-grid">
+
+        <div class="edu-card">
+          <div class="edu-school">KodeGo</div>
+          <div class="edu-degree">Full-Stack Web Development Bootcamp (Batch WD58P)</div>
+          <div class="edu-meta">
+            <span class="edu-badge">2023</span>
+            <span class="edu-badge">Top 5 Student</span>
+          </div>
+          <div class="edu-meta" style="margin-top:8px;">
+            <span class="edu-badge">Bibong KodeGeek Award</span>
+            <span class="edu-badge">Capstone Leader</span>
+          </div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-school">Silay Institute</div>
+          <div class="edu-degree">Bachelor of Science in Computer Science</div>
+          <div class="edu-meta">
+            <span class="edu-badge">2011</span>
+            <span class="edu-badge">Best Web Designer Awardee</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <!-- <section id="projects" class="fade-in">
+      <p class="section-label">// work</p>
+      <h2 class="section-title">Featured <span>Projects</span></h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-icon">🚀</div>
+            <div class="project-links">
+              <a class="project-link" href="#">GitHub</a>
+              <a class="project-link" href="#">Live</a>
+            </div>
+          </div>
+          <div class="project-name">Project Alpha</div>
+          <p class="project-desc">A full-stack SaaS application for team task management with real-time collaboration, notifications, and analytics dashboard.</p>
+          <div class="project-stack">
+            <span class="pill">React</span><span class="pill">Node.js</span><span class="pill">PostgreSQL</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-icon">⚡</div>
+            <div class="project-links">
+              <a class="project-link" href="#">GitHub</a>
+              <a class="project-link" href="#">Live</a>
+            </div>
+          </div>
+          <div class="project-name">DevTools CLI</div>
+          <p class="project-desc">An open-source command-line toolkit that automates project scaffolding, linting setup, and CI/CD pipeline generation.</p>
+          <div class="project-stack">
+            <span class="pill">Node.js</span><span class="pill">TypeScript</span><span class="pill">Shell</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-icon">📊</div>
+            <div class="project-links">
+              <a class="project-link" href="#">GitHub</a>
+              <a class="project-link" href="#">Live</a>
+            </div>
+          </div>
+          <div class="project-name">Analytics Platform</div>
+          <p class="project-desc">A lightweight, embeddable analytics SDK and dashboard — drop-in replacement for privacy-invasive third-party trackers.</p>
+          <div class="project-stack">
+            <span class="pill">Next.js</span><span class="pill">Redis</span><span class="pill">D3.js</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-icon">🔐</div>
+            <div class="project-links">
+              <a class="project-link" href="#">GitHub</a>
+            </div>
+          </div>
+          <div class="project-name">Auth Microservice</div>
+          <p class="project-desc">A production-ready JWT + OAuth2 authentication microservice with role-based access control and audit logging.</p>
+          <div class="project-stack">
+            <span class="pill">Express</span><span class="pill">MySQL</span><span class="pill">Docker</span>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- My Life -->
+<section id="life" class="fade-in">
+  <p class="section-label">// personal</p>
+  <h2 class="section-title">My <span>Life</span></h2>
+
+  <div class="edu-grid">
+
+    <!-- Music / Band -->
+    <div class="edu-card">
+      <img src="band.jpg" alt="Band Performance" style="width:100%; border-radius:10px; margin-bottom:12px;">
+      
+      <div class="edu-school">Stereotype Band</div>
+      <div class="edu-degree">Bass Guitarist / Performer</div>
+
+      <p style="margin-top:10px; opacity:0.85; font-size:14px; line-height:1.5;">
+        I perform professionally as an active member of the Stereotype Band since 2022,
+        playing live shows and supporting music events.
+      </p>
+
+      <div class="edu-meta">
+        <span class="edu-badge">Live Performer</span>
+        <span class="edu-badge">Since 2022</span>
+      </div>
     </div>
+
+    <!-- Instrumentalist -->
+    <div class="edu-card">
+      <img src="music.jpg" alt="Instrumentalist" style="width:100%; border-radius:10px; margin-bottom:12px;">
+
+      <div class="edu-school">Instrumentalist</div>
+      <div class="edu-degree">Multi-Instrument Player</div>
+
+      <p style="margin-top:10px; opacity:0.85; font-size:14px; line-height:1.5;">
+        I play guitar, piano/keyboard, drums, and other instruments.
+        I also have experience teaching and reading musical notation for over 15 years.
+      </p>
+
+      <div class="edu-meta">
+        <span class="edu-badge">Music Educator</span>
+        <span class="edu-badge">15+ Years</span>
+      </div>
+    </div>
+
+    <!-- Coding -->
+    <div class="edu-card">
+      <img src="coding.jpg" alt="Coding" style="width:100%; border-radius:10px; margin-bottom:12px;">
+
+      <div class="edu-school">Coding as a Passion</div>
+      <div class="edu-degree">Software Development</div>
+
+      <p style="margin-top:10px; opacity:0.85; font-size:14px; line-height:1.5;">
+        From teaching years to professional development, I continued building and learning software.
+        Eventually fully transitioning into software development and AI-driven engineering.
+      </p>
+
+      <div class="edu-meta">
+        <span class="edu-badge">Software Dev</span>
+        <span class="edu-badge">AI Enthusiast</span>
+      </div>
+    </div>
+
+  </div>
 </section>
-<!-- Main Content Ends -->
 
-<!-- Template JS Files -->
-<script src="js/jquery-3.5.0.min.js"></script>
-<script src="js/styleswitcher.js"></script>
-<script src="js/preloader.min.js"></script>
-<script src="js/fm.revealator.jquery.min.js"></script>
-<script src="js/imagesloaded.pkgd.min.js"></script>
-<script src="js/masonry.pkgd.min.js"></script>
-<script src="js/classie.js"></script>
-<script src="js/cbpGridGallery.js"></script>
-<script src="js/jquery.hoverdir.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/custom.js"></script>
+    <!-- Contact -->
+    <section id="contact" class="fade-in">
+      <p class="section-label">// reach out</p>
+      <h2 class="section-title">Get in <span>Touch</span></h2>
+      <div class="contact-grid">
+        <a class="contact-card" href="mailto:animusadamo@gmail.com">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Personal Gmail</div>
+            <div class="contact-val">animusadamo@gmail.com</div>
+          </div>
+        </a>
+        <a class="contact-card" href="mailto:jtobongbanua.aps@gmail.com">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Company Gmail</div>
+            <div class="contact-val">jtobongbanua.aps@gmail.com</div>
+          </div>
+        </a>
+        <a class="contact-card" href="https://www.linkedin.com/in/joshua-tobongbanua-a39aa6187/" target="_blank">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">LinkedIn</div>
+            <div class="contact-val">Joshua Tobongbanua</div>
+          </div>
+        </a>
+        <a class="contact-card" href="https://www.facebook.com/joshua.tobongbanua.328801" target="_blank">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M22 12.07C22 6.49 17.52 2 12 2S2 6.49 2 12.07C2 17.08 5.66 21.21 10.44 22v-7.03H7.9v-2.9h2.54V9.41c0-2.52 1.5-3.9 3.8-3.9 1.1 0 2.25.2 2.25.2v2.48h-1.27c-1.25 0-1.64.78-1.64 1.58v1.9h2.78l-.44 2.9h-2.34V22C18.34 21.21 22 17.08 22 12.07z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-label">Facebook</div>
+            <div class="contact-val">Joshua Tobongbanua</div>
+          </div>
+        </a>
+        <a class="contact-card" href="https://www.youtube.com/@JStudio11" target="_blank">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.498 6.186a2.97 2.97 0 0 0-2.088-2.105C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.41.581A2.97 2.97 0 0 0 .502 6.186 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .502 5.814 2.97 2.97 0 0 0 2.088 2.105C4.5 20.5 12 20.5 12 20.5s7.5 0 9.41-.581a2.97 2.97 0 0 0 2.088-2.105A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-label">YouTube</div>
+            <div class="contact-val">youtube.com/@JStudio11</div>
+          </div>
+        </a>
+        <a class="contact-card">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.07 21 3 13.93 3 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <div class="contact-val">+63 995 268 4166</div>
+          </div>
+        </a>
+      </div>
+    </section>
 
+  </main>
+</div>
+
+<footer>
+  <span>Designed &amp; Built by <strong style="color:var(--accent)">Your Name</strong></span>
+  <span>© 2025</span>
+</footer>
+
+<script>
+// ── Star canvas ──
+(function(){
+  const c=document.getElementById('stars'),ctx=c.getContext('2d');
+  let w,h,stars=[];
+  function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}
+  function init(){
+    resize();stars=[];
+    for(let i=0;i<120;i++){
+      stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.2+0.2,a:Math.random(),da:0.003+Math.random()*0.005,vx:(Math.random()-0.5)*0.08,vy:(Math.random()-0.5)*0.08})
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    stars.forEach(s=>{
+      s.a+=s.da; if(s.a>1||s.a<0)s.da*=-1;
+      s.x+=s.vx; s.y+=s.vy;
+      if(s.x<0)s.x=w; if(s.x>w)s.x=0;
+      if(s.y<0)s.y=h; if(s.y>h)s.y=0;
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(0,229,255,${s.a*0.7})`;ctx.fill();
+    });
+    for(let i=0;i<stars.length;i++){
+      for(let j=i+1;j<stars.length;j++){
+        const dx=stars[i].x-stars[j].x,dy=stars[i].y-stars[j].y,dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<100){
+          ctx.beginPath();ctx.moveTo(stars[i].x,stars[i].y);ctx.lineTo(stars[j].x,stars[j].y);
+          ctx.strokeStyle=`rgba(0,229,255,${0.07*(1-dist/100)})`;ctx.lineWidth=0.5;ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',init);init();draw();
+})();
+
+// ── Custom Cursor + Mouse Glow + Magnetic Elements ──
+(function(){
+  const dot    = document.getElementById('cursor-dot');
+  const ring   = document.getElementById('cursor-ring');
+  const glow   = document.getElementById('mouse-glow');
+
+  // Current raw mouse position
+  let mx = window.innerWidth/2, my = window.innerHeight/2;
+  // Lagged ring position
+  let rx = mx, ry = my;
+  // Lagged glow position
+  let gx = mx, gy = my;
+
+  // Magnetic elements — cards, buttons, nav links, social btns, project links
+  const magEls = document.querySelectorAll(
+    '.project-card,.contact-card,' +
+    '.social-btn,.nav-link,.project-link,.avatar-wrap'
+  );
+  magEls.forEach(el => el.classList.add('mag-target'));
+
+  // Track nearest magnetic element
+  let activeMag = null;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+  });
+
+  document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
+  document.addEventListener('mouseup',   () => document.body.classList.remove('cursor-click'));
+
+  // Hover state on interactive elements
+  const hoverEls = document.querySelectorAll(
+    'a,button,[role="button"],.stat-card,.skill-group,.tl-body,.edu-card,.project-card,.contact-card,.social-btn,.pill,.avatar-wrap'
+  );
+  hoverEls.forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+  });
+
+  // Magnetic pull
+  function getMagneticPull(el) {
+    const r = el.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top  + r.height / 2;
+    const dx = mx - cx;
+    const dy = my - cy;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    const threshold = Math.max(r.width, r.height) * 0.75 + 30;
+    if (dist < threshold) {
+      return { el, dx, dy, dist, threshold };
+    }
+    return null;
+  }
+
+  function animate() {
+    // Dot: snaps instantly
+    dot.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
+
+    // Ring: smooth lag
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx - 20}px, ${ry - 20}px)`;
+
+    // Glow: very smooth lag
+    gx += (mx - gx) * 0.06;
+    gy += (my - gy) * 0.06;
+    glow.style.transform = `translate(${gx - 350}px, ${gy - 350}px)`;
+
+    // Magnetic pulls — reset all then apply nearest
+    if (activeMag) {
+      activeMag.style.transform = '';
+      activeMag.style.boxShadow = '';
+      activeMag = null;
+    }
+    let bestPull = null;
+    magEls.forEach(el => {
+      const pull = getMagneticPull(el);
+      if (pull && (!bestPull || pull.dist < bestPull.dist)) bestPull = pull;
+    });
+    if (bestPull) {
+      const { el, dx, dy, dist, threshold } = bestPull;
+      const strength = (1 - dist / threshold);
+      const px = dx * strength * -0.18;
+      const py = dy * strength * -0.18;
+      el.style.transform = `translate(${px}px, ${py}px)`;
+      el.style.boxShadow = `0 0 ${20*strength}px rgba(0,229,255,${0.18*strength}), 0 ${8*strength}px ${24*strength}px rgba(0,0,0,0.3)`;
+      activeMag = el;
+    }
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ── Scroll fade-in ──
+(function(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
+  },{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+})();
+
+// ── Active nav highlight ──
+(function(){
+  const links=document.querySelectorAll('.nav-link');
+  const sections=document.querySelectorAll('section[id]');
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.remove('active'));
+        const active=document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+        if(active)active.classList.add('active');
+      }
+    });
+  },{threshold:0.4});
+  sections.forEach(s=>obs.observe(s));
+})();
+// ── Flip title ──
+(function(){
+  // ↓↓↓ ADD YOUR OWN TITLES HERE ↓↓↓
+  const titles = [
+    'Software Developer',
+    'Web Developer',
+    'QA Analyst',
+    'AI Developer',
+    'Graphics Designer',
+    'Team Leader',
+    'Educator',
+    'Professor',
+    // 'Your Title Here',
+  ];
+  // ↑↑↑ ADD YOUR OWN TITLES HERE ↑↑↑
+
+  const targets = document.querySelectorAll('.flip-word');
+  let idx = 0;
+
+  // Set initial word
+  targets.forEach(el => el.textContent = titles[0]);
+
+  setInterval(() => {
+    const next = titles[(idx + 1) % titles.length];
+
+    // Flip out
+    targets.forEach(el => el.classList.add('flip-out'));
+
+    setTimeout(() => {
+      // Snap to flip-in position (bottom), update text
+      targets.forEach(el => {
+        el.classList.remove('flip-out');
+        el.classList.add('flip-in');
+        el.textContent = next;
+      });
+      // Force reflow then animate in
+      targets.forEach(el => el.getBoundingClientRect());
+      targets.forEach(el => {
+        el.classList.remove('flip-in');
+      });
+      idx = (idx + 1) % titles.length;
+    }, 420);
+
+  }, 2800);
+})();
+</script>
 </body>
-
 </html>
