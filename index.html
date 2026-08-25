@@ -1,1071 +1,1368 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Joshua Tobongbanua</title>
+<title>Joshua Tobongbanua — Software Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
   :root{
-    --bg:#050d1a;
-    --bg2:#0a1628;
-    --bg3:#0d1f38;
-    --accent:#00e5ff;
-    --accent2:#7c4dff;
-    --text:#e8f4fc;
-    --muted:#6b8cad;
-    --border:rgba(0,229,255,0.15);
-    --card:rgba(10,22,40,0.9);
-    --glow:rgba(0,229,255,0.08);
+    --bg:#0a0a0f;
+    --bg-soft:#111119;
+    --line:rgba(255,255,255,0.10);
+    --line-strong:rgba(255,255,255,0.18);
+    --text:#ffffff;
+    --muted:rgba(255,255,255,0.56);
+    --faint:rgba(255,255,255,0.34);
+    --accent:#c026ff;
+    --accent-2:#7c3aed;
+    --chip:rgba(255,255,255,0.05);
+    --card:color-mix(in srgb,#0a0a0f 26%,transparent);
+    --shadow:0 24px 60px rgba(0,0,0,0.5);
   }
+  html[data-theme="light"]{
+    --bg:#f4f4f7;
+    --bg-soft:#ffffff;
+    --line:rgba(10,10,15,0.10);
+    --line-strong:rgba(10,10,15,0.20);
+    --text:#0a0a0f;
+    --muted:rgba(10,10,15,0.62);
+    --faint:rgba(10,10,15,0.42);
+    --accent:#9d00d6;
+    --accent-2:#5b21b6;
+    --chip:rgba(10,10,15,0.04);
+    --card:color-mix(in srgb,#ffffff 34%,transparent);
+    --shadow:0 24px 60px rgba(10,10,15,0.10);
+  }
+
   html{scroll-behavior:smooth}
   body{
     background:var(--bg);
     color:var(--text);
-    font-family:'Syne',sans-serif;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    -webkit-font-smoothing:antialiased;
     min-height:100vh;
     overflow-x:hidden;
-    cursor:none;
+    transition:background 0.4s ease,color 0.4s ease;
   }
-  a,button,[role="button"]{cursor:none}
+  ::selection{background:var(--accent);color:#fff}
 
-  /* ── Custom cursor ── */
-  #cursor-dot{
-    position:fixed;width:10px;height:10px;border-radius:50%;
-    background:var(--accent);pointer-events:none;z-index:9999;
-    left:0;top:0;
-    will-change:transform;
-    box-shadow:0 0 10px var(--accent),0 0 20px rgba(0,229,255,0.4);
-    mix-blend-mode:screen;
-    transition:width 0.15s,height 0.15s,background 0.15s,box-shadow 0.15s,opacity 0.15s;
-  }
-  #cursor-ring{
-    position:fixed;width:40px;height:40px;border-radius:50%;
-    border:1.5px solid rgba(0,229,255,0.7);pointer-events:none;z-index:9998;
-    left:0;top:0;
-    will-change:transform;
-    mix-blend-mode:screen;
-    transition:width 0.3s cubic-bezier(.25,.46,.45,.94),
-                height 0.3s cubic-bezier(.25,.46,.45,.94),
-                border-color 0.3s,opacity 0.2s,background 0.3s;
-  }
-  body.cursor-hover #cursor-dot{
-    width:14px;height:14px;background:#fff;
-    box-shadow:0 0 14px #fff,0 0 30px rgba(0,229,255,0.6);
-  }
-  body.cursor-hover #cursor-ring{
-    width:60px;height:60px;
-    border-color:rgba(0,229,255,1);
-    background:rgba(0,229,255,0.04);
-  }
-  body.cursor-click #cursor-dot{width:7px;height:7px}
-  body.cursor-click #cursor-ring{width:30px;height:30px;background:rgba(0,229,255,0.1)}
-
-  /* Magnetic pull indicator on interactive elements */
-  .mag-target{transition:transform 0.3s cubic-bezier(.25,.46,.45,.94),box-shadow 0.3s}
-
-  /* ── Mouse glow on background ── */
-  #mouse-glow{
-    position:fixed;width:700px;height:700px;border-radius:50%;
-    pointer-events:none;z-index:0;
-    left:0;top:0;
-    will-change:transform;
-    background:radial-gradient(circle,
-      rgba(0,229,255,0.07) 0%,
-      rgba(124,77,255,0.04) 35%,
-      rgba(0,229,255,0.015) 60%,
-      transparent 70%);
-    transition:opacity 0.5s;
+  /* ── Waves canvas ── */
+  #waves{
+    position:fixed;inset:0;width:100%;height:100%;
+    z-index:0;pointer-events:none;
   }
 
-  /* ── Canvas stars ── */
-  #stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+  /* ── HUD cursor ──
+     Only on devices with a real pointer; touch keeps the native behaviour. */
+  #cur-dot,#cur-ret,#cur-trail{display:none}
+  @media (hover:hover) and (pointer:fine){
+    body,a,button,[role="button"],.tag,.badge,.stat,summary{cursor:none}
+    #cur-dot,#cur-ret,#cur-trail{display:block}
+  }
+  #cur-trail{position:fixed;inset:0;width:100%;height:100%;z-index:9997;pointer-events:none}
+  #cur-dot{
+    position:fixed;top:0;left:0;width:6px;height:6px;margin:-3px 0 0 -3px;
+    background:var(--accent);border-radius:1px;
+    box-shadow:0 0 10px var(--accent),0 0 22px color-mix(in srgb,var(--accent) 55%,transparent);
+    z-index:9999;pointer-events:none;will-change:transform;
+    transition:opacity 0.25s,width 0.2s,height 0.2s,margin 0.2s;
+  }
+  #cur-ret{
+    position:fixed;top:0;left:0;width:40px;height:40px;margin:-20px 0 0 -20px;
+    z-index:9998;pointer-events:none;will-change:transform;
+    transition:opacity 0.25s;
+  }
+  #cur-ret .ret{
+    position:relative;width:100%;height:100%;
+    transition:transform 0.34s cubic-bezier(.2,.8,.2,1);
+  }
+  /* faint lock-on ring, only while hovering something interactive */
+  #cur-ret .ret::before{
+    content:'';position:absolute;inset:7px;border-radius:50%;
+    border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);
+    opacity:0;transform:scale(0.6);
+    transition:opacity 0.3s,transform 0.34s cubic-bezier(.2,.8,.2,1);
+  }
+  #cur-ret .c{
+    position:absolute;width:11px;height:11px;
+    border:1.5px solid var(--accent);opacity:0.85;
+    transition:width 0.3s,height 0.3s,opacity 0.3s;
+  }
+  #cur-ret .tl{top:0;left:0;border-right-color:transparent;border-bottom-color:transparent}
+  #cur-ret .tr{top:0;right:0;border-left-color:transparent;border-bottom-color:transparent}
+  #cur-ret .bl{bottom:0;left:0;border-right-color:transparent;border-top-color:transparent}
+  #cur-ret .br{bottom:0;right:0;border-left-color:transparent;border-top-color:transparent}
 
-  /* ── Layout ── */
-  .wrapper{display:flex;min-height:100vh;position:relative;z-index:1}
+  body.cur-hover #cur-ret .ret{transform:rotate(45deg) scale(1.5)}
+  body.cur-hover #cur-ret .ret::before{opacity:1;transform:scale(1)}
+  body.cur-hover #cur-ret .c{opacity:1;width:8px;height:8px}
+  body.cur-hover #cur-dot{width:4px;height:4px;margin:-2px 0 0 -2px}
+  body.cur-down #cur-ret .ret{transform:rotate(45deg) scale(0.85)}
+  body.cur-out #cur-dot,body.cur-out #cur-ret{opacity:0}
 
-  /* ── Sidebar ── */
-  aside{
-    width:280px;min-width:280px;
-    background:var(--bg2);
-    border-right:1px solid var(--border);
-    padding:2.5rem 1.5rem;
-    display:flex;flex-direction:column;align-items:center;gap:1.25rem;
-    position:sticky;top:0;height:100vh;overflow-y:auto;
+  /* ── Top bar ── */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.1rem 1.75rem;
+    background:transparent;
+    transition:background 0.3s ease,border-color 0.3s ease,backdrop-filter 0.3s;
+    border-bottom:1px solid transparent;
   }
-  .avatar-wrap{
-    position:relative;width:130px;height:130px;flex-shrink:0;
+  header.stuck{
+    background:color-mix(in srgb,var(--bg) 78%,transparent);
+    backdrop-filter:blur(14px);
+    border-bottom-color:var(--line);
   }
-  .avatar-ring{
-    position:absolute;inset:-3px;border-radius:50%;
-    background:conic-gradient(var(--accent),var(--accent2),var(--accent));
-    animation:spin 8s linear infinite;
-    z-index:0;
+  .theme-btn{
+    width:34px;height:34px;border-radius:50%;
+    background:none;border:none;color:var(--text);
+    display:grid;place-items:center;cursor:pointer;
+    opacity:0.85;transition:opacity 0.2s,transform 0.4s;
   }
-  .avatar-inner{
-    position:absolute;inset:3px;border-radius:50%;
-    background:var(--bg3);
-    overflow:hidden;
-    z-index:1;
+  .theme-btn:hover{opacity:1;transform:rotate(35deg)}
+  nav.top{display:flex;gap:1.85rem;align-items:center}
+  nav.top a{
+    color:var(--text);text-decoration:none;
+    font-size:0.9rem;font-weight:500;letter-spacing:-0.01em;
+    opacity:0.72;transition:opacity 0.2s;position:relative;
   }
-  .avatar-inner img{
-    width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;
+  nav.top a::after{
+    content:'';position:absolute;left:0;right:0;bottom:-6px;height:1.5px;
+    background:var(--accent);transform:scaleX(0);transform-origin:left;
+    transition:transform 0.28s cubic-bezier(.4,0,.2,1);
   }
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .name{font-size:1rem;font-weight:800;text-align:center;letter-spacing:-0.02em}
-  .title-tag{
-    font-family:'Space Mono',monospace;font-size:0.72rem;
-    color:var(--accent);background:rgba(0,229,255,0.08);
-    border:1px solid var(--border);border-radius:4px;
-    padding:0.3rem 0.75rem;text-align:center;letter-spacing:0.05em;
-  }
-  .bio{font-size:0.82rem;color:var(--muted);text-align:center;line-height:1.65}
-  .divider{width:100%;height:1px;background:var(--border)}
-  .social-row{display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center}
-  .social-btn{
-    width:36px;height:36px;border-radius:8px;
-    background:var(--bg3);border:1px solid var(--border);
-    display:flex;align-items:center;justify-content:center;
-    color:var(--muted);text-decoration:none;font-size:0.95rem;
-    transition:all 0.2s;cursor:pointer;
-  }
-  .social-btn:hover{color:var(--accent);border-color:var(--accent);background:rgba(0,229,255,0.06)}
-  .nav-links{display:flex;flex-direction:column;gap:0.35rem;width:100%}
-  .nav-link{
-    display:flex;align-items:center;gap:0.6rem;
-    padding:0.6rem 0.85rem;border-radius:8px;
-    font-size:0.85rem;font-weight:600;color:var(--muted);
-    text-decoration:none;transition:all 0.2s;letter-spacing:0.03em;
-    border:1px solid transparent;
-  }
-  .nav-link:hover,.nav-link.active{
-    color:var(--accent);background:rgba(0,229,255,0.06);
-    border-color:var(--border);
-  }
-  .nav-link span.dot{
-    width:6px;height:6px;border-radius:50%;
-    background:var(--muted);transition:background 0.2s;flex-shrink:0;
-  }
-  .nav-link:hover span.dot,.nav-link.active span.dot{background:var(--accent)}
+  nav.top a:hover,nav.top a.active{opacity:1}
+  nav.top a:hover::after,nav.top a.active::after{transform:scaleX(1)}
+  .menu-btn{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:6px}
 
-  /* ── Main content ── */
-  main{flex:1;padding:2.5rem 3rem;width:0;min-width:0}
+  /* ── Hero ── */
+  .hero{
+    position:relative;z-index:2;
+    min-height:100svh;
+    display:flex;align-items:center;
+    padding:0 clamp(1.25rem,7vw,7rem);
+  }
+  .hero-inner{max-width:900px}
+  .hero-row{display:flex;align-items:center;gap:clamp(1rem,3vw,2.5rem)}
+  .avatar{
+    width:clamp(96px,11vw,132px);height:clamp(96px,11vw,132px);
+    border-radius:50%;overflow:hidden;flex-shrink:0;
+    background:var(--bg-soft);
+    border:1px solid var(--line-strong);
+    filter:grayscale(1);
+    transition:filter 0.4s ease,transform 0.4s ease;
+  }
+  .avatar:hover{filter:grayscale(0);transform:scale(1.04)}
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+  .avatar .initials{
+    width:100%;height:100%;display:grid;place-items:center;
+    font-size:2rem;font-weight:800;letter-spacing:-0.04em;color:var(--faint);
+  }
+  .hero-socials{display:flex;gap:0.85rem;margin-bottom:0.75rem}
+  .hero-socials a{color:var(--text);opacity:0.9;transition:opacity 0.2s,transform 0.2s;display:grid;place-items:center}
+  .hero-socials a:hover{opacity:1;transform:translateY(-2px);color:var(--accent)}
+  h1.name{
+    font-size:clamp(2.75rem,8.5vw,5.5rem);
+    font-weight:800;letter-spacing:-0.045em;line-height:0.95;
+  }
+  .role{
+    margin-top:0.75rem;font-size:clamp(1rem,2vw,1.25rem);
+    font-weight:400;color:var(--muted);letter-spacing:-0.01em;
+    min-height:1.6em;
+  }
+  .flip-word{
+    display:inline-block;color:var(--text);
+    transform-origin:center top;
+    transition:transform 0.4s cubic-bezier(.4,0,.2,1),opacity 0.4s;
+  }
+  .flip-word.flip-out{transform:rotateX(90deg);opacity:0}
+  .flip-word.flip-in{transform:rotateX(-90deg);opacity:0;transition:none}
+  .hero-cta{display:flex;gap:0.75rem;margin-top:2rem;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:0.5rem;
+    padding:0.72rem 1.35rem;border-radius:999px;
+    font-size:0.88rem;font-weight:600;text-decoration:none;
+    border:1px solid var(--line-strong);color:var(--text);
+    background:var(--chip);
+    transition:border-color 0.25s,background 0.25s,transform 0.25s;
+  }
+  .btn:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);transform:translateY(-2px)}
+  .btn.primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+  .btn.primary:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+  .scroll-hint{
+    position:absolute;left:clamp(1.25rem,7vw,7rem);bottom:2.25rem;
+    font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--faint);display:flex;align-items:center;gap:0.6rem;
+  }
+  .scroll-hint::after{
+    content:'';width:46px;height:1px;background:currentColor;
+    transform-origin:left;animation:pull 2.4s ease-in-out infinite;
+  }
+  @keyframes pull{0%,100%{transform:scaleX(0.35)}50%{transform:scaleX(1)}}
 
-  section{margin-bottom:4rem}
-  .section-label{
-    font-family:'Space Mono',monospace;
-    font-size:0.7rem;letter-spacing:0.15em;color:var(--accent);
-    text-transform:uppercase;margin-bottom:0.5rem;
-  }
-  .section-title{
-    font-size:2rem;font-weight:800;
-    letter-spacing:-0.03em;margin-bottom:1.75rem;
-  }
-  .section-title span{color:var(--accent)}
+  /* ── Sections ── */
+  main{position:relative;z-index:2}
 
-  /* ── About ── */
-  .about-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.5rem}
-  .stat-card{
-    background:var(--card);border:1px solid var(--border);border-radius:12px;
-    padding:1.25rem 1.5rem;
-    transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+  /* Frosted panel: tinted enough to read on, sheer enough that the
+     waves keep moving behind the copy. */
+  .panel{
+    position:relative;border-radius:18px;
+    padding:clamp(1.5rem,3vw,2.25rem);
+    background:color-mix(in srgb,var(--bg) 26%,transparent);
+    backdrop-filter:blur(3px) saturate(1.25);
+    -webkit-backdrop-filter:blur(3px) saturate(1.25);
+    border:1px solid var(--line-strong);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.06),0 18px 48px rgba(0,0,0,0.22);
   }
-  .stat-card:hover{border-color:rgba(0,229,255,0.4);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.3),0 0 16px rgba(0,229,255,0.1)}
-  .stat-num{font-size:2rem;font-weight:800;color:var(--accent);line-height:1}
-  .stat-label{font-size:0.8rem;color:var(--muted);margin-top:0.3rem}
+  html[data-theme="light"] .panel{
+    background:color-mix(in srgb,var(--bg) 34%,transparent);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.6),0 18px 48px rgba(10,10,15,0.07);
+  }
+  /* Panels are sheer enough that a bright grid line can pass behind a
+     glyph — a hair of shadow keeps the copy crisp without looking shadowed. */
+  .panel,.edu-card,.life-card{text-shadow:0 1px 3px rgba(0,0,0,0.55)}
+  html[data-theme="light"] .panel,
+  html[data-theme="light"] .edu-card,
+  html[data-theme="light"] .life-card{text-shadow:0 1px 3px rgba(255,255,255,0.75)}
 
-  /* ── Skills ── */
-  .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
-  .skill-group{
-    background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;
-    transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+  /* No blur available? Lean opaque so the copy never sits on raw waves. */
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .panel,.edu-card,.life-card{background:color-mix(in srgb,var(--bg) 92%,transparent)}
   }
-  .skill-group:hover{border-color:rgba(0,229,255,0.4);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.3),0 0 16px rgba(0,229,255,0.1)}
-  .skill-group-title{
-    font-family:'Space Mono',monospace;font-size:0.72rem;
-    letter-spacing:0.1em;color:var(--accent);margin-bottom:0.85rem;
+  section{
+    padding:clamp(4rem,10vw,8rem) clamp(1.25rem,7vw,7rem);
+    max-width:1240px;margin:0 auto;
   }
-  .skill-pills{display:flex;flex-wrap:wrap;gap:0.4rem}
-  .pill{
-    font-size:0.75rem;font-weight:600;
-    padding:0.25rem 0.6rem;border-radius:6px;
-    background:rgba(0,229,255,0.07);
-    border:1px solid rgba(0,229,255,0.18);
+  .sec-head{
+    display:flex;align-items:baseline;gap:1rem;
+    padding-bottom:1.5rem;margin-bottom:3rem;
+    border-bottom:1px solid var(--line);
+  }
+  .sec-num{
+    font-size:0.75rem;font-weight:600;letter-spacing:0.16em;
+    color:var(--accent);flex-shrink:0;
+  }
+  .sec-title{font-size:clamp(1.75rem,4vw,2.75rem);font-weight:800;letter-spacing:-0.04em;line-height:1}
+  .lead{
+    font-size:clamp(1rem,1.8vw,1.3rem);line-height:1.65;
+    color:var(--muted);max-width:62ch;font-weight:400;letter-spacing:-0.01em;
+  }
+  .lead strong{color:var(--text);font-weight:600}
+
+  /* ── Stats ── */
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    gap:0;margin-top:3.5rem;border-top:1px solid var(--line);
+  }
+  .stat{padding:1.75rem 1.5rem 0 0;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:none}
+  .stat-num{
+    font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-0.05em;line-height:1;
+    background:linear-gradient(100deg,var(--text),var(--accent));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .stat-label{margin-top:0.65rem;font-size:0.82rem;line-height:1.6;color:var(--muted)}
+
+  /* ── Expertise ── */
+  .skills{display:grid}
+  .skill-row{
+    display:grid;grid-template-columns:210px 1fr;gap:2.5rem;
+    padding:2rem 0;border-top:1px solid var(--line);
+  }
+  .skill-row:first-child{border-top:none;padding-top:0}
+  .skill-cat{padding-top:0.35rem}
+  .skill-cat h3{
+    font-size:0.72rem;font-weight:700;letter-spacing:0.15em;
+    text-transform:uppercase;color:var(--accent);
+  }
+  .skill-cat p{
+    margin-top:0.5rem;font-size:0.78rem;line-height:1.55;color:var(--faint);
+  }
+  .tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+  .tag{
+    font-size:0.8rem;font-weight:500;padding:0.32rem 0.7rem;
+    border-radius:999px;border:1px solid var(--line);
+    background:var(--chip);color:var(--muted);
+    transition:color 0.2s,border-color 0.2s,transform 0.2s;
+  }
+  .tag:hover{color:var(--text);border-color:var(--accent);transform:translateY(-1px)}
+  /* muted detail inside a pill, e.g. AWS · ECS Fargate, Lambda … */
+  .tag i{font-style:normal;color:var(--faint);font-size:0.74rem}
+  .tag i::before{content:'·';margin:0 0.4rem;opacity:0.6}
+  .tag.lead-tag{
     color:var(--text);
+    border-color:color-mix(in srgb,var(--accent) 40%,transparent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent);
   }
 
-  /* ── Experience ── */
-  .timeline{display:flex;flex-direction:column;gap:0;position:relative}
-  .timeline::before{
-    content:'';position:absolute;left:11px;top:6px;bottom:0;
-    width:1px;background:var(--border);
+  /* ── Timeline ── */
+  .tl{display:grid;gap:0}
+  .tl-item{
+    display:grid;grid-template-columns:180px 1fr;gap:2.5rem;
+    padding:2.25rem 0;border-top:1px solid var(--line);
+    transition:opacity 0.3s;
   }
-  .tl-item{display:flex;gap:1.5rem;position:relative;padding-bottom:2rem}
-  .tl-dot{
-    width:24px;height:24px;border-radius:50%;flex-shrink:0;
-    background:var(--bg2);border:2px solid var(--accent);
-    display:flex;align-items:center;justify-content:center;
-    position:relative;z-index:1;margin-top:2px;
+  .tl-item:first-child{border-top:none;padding-top:0}
+  .tl-when{
+    font-size:0.8rem;font-weight:600;letter-spacing:0.02em;color:var(--faint);
+    padding-top:0.35rem;white-space:nowrap;
   }
-  .tl-dot::after{
-    content:'';width:8px;height:8px;border-radius:50%;
-    background:var(--accent);
+  .tl-when .now{
+    display:inline-flex;align-items:center;gap:0.4rem;color:var(--accent);
   }
-  .tl-body{
-    background:var(--card);border:1px solid var(--border);border-radius:12px;
-    padding:1.25rem 1.5rem;flex:1;
-    transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+  .tl-when .now::before{
+    content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 60%,transparent);
+    animation:pulse 2.2s infinite;
   }
-  .tl-body:hover{border-color:rgba(0,229,255,0.4);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.3),0 0 16px rgba(0,229,255,0.1)}
-  .tl-company{font-size:1rem;font-weight:700;color:var(--text)}
-  .tl-role{font-size:0.82rem;color:var(--accent);margin:0.2rem 0}
-  .tl-date{
-    font-family:'Space Mono',monospace;font-size:0.7rem;
-    color:var(--muted);margin-bottom:0.75rem;
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 55%,transparent)}
+    70%{box-shadow:0 0 0 9px transparent}
+    100%{box-shadow:0 0 0 0 transparent}
   }
-  .tl-desc{font-size:0.85rem;color:var(--muted);line-height:1.65}
+  .tl-org{font-size:clamp(1.15rem,2.4vw,1.6rem);font-weight:700;letter-spacing:-0.03em}
+  .tl-role{margin-top:0.3rem;font-size:0.95rem;color:var(--accent);font-weight:500}
+  .tl-list{margin-top:1.1rem;display:grid;gap:0.55rem}
+  .tl-list li{
+    list-style:none;position:relative;padding-left:1.15rem;
+    font-size:0.93rem;line-height:1.65;color:var(--muted);
+  }
+  .tl-list li::before{
+    content:'';position:absolute;left:0;top:0.62em;
+    width:5px;height:1px;background:var(--accent);
+  }
+  .tl-note{margin-top:1.1rem;font-size:0.93rem;line-height:1.7;color:var(--muted);max-width:70ch}
+  .stack-line{
+    margin-top:1.25rem;padding-top:1.1rem;border-top:1px dashed var(--line);
+    font-size:0.85rem;line-height:1.8;color:var(--muted);
+  }
+  .stack-line b{
+    color:var(--accent);font-weight:700;letter-spacing:0.06em;
+    font-size:0.72rem;text-transform:uppercase;
+  }
+  .stack-line br{content:'';display:block;margin-bottom:0.5rem}
 
   /* ── Education ── */
-  .edu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+  .edu{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem;margin-top:4rem}
   .edu-card{
-    background:var(--card);border:1px solid var(--border);border-radius:12px;
-    padding:1.5rem;position:relative;overflow:hidden;
-    transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+    border:1px solid var(--line);border-radius:14px;padding:1.85rem;
+    background:var(--card);
+    backdrop-filter:blur(3px) saturate(1.25);
+    -webkit-backdrop-filter:blur(3px) saturate(1.25);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.06);
+    transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;
   }
-  .edu-card:hover{border-color:rgba(0,229,255,0.4);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.3),0 0 16px rgba(0,229,255,0.1)}
-  .edu-card::before{
-    content:'';position:absolute;top:0;left:0;right:0;height:3px;
-    background:linear-gradient(90deg,var(--accent),var(--accent2));
+  .edu-card:hover{border-color:var(--line-strong);transform:translateY(-3px);box-shadow:var(--shadow)}
+  .edu-school{font-size:1.3rem;font-weight:700;letter-spacing:-0.03em}
+  .edu-degree{margin-top:0.4rem;font-size:0.92rem;color:var(--muted);line-height:1.6}
+  .badges{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.15rem}
+  .badge{
+    font-size:0.74rem;font-weight:600;padding:0.3rem 0.65rem;border-radius:6px;
+    color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent);
   }
-  .edu-school{font-size:1.1rem;font-weight:800;letter-spacing:-0.01em;margin-bottom:0.5rem}
-  .edu-degree{font-size:0.82rem;color:var(--muted);margin-bottom:0.75rem}
-  .edu-meta{display:flex;gap:1rem;flex-wrap:wrap}
-  .edu-badge{
-    font-family:'Space Mono',monospace;font-size:0.7rem;
-    padding:0.25rem 0.6rem;border-radius:6px;
-    background:rgba(124,77,255,0.1);border:1px solid rgba(124,77,255,0.25);
-    color:#b39ddb;
+  .sub-head{
+    margin:4.5rem 0 0;font-size:0.75rem;font-weight:700;
+    letter-spacing:0.18em;text-transform:uppercase;color:var(--faint);
   }
 
-  /* ── s ── */
-  .s-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-  .-card{
-    background:var(--card);border:1px solid var(--border);border-radius:12px;
-    padding:1.5rem;display:flex;flex-direction:column;gap:0.65rem;
-    transition:border-color 0.2s,transform 0.2s;
+  /* ── Life ── */
+  .life{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.25rem}
+  .life-card{
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    background:var(--card);
+    backdrop-filter:blur(3px) saturate(1.25);
+    -webkit-backdrop-filter:blur(3px) saturate(1.25);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.06);
+    display:flex;flex-direction:column;
+    transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;
   }
-  .-card:hover{border-color:rgba(0,229,255,0.4);transform:translateY(-2px)}
-  .-top{display:flex;justify-content:space-between;align-items:flex-start}
-  .-icon{
-    width:40px;height:40px;border-radius:10px;
-    background:rgba(0,229,255,0.08);border:1px solid var(--border);
-    display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+  .life-card:hover{border-color:var(--line-strong);transform:translateY(-3px);box-shadow:var(--shadow)}
+  .life-media{
+    aspect-ratio:16/10;background:var(--bg-soft);overflow:hidden;position:relative;
+    border-bottom:1px solid var(--line);
   }
-  .-links{display:flex;gap:0.4rem}
-  .-link{
-    font-size:0.7rem;font-family:'Space Mono',monospace;
-    padding:0.2rem 0.55rem;border-radius:5px;
-    background:rgba(0,229,255,0.07);border:1px solid var(--border);
-    color:var(--accent);text-decoration:none;
-    transition:background 0.2s;
+  .life-media img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    filter:grayscale(1) contrast(1.05);transition:filter 0.45s ease,transform 0.6s ease;
   }
-  .-link:hover{background:rgba(0,229,255,0.14)}
-  .-name{font-size:1rem;font-weight:700}
-  .-desc{font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1}
-  .-stack{display:flex;flex-wrap:wrap;gap:0.35rem}
+  .life-card:hover .life-media img{filter:none;transform:scale(1.05)}
+  .life-media .ph{
+    position:absolute;inset:0;display:grid;place-items:center;
+    font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);
+    background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 14%,transparent),transparent 65%);
+  }
+  .life-body{padding:1.6rem 1.6rem 1.75rem;display:flex;flex-direction:column;flex:1}
+  .life-title{font-size:1.2rem;font-weight:700;letter-spacing:-0.03em}
+  .life-sub{margin-top:0.25rem;font-size:0.88rem;color:var(--accent);font-weight:500}
+  .life-text{margin-top:0.9rem;font-size:0.9rem;line-height:1.65;color:var(--muted);flex:1}
+  .life-text a{color:var(--text);text-decoration:none;border-bottom:1px solid var(--accent)}
+  .life-text a:hover{color:var(--accent)}
 
   /* ── Contact ── */
-  .contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:2rem}
-  .contact-card{
-    background:var(--card);border:1px solid var(--border);border-radius:12px;
-    padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;
-    text-decoration:none;color:var(--text);transition:all 0.2s;
+  #contact .sec-head{margin-bottom:2.5rem}
+  .contact-lead{font-size:clamp(1.75rem,5vw,3.25rem);font-weight:800;letter-spacing:-0.045em;line-height:1.05;max-width:16ch}
+  .contact-lead span{
+    background:linear-gradient(100deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
   }
-  .contact-card:hover{border-color:rgba(0,229,255,0.4);background:var(--glow)}
+  .contacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0;margin-top:3.5rem;border-top:1px solid var(--line)}
+  .contact-row{
+    display:flex;align-items:center;gap:1rem;
+    padding:1.35rem 1rem 1.35rem 0;
+    border-bottom:1px solid var(--line);
+    text-decoration:none;color:var(--text);
+    transition:padding-left 0.28s ease,border-color 0.28s;
+  }
+  .contact-row:hover{padding-left:0.75rem;border-color:var(--accent)}
   .contact-icon{
-    width:44px;height:44px;border-radius:10px;
-    background:rgba(0,229,255,0.07);border:1px solid var(--border);
-    display:flex;align-items:center;justify-content:center;
-    font-size:1.15rem;color:var(--accent);flex-shrink:0;
+    width:40px;height:40px;border-radius:10px;flex-shrink:0;
+    display:grid;place-items:center;color:var(--accent);
+    border:1px solid var(--line);background:var(--chip);
+    transition:border-color 0.28s,background 0.28s;
   }
-  .contact-label{font-size:0.75rem;color:var(--muted);margin-bottom:0.15rem}
-  .contact-val{font-size:0.6rem;font-weight:500}
+  .contact-row:hover .contact-icon{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+  .contact-label{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--faint)}
+  .contact-val{font-size:0.92rem;font-weight:500;margin-top:0.15rem;overflow-wrap:anywhere}
+  .contact-row:last-child{border-bottom:none}
+  .contact-row .arr{margin-left:auto;color:var(--faint);transition:transform 0.28s,color 0.28s}
+  .contact-row:hover .arr{transform:translate(4px,-4px);color:var(--accent)}
 
   /* ── Footer ── */
   footer{
-    border-top:1px solid var(--border);padding:1rem 3rem;
-    font-family:'Space Mono',monospace;font-size:0.7rem;
-    color:var(--muted);display:flex;justify-content:space-between;align-items:center;
-    position:relative;z-index:1;
+    position:relative;z-index:2;
+    border-top:1px solid var(--line);
+    padding:1.75rem clamp(1.25rem,7vw,7rem);
+    display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;
+    font-size:0.8rem;color:var(--faint);
+    background:color-mix(in srgb,var(--bg) 82%,transparent);
+    backdrop-filter:blur(10px);
+  }
+  footer b{color:var(--text);font-weight:600}
+
+  /* ── Reveal ── */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity 0.7s cubic-bezier(.2,.6,.2,1),transform 0.7s cubic-bezier(.2,.6,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* Staggered children — each item rises in just after the one above it,
+     so scrolling has a rhythm instead of one flat fade. */
+  .stag > *{
+    opacity:0;transform:translateY(24px);
+    transition:opacity 0.6s cubic-bezier(.2,.6,.2,1),transform 0.6s cubic-bezier(.2,.6,.2,1);
+  }
+  .reveal.in .stag > *{opacity:1;transform:none}
+  .stag > *:nth-child(1){transition-delay:0.06s}
+  .stag > *:nth-child(2){transition-delay:0.14s}
+  .stag > *:nth-child(3){transition-delay:0.22s}
+  .stag > *:nth-child(4){transition-delay:0.30s}
+  .stag > *:nth-child(5){transition-delay:0.38s}
+  .stag > *:nth-child(6){transition-delay:0.46s}
+  .stag > *:nth-child(7){transition-delay:0.54s}
+  .stag > *:nth-child(n+8){transition-delay:0.60s}
+
+  /* ── Scroll progress ── */
+  #progress{
+    position:fixed;top:0;left:0;right:0;height:2px;z-index:60;
+    pointer-events:none;background:color-mix(in srgb,var(--text) 6%,transparent);
+  }
+  #progress i{
+    display:block;height:100%;width:100%;transform:scaleX(0);transform-origin:left;
+    background:linear-gradient(90deg,#ff2bd1,#d417ff,#8b2bff);
+    box-shadow:0 0 12px color-mix(in srgb,var(--accent) 70%,transparent);
   }
 
-  /* ── Flip title ── */
-  .title-tag{
-    font-family:'Space Mono',monospace;font-size:0.72rem;
-    color:var(--accent);background:rgba(0,229,255,0.08);
-    border:1px solid var(--border);border-radius:4px;
-    padding:0.3rem 0.75rem;text-align:center;letter-spacing:0.05em;
-    perspective:400px;
-  }
-  .flip-word{
-    color: aliceblue;
-   font-size:1rem;font-weight:700;color:var(--text)
-    display:inline-block;
-    transition:transform 0.4s cubic-bezier(.4,0,.2,1),opacity 0.4s;
-    transform-origin:center top;
-    transform:rotateX(0deg);
-    opacity:1;
-  }
-  .flip-word.flip-out{
-    transform:rotateX(90deg);
-    opacity:0;
-  }
-  .flip-word.flip-in{
-    transform:rotateX(-90deg);
-    opacity:0;
-    transition:none;
-  }
-
-  /* ── Animations ── */
-  .fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
-  .fade-in.visible{opacity:1;transform:none}
-
-  /* ── Mobile header (shown only on mobile) ── */
-  .mobile-header{
-    display:none;
-    flex-direction:column;align-items:center;
-    gap:0.85rem;
-    padding:2rem 1.5rem 1.5rem;
-    border-bottom:1px solid var(--border);
-    background:var(--bg2);
-    position:relative;z-index:1;
-    text-align:center;
-  }
-  .mobile-header .avatar-wrap{
-    width:110px;height:110px;
-  }
-  .mobile-header .name{font-size:1.4rem;font-weight:800;letter-spacing:-0.02em}
-  .mobile-header .title-tag{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--accent);background:rgba(0,229,255,0.08);border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.75rem;letter-spacing:0.05em}
-  .mobile-header .bio{font-size:0.82rem;color:var(--muted);line-height:1.65;max-width:340px}
-  .mobile-header .social-row{display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center}
-  .mobile-nav{
-    display:none;
-    flex-wrap:wrap;justify-content:center;gap:0.4rem;
-    padding:0.75rem 1rem;
-    border-bottom:1px solid var(--border);
-    background:var(--bg);
-    position:sticky;top:0;z-index:10;
-    backdrop-filter:blur(12px);
-  }
-  .mobile-nav .nav-link{
-    padding:0.4rem 0.75rem;font-size:0.78rem;border-radius:20px;
-  }
-
-  @media(max-width:900px){
-    aside{display:none}
-    .mobile-header{display:flex}
-    .mobile-nav{display:flex}
-    .wrapper{flex-direction:column}
-    main{
-      padding:1.5rem 1rem;
-      max-width:100%;
-      margin:0 auto;
-      width:100%;
+  @media(max-width:860px){
+    nav.top{
+      position:fixed;inset:0 0 auto;top:0;
+      flex-direction:column;justify-content:center;align-items:center;
+      height:100svh;gap:1.75rem;
+      background:color-mix(in srgb,var(--bg) 96%,transparent);
+      backdrop-filter:blur(18px);
+      transform:translateY(-100%);transition:transform 0.4s cubic-bezier(.4,0,.2,1);
     }
-    section{text-align:center}
-    /* Keep text blocks left-aligned inside centered sections */
-    .tl-desc,.tl-company,.tl-role,.tl-date,
-    .edu-school,.edu-degree,
-    .-desc,.-name,
-    .bio, p{text-align:left}
-    .about-grid,.edu-grid,.-grid,.contact-grid{grid-template-columns:1fr}
-    .skills-grid{grid-template-columns:1fr}
-    .skill-pills,.-stack,.edu-meta,.social-row,.-links{justify-content:center}
-    .section-title,.section-label,.stat-num,.stat-label{text-align:center}
-    .timeline::before{left:11px}
-    .tl-item{gap:1rem}
-    .contact-card{justify-content:center}
-    footer{padding:1rem;flex-direction:column;gap:0.4rem;text-align:center}
-    /* About paragraph */
-    #about > p{text-align:left}
+    nav.top.open{transform:none}
+    nav.top a{font-size:1.6rem;font-weight:700;letter-spacing:-0.03em}
+    .menu-btn{display:block;z-index:60}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .stat{padding:1.5rem 1rem 1.5rem 0;border-bottom:1px solid var(--line)}
+    .stat:nth-child(2n){border-right:none}
+    .tl-item{grid-template-columns:1fr;gap:0.9rem}
+    .tl-when{padding-top:0}
+    .skill-row{grid-template-columns:1fr;gap:1.1rem}
+    .skill-cat{padding-top:0}
+    .skill-cat p{display:none}
+    .hero-row{gap:1rem}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation-duration:0.01ms !important;transition-duration:0.01ms !important}
   }
 </style>
+<noscript><style>
+  /* Without JS nothing can reveal these, so show everything as-is. */
+  .reveal,.stag > *{opacity:1 !important;transform:none !important}
+</style></noscript>
 </head>
 <body>
 
-<!-- Custom cursor elements -->
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
-<div id="mouse-glow"></div>
+<canvas id="waves"></canvas>
+<div id="progress" aria-hidden="true"><i></i></div>
 
-<canvas id="stars"></canvas>
-
-<div class="wrapper">
-
-  <!-- ── Mobile Header (avatar + info shown on mobile) ── -->
-  <div class="mobile-header">
-    <div class="avatar-wrap">
-      <div class="avatar-ring"></div>
-      <div class="avatar-inner">
-        <img src="pp.jpg" alt="Profile photo" />
-      </div>
-    </div>
-    <div class="name">Joshua Tobongbanua</div>
-    <div class="title-tag"><b><span class="flip-word"></span></b></div>
-    <p class="bio">Software Developer by profession, musician by passion, gamer by choice, and rider by adventure. 
-      I enjoy building software solutions, exploring new technologies, creating music, diving into immersive games, 
-      and hitting the road on two wheels. Always learning, creating, and seeking the next challenge—whether it's in code, music, gaming, or the journey ahead.</p>    <div class="social-row">
-      <!-- <a class="social-btn" href="https://github.com/" target="_blank" title="GitHub">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-      </a> -->
-      <a class="social-btn" href="https://www.linkedin.com/in/joshua-tobongbanua-a39aa6187/" target="_blank" title="LinkedIn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <a class="social-btn" href="https://www.facebook.com/joshua.tobongbanua.328801" target="_blank" title="Facebook">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.009 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.017 1.792-4.687 4.533-4.687 1.313 0 2.686.235 2.686.235v2.961h-1.514c-1.491 0-1.956.926-1.956 1.875v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.082 24 18.092 24 12.073z"/>
-        </svg>
-      </a>
-      <a class="social-btn" href="mailto:jtobongbanua.aps@gmail.com" title="Gmail">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      </a>
-      <a class="social-btn" href="mailto:joshua@autopartneredsolutions.com" title="Company Mail">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      </a>
-      <a class="social-btn" href="https://www.youtube.com/@JStudio11" target="_blank" title="YouTube">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M23.498 6.186a2.99 2.99 0 0 0-2.104-2.117C19.548 3.5 12 3.5 12 3.5s-7.548 0-9.394.569A2.99 2.99 0 0 0 .502 6.186C0 8.05 0 12 0 12s0 3.95.502 5.814a2.99 2.99 0 0 0 2.104 2.117C4.452 20.5 12 20.5 12 20.5s7.548 0 9.394-.569a2.99 2.99 0 0 0 2.104-2.117C24 15.95 24 12 24 12s0-3.95-.502-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/>
-        </svg>
-      </a>
-    </div>
+<!-- HUD cursor (pointer-fine devices only) -->
+<canvas id="cur-trail" aria-hidden="true"></canvas>
+<div id="cur-ret" aria-hidden="true">
+  <div class="ret">
+    <b class="c tl"></b><b class="c tr"></b><b class="c bl"></b><b class="c br"></b>
   </div>
+</div>
+<div id="cur-dot" aria-hidden="true"></div>
 
-  <!-- ── Mobile Nav ── -->
-  <nav class="mobile-nav">
-    <a class="nav-link active" href="#about"><span class="dot"></span>About</a>
-    <a class="nav-link" href="#skills"><span class="dot"></span>Skills</a>
-    <a class="nav-link" href="#experience"><span class="dot"></span>Experience</a>
-    <a class="nav-link" href="#education"><span class="dot"></span>Education</a>
-    <a class="nav-link" href="#life"><span class="dot"></span>My Life</a>
-    <a class="nav-link" href="#contact"><span class="dot"></span>Contact</a>
+<header id="topbar">
+  <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">
+    <svg id="themeIcon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+      <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+    </svg>
+  </button>
+
+  <button class="menu-btn" id="menuBtn" aria-label="Menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <path d="M4 8h16M4 16h16"/>
+    </svg>
+  </button>
+
+  <nav class="top" id="topnav">
+    <a href="#expertise">Expertise</a>
+    <a href="#history">History</a>
+    <a href="#life">Life</a>
+    <a href="#contact">Contact</a>
   </nav>
+</header>
 
-  <!-- ── Sidebar ── -->
-  <aside>
-    <div class="avatar-wrap">
-      <div class="avatar-ring"></div>
-      <div class="avatar-inner">
-        <img src="pp.jpg" alt="Profile photo" />
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-row">
+      <div class="avatar">
+        <img src="pp.jpg" alt="Joshua Tobongbanua"
+             onerror="this.parentNode.innerHTML='&lt;div class=&quot;initials&quot;&gt;JT&lt;/div&gt;'" />
       </div>
-    </div>
-    <div class="name">Joshua Tobongbanua</div>
-    <div class="title-tag"><span class="flip-word"></span></div>
-    <p class="bio">Software Developer by profession, musician by passion, gamer by choice, and rider by adventure. 
-      I enjoy building software solutions, exploring new technologies, creating music, diving into immersive games, 
-      and hitting the road on two wheels. Always learning, creating, and seeking the next challenge—whether it's in code, music, gaming, or the journey ahead.</p>
-    <div class="divider"></div>
-    <div class="social-row">
-      <!-- <a class="social-btn" href="https://github.com/" target="_blank" title="GitHub">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-      </a> -->
-      <a class="social-btn" href="https://www.linkedin.com/in/joshua-tobongbanua-a39aa6187/" target="_blank" title="LinkedIn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <a class="social-btn" href="https://www.facebook.com/joshua.tobongbanua.328801" target="_blank" title="Facebook">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.009 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.017 1.792-4.687 4.533-4.687 1.313 0 2.686.235 2.686.235v2.961h-1.514c-1.491 0-1.956.926-1.956 1.875v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.082 24 18.092 24 12.073z"/>
-        </svg>
-      </a>
-      <a class="social-btn" href="mailto:jtobongbanua.aps@gmail.com" title="Gmail">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      </a>
-      <a class="social-btn" href="mailto:joshua@autopartneredsolutions.com" title="Company Mail">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      </a>
-      <a class="social-btn" href="https://www.youtube.com/@JStudio11" target="_blank" title="YouTube">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M23.498 6.186a2.99 2.99 0 0 0-2.104-2.117C19.548 3.5 12 3.5 12 3.5s-7.548 0-9.394.569A2.99 2.99 0 0 0 .502 6.186C0 8.05 0 12 0 12s0 3.95.502 5.814a2.99 2.99 0 0 0 2.104 2.117C4.452 20.5 12 20.5 12 20.5s7.548 0 9.394-.569a2.99 2.99 0 0 0 2.104-2.117C24 15.95 24 12 24 12s0-3.95-.502-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/>
-        </svg>
-      </a>
-    </div>
-    <div class="divider"></div>
-    <nav class="nav-links">
-      <a class="nav-link active" href="#about"><span class="dot"></span>About</a>
-      <a class="nav-link" href="#skills"><span class="dot"></span>Skills</a>
-      <a class="nav-link" href="#experience"><span class="dot"></span>Experience</a>
-      <a class="nav-link" href="#education"><span class="dot"></span>Education</a>
-      <a class="nav-link" href="#life"><span class="dot"></span>My Life</a>
-      <a class="nav-link" href="#contact"><span class="dot"></span>Contact</a>
-    </nav>
-  </aside>
-
-  <!-- ── Main ── -->
-  <main>
-
-    <!-- About -->
-    <section id="about" class="fade-in">
-      <p class="section-label">// Hello World!</p>
-      <h1 class="section-title">Hi, I'm <span>Joshua Tobongbanua</span></h1>
-      <p style="color:var(--muted);line-height:1.8;max-width:620px;font-size:0.95rem">
-        Software Developer and Technical Lead focused on full-stack development, automation, and 
-        AI-powered solutions. I build scalable web applications, streamline business processes, and 
-        leverage modern technologies to deliver efficient, reliable, and maintainable software.
-      </p>
-      <div class="about-grid" style="margin-top:1.75rem">
-        <div class="stat-card">
-          <div class="stat-num">5+</div>
-          <div class="stat-label">Years of Developer Experience<br />Team Leader<br />QA Analyst</div>
+      <div>
+        <div class="hero-socials">
+          <a href="https://www.linkedin.com/in/joshua-tobongbanua-a39aa6187/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/joshua.tobongbanua.328801" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.009 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.017 1.792-4.687 4.533-4.687 1.313 0 2.686.235 2.686.235v2.961h-1.514c-1.491 0-1.956.926-1.956 1.875v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.082 24 18.092 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@JStudio11" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a2.99 2.99 0 0 0-2.104-2.117C19.548 3.5 12 3.5 12 3.5s-7.548 0-9.394.569A2.99 2.99 0 0 0 .502 6.186C0 8.05 0 12 0 12s0 3.95.502 5.814a2.99 2.99 0 0 0 2.104 2.117C4.452 20.5 12 20.5 12 20.5s7.548 0 9.394-.569a2.99 2.99 0 0 0 2.104-2.117C24 15.95 24 12 24 12s0-3.95-.502-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/></svg>
+          </a>
+          <a href="mailto:joshua@autopartneredsolutions.com" title="Email" aria-label="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
         </div>
-        <div class="stat-card">
-          <div class="stat-num">12+</div>
-          <div class="stat-label">Years of Teaching Experience</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">10+</div>
-          <div class="stat-label">Technologies Used</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">∞</div>
-          <div class="stat-label">Problems Solved</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills" class="fade-in">
-      <p class="section-label">// Skills</p>
-      <h2 class="section-title">Tech <span>Stack</span></h2>
-
-      <div class="skills-grid">
-
-        <div class="skill-group">
-          <div class="skill-group-title">LANGUAGES</div>
-          <div class="skill-pills">
-            <span class="pill">TypeScript</span>
-            <span class="pill">JavaScript</span>
-            <span class="pill">PHP</span>
-            <span class="pill">Python</span>
-            <span class="pill">SQL</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <div class="skill-group-title">FRONTEND</div>
-          <div class="skill-pills">
-            <span class="pill">ReactJS</span>
-            <span class="pill">HTML</span>
-            <span class="pill">CSS</span>
-            <span class="pill">Tailwind CSS</span>
-            <span class="pill">jQuery</span>
-            <span class="pill">jqGrid</span>
-            <span class="pill">AJAX</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <div class="skill-group-title">BACKEND</div>
-          <div class="skill-pills">
-            <span class="pill">Node.js</span>
-            <span class="pill">PHP</span>
-            <span class="pill">Python</span>
-            <span class="pill">REST APIs</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <div class="skill-group-title">DATABASE</div>
-          <div class="skill-pills">
-            <span class="pill">MariaDB</span>
-            <span class="pill">PostgreSQL</span>
-            <span class="pill">Supabase</span>
-            <span class="pill">SQL</span>
-            <span class="pill">phpMyAdmin</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <div class="skill-group-title">AI & AUTOMATION</div>
-          <div class="skill-pills">
-            <span class="pill">Machine Learning</span>
-            <span class="pill">TensorFlow</span>
-            <span class="pill">Lovable</span>
-            <span class="pill">Retell AI</span>
-            <span class="pill">AI Tools</span>
-            <span class="pill">Puppeteer</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <div class="skill-group-title">TOOLS & DEVOPS</div>
-          <div class="skill-pills">
-            <span class="pill">Git</span>
-            <span class="pill">AWS</span>
-            <span class="pill">Linux</span>
-            <span class="pill">Shell Scripting</span>
-            <span class="pill">Photoshop</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Experience -->
-    <section id="experience" class="fade-in">
-      <p class="section-label">// career</p>
-      <h2 class="section-title">Work <span>Experience</span></h2>
-
-      <div class="timeline">
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-body">
-            <div class="tl-company">Ariintel / Auto PARTnered Solutions</div>
-            <div class="tl-role">Software Developer / QA / AI Development</div>
-            <div class="tl-date">September 2023 — Present</div>
-            <p class="tl-desc">
-              • Lead full-stack web application development and technical implementation.<br>
-              • Manage QA activities including testing, validation, code reviews, and release readiness.<br>
-              • Design and deploy AI-powered automations and workflow optimization solutions.<br>
-              • Collaborate with stakeholders to deliver scalable, reliable, and business-focused applications.<br>
-              • Support system maintenance, troubleshooting, deployment, and continuous improvement initiatives.
-            
-              <br><br />
-              Responsibilities include full-stack development, quality assurance, technical leadership, AI integration, automation development, code reviews, functional testing, troubleshooting, deployment support, and mentoring team members. Drive the adoption of AI-powered tools and workflow automations to reduce manual effort, improve productivity, and enhance system capabilities.
-              <br><br />
-            
-              <strong>Tech Stack:</strong> PHP, Python, JavaScript, TypeScript, React, Node.js, HTML, CSS, Tailwind CSS, jQuery, jqGrid, AJAX, REST APIs, SQL, MariaDB, PostgreSQL, Supabase, TensorFlow, Retell AI, Puppeteer, Git, AWS, Linux, Shell Scripting, phpMyAdmin, Machine Learning, and AI Tools.
-            </p>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-body">
-            <div class="tl-company">St. Theresita's Academy</div>
-            <div class="tl-role">System Developer & Administrator</div>
-            <div class="tl-date">2015 — 2020</div>
-            <p class="tl-desc">
-              Designed, developed, and maintained internal school systems including
-              the STA File Management System and Student Computer Laboratory
-              Management System. Managed system administration and provided
-              technical support for school operations.
-            </p>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-body">
-            <div class="tl-company">St. Theresita's Academy</div>
-            <div class="tl-role">JHS / SHS Teacher & Computer Instructor</div>
-            <div class="tl-date">2011 — 2023</div>
-            <p class="tl-desc">
-              Taught Computer Education subjects for Junior and Senior High School.
-              Covered Web Development, Java Programming, Desktop Publishing,
-              Project Management, Graphic Design, Computer System Servicing (CSS-NCII),
-              Empowerment Technologies, and Disaster Readiness and Risk Reduction.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Education -->
-    <section id="education" class="fade-in">
-      <p class="section-label">// academics</p>
-      <h2 class="section-title">Edu<span>cation</span></h2>
-
-      <div class="edu-grid">
-
-        <div class="edu-card">
-          <div class="edu-school">KodeGo</div>
-          <div class="edu-degree">Full-Stack Web Development Bootcamp (Batch WD58P)</div>
-          <div class="edu-meta">
-            <span class="edu-badge">2023</span>
-            <span class="edu-badge">Top 5 Student</span>
-          </div>
-          <div class="edu-meta" style="margin-top:8px;">
-            <span class="edu-badge">Bibong KodeGeek Award</span>
-            <span class="edu-badge">Capstone Leader</span>
-          </div>
-        </div>
-
-        <div class="edu-card">
-          <div class="edu-school">Silay Institute</div>
-          <div class="edu-degree">Bachelor of Science in Computer Science</div>
-          <div class="edu-meta">
-            <span class="edu-badge">2011</span>
-            <span class="edu-badge">Best Web Designer Awardee</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Projects -->
-    <!-- <section id="projects" class="fade-in">
-      <p class="section-label">// work</p>
-      <h2 class="section-title">Featured <span>Projects</span></h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-top">
-            <div class="project-icon">🚀</div>
-            <div class="project-links">
-              <a class="project-link" href="#">GitHub</a>
-              <a class="project-link" href="#">Live</a>
-            </div>
-          </div>
-          <div class="project-name">Project Alpha</div>
-          <p class="project-desc">A full-stack SaaS application for team task management with real-time collaboration, notifications, and analytics dashboard.</p>
-          <div class="project-stack">
-            <span class="pill">React</span><span class="pill">Node.js</span><span class="pill">PostgreSQL</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-top">
-            <div class="project-icon">⚡</div>
-            <div class="project-links">
-              <a class="project-link" href="#">GitHub</a>
-              <a class="project-link" href="#">Live</a>
-            </div>
-          </div>
-          <div class="project-name">DevTools CLI</div>
-          <p class="project-desc">An open-source command-line toolkit that automates project scaffolding, linting setup, and CI/CD pipeline generation.</p>
-          <div class="project-stack">
-            <span class="pill">Node.js</span><span class="pill">TypeScript</span><span class="pill">Shell</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-top">
-            <div class="project-icon">📊</div>
-            <div class="project-links">
-              <a class="project-link" href="#">GitHub</a>
-              <a class="project-link" href="#">Live</a>
-            </div>
-          </div>
-          <div class="project-name">Analytics Platform</div>
-          <p class="project-desc">A lightweight, embeddable analytics SDK and dashboard — drop-in replacement for privacy-invasive third-party trackers.</p>
-          <div class="project-stack">
-            <span class="pill">Next.js</span><span class="pill">Redis</span><span class="pill">D3.js</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-top">
-            <div class="project-icon">🔐</div>
-            <div class="project-links">
-              <a class="project-link" href="#">GitHub</a>
-            </div>
-          </div>
-          <div class="project-name">Auth Microservice</div>
-          <p class="project-desc">A production-ready JWT + OAuth2 authentication microservice with role-based access control and audit logging.</p>
-          <div class="project-stack">
-            <span class="pill">Express</span><span class="pill">MySQL</span><span class="pill">Docker</span>
-          </div>
-        </div>
-      </div>
-    </section> -->
-
-    <!-- My Life -->
-<section id="life" class="fade-in">
-  <p class="section-label">// personal</p>
-  <h2 class="section-title">My <span>Life</span></h2>
-
-  <div class="edu-grid">
-
-    <!-- Music / Band -->
-    <div class="edu-card">
-      <img src="band.jpg" alt="Band Performance" style="width:100%; border-radius:10px; margin-bottom:12px;">
-      
-      <div class="edu-school">Stereotype Band</div>
-      <div class="edu-degree">Bass Guitarist / Performer</div>
-
-      <p style="margin-top:10px; opacity:0.85; font-size:14px; line-height:1.5;">
-        I perform professionally as an active member of the <a href="https://www.facebook.com/wethestereotype">Stereotype Band</a> since 2022,
-        playing live shows and supporting music events.
-      </p>
-
-      <div class="edu-meta">
-        <span class="edu-badge">Live Performer</span>
-        <span class="edu-badge">Since 2022</span>
+        <h1 class="name">Joshua<br />Tobongbanua</h1>
+        <p class="role"><span class="flip-word">Software Developer</span></p>
       </div>
     </div>
 
-    <!-- Instrumentalist -->
-    <div class="edu-card">
-      <img src="music.jpg" alt="Instrumentalist" style="width:100%; border-radius:10px; margin-bottom:12px;">
-
-      <div class="edu-school">Instrumentalist</div>
-      <div class="edu-degree">Multi-Instrument Player</div>
-
-      <p style="margin-top:10px; opacity:0.85; font-size:14px; line-height:1.5;">
-        I play guitar, piano/keyboard, drums, and other instruments.
-        I also have experience teaching and reading musical notation for over 15 years.
-      </p>
-
-      <div class="edu-meta">
-        <span class="edu-badge">Music Educator</span>
-        <span class="edu-badge">15+ Years</span>
-      </div>
+    <div class="hero-cta">
+      <a class="btn primary" href="#contact">Get in touch</a>
+      <a class="btn" href="#expertise">Tech Stack</a>
     </div>
-
-    <!-- Coding -->
-    <div class="edu-card">
-      <img src="coding.jpg" alt="Coding" style="width:100%; border-radius:10px; margin-bottom:12px;">
-
-      <div class="edu-school">Coding as a Passion</div>
-      <div class="edu-degree">Software Development</div>
-
-      <p style="margin-top:10px; opacity:0.85; font-size:14px; line-height:1.5;">
-        From teaching years to professional development, I continued building and learning software.
-        Eventually fully transitioning into software development and AI-driven engineering.
-      </p>
-
-      <div class="edu-meta">
-        <span class="edu-badge">Software Dev</span>
-        <span class="edu-badge">AI Enthusiast</span>
-      </div>
-    </div>
-
   </div>
-</section>
-
-    <!-- Contact -->
-    <section id="contact" class="fade-in">
-      <p class="section-label">// reach out</p>
-      <h2 class="section-title">Get in <span>Touch</span></h2>
-      <div class="contact-grid">
-        <a class="contact-card" href="mailto:animusadamo@gmail.com">
-          <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </div>
-          <div>
-            <div class="contact-label">Personal Gmail</div>
-            <div class="contact-val">animusadamo@gmail.com</div>
-          </div>
-        </a>
-        <a class="contact-card" href="mailto:jtobongbanua.aps@gmail.com">
-          <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </div>
-          <div>
-            <div class="contact-label">Company Gmail</div>
-            <div class="contact-val">jtobongbanua.aps@gmail.com</div>
-          </div>
-        </a>
-        <a class="contact-card" href="https://www.linkedin.com/in/joshua-tobongbanua-a39aa6187/" target="_blank">
-          <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          </div>
-          <div>
-            <div class="contact-label">LinkedIn</div>
-            <div class="contact-val">Joshua Tobongbanua</div>
-          </div>
-        </a>
-        <a class="contact-card" href="https://www.facebook.com/joshua.tobongbanua.328801" target="_blank">
-          <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M22 12.07C22 6.49 17.52 2 12 2S2 6.49 2 12.07C2 17.08 5.66 21.21 10.44 22v-7.03H7.9v-2.9h2.54V9.41c0-2.52 1.5-3.9 3.8-3.9 1.1 0 2.25.2 2.25.2v2.48h-1.27c-1.25 0-1.64.78-1.64 1.58v1.9h2.78l-.44 2.9h-2.34V22C18.34 21.21 22 17.08 22 12.07z"/>
-            </svg>
-          </div>
-          <div>
-            <div class="contact-label">Facebook</div>
-            <div class="contact-val">Joshua Tobongbanua</div>
-          </div>
-        </a>
-        <a class="contact-card" href="https://www.youtube.com/@JStudio11" target="_blank">
-          <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M23.498 6.186a2.97 2.97 0 0 0-2.088-2.105C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.41.581A2.97 2.97 0 0 0 .502 6.186 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .502 5.814 2.97 2.97 0 0 0 2.088 2.105C4.5 20.5 12 20.5 12 20.5s7.5 0 9.41-.581a2.97 2.97 0 0 0 2.088-2.105A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
-            </svg>
-          </div>
-          <div>
-            <div class="contact-label">YouTube</div>
-            <div class="contact-val">youtube.com/@JStudio11</div>
-          </div>
-        </a>
-        <a class="contact-card">
-          <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.07 21 3 13.93 3 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/>
-            </svg>
-          </div>
-          <div>
-            <div class="contact-label">Phone</div>
-            <div class="contact-val">+63 995 268 4166</div>
-          </div>
-        </a>
-      </div>
-    </section>
-
-  </main>
+  <div class="scroll-hint">Scroll</div>
 </div>
 
+<main>
+
+  <!-- ══ ABOUT ══ -->
+  <section id="about" class="reveal">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">About</h2>
+    </div>
+    <div class="panel">
+    <p class="lead">
+      <strong>Software Developer and Technical Lead</strong> focused on full-stack development, automation,
+      and AI-powered solutions. I build scalable web applications, streamline business processes, and
+      leverage modern technologies to deliver efficient, reliable, and maintainable software.
+    </p>
+    <p class="lead" style="margin-top:1.5rem;font-size:1rem">
+      Software Developer by profession, musician by passion, gamer by choice, and rider by adventure.
+      I enjoy building software solutions, exploring new technologies, creating music, diving into
+      immersive games, and hitting the road on two wheels. Always learning, creating, and seeking the
+      next challenge — whether it's in code, music, gaming, or the journey ahead.
+    </p>
+
+    <div class="stats stag">
+      <div class="stat">
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Years of Developer Experience<br />Team Leader · QA Analyst · AI Developer</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Years of IT Teaching Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Technologies Used</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Problems Solved</div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ══ EXPERTISE ══ -->
+  <section id="expertise" class="reveal">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">Expertise</h2>
+    </div>
+
+    <div class="skills panel stag">
+
+      <div class="skill-row">
+        <div class="skill-cat">
+          <h3>AI &amp; LLM</h3>
+          <p>Model integration, voice agents, and evaluation</p>
+        </div>
+        <div class="tags">
+          <span class="tag lead-tag">Anthropic Claude</span>
+          <span class="tag lead-tag">OpenAI <i>incl. Realtime API</i></span>
+          <span class="tag lead-tag">Google Gemini</span>
+          <span class="tag">LiveKit Agents</span>
+          <span class="tag">Vercel AI SDK</span>
+          <span class="tag">ElevenLabs</span>
+          <span class="tag">Deepgram</span>
+          <span class="tag">AssemblyAI</span>
+          <span class="tag">Retell AI</span>
+          <span class="tag">Prompt Engineering &amp; Versioning</span>
+          <span class="tag">Tool / Function Calling</span>
+          <span class="tag">Multi-Provider Model Routing</span>
+          <span class="tag">LLM Evaluation</span>
+          <span class="tag">Machine Learning</span>
+          <span class="tag">TensorFlow</span>
+          <span class="tag">Lovable</span>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-cat">
+          <h3>Frontend</h3>
+          <p>Typed React apps and design systems</p>
+        </div>
+        <div class="tags">
+          <span class="tag lead-tag">TypeScript</span>
+          <span class="tag lead-tag">React 19</span>
+          <span class="tag lead-tag">Next.js 16 <i>App Router, RSC, Server Actions</i></span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">HTML / CSS</span>
+          <span class="tag">jQuery</span>
+          <span class="tag">jqGrid</span>
+          <span class="tag">AJAX</span>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-cat">
+          <h3>Backend &amp; Data</h3>
+          <p>APIs, databases, payments, and telephony</p>
+        </div>
+        <div class="tags">
+          <span class="tag lead-tag">Python</span>
+          <span class="tag lead-tag">Node.js</span>
+          <span class="tag lead-tag">PostgreSQL</span>
+          <span class="tag lead-tag">Supabase <i>Auth, Realtime, RLS, Edge Functions</i></span>
+          <span class="tag">Flask</span>
+          <span class="tag">PHP</span>
+          <span class="tag">SQL Migrations</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Stripe</span>
+          <span class="tag">Twilio</span>
+          <span class="tag">Axe Payment</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">MariaDB</span>
+          <span class="tag">phpMyAdmin</span>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-cat">
+          <h3>Cloud &amp; DevOps</h3>
+          <p>Infrastructure, delivery pipelines, and automation</p>
+        </div>
+        <div class="tags">
+          <span class="tag lead-tag">AWS <i>ECS Fargate, Lambda, App Runner, S3, ECR, Secrets Manager, CloudWatch</i></span>
+          <span class="tag lead-tag">Terraform</span>
+          <span class="tag lead-tag">Docker</span>
+          <span class="tag">GitHub Actions CI/CD</span>
+          <span class="tag">Vercel</span>
+          <span class="tag">Linux &amp; Shell Scripting</span>
+          <span class="tag">Git</span>
+          <span class="tag">Puppeteer</span>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-cat">
+          <h3>Practices</h3>
+          <p>How the work ships and stays reliable</p>
+        </div>
+        <div class="tags">
+          <span class="tag">Multi-Tenant SaaS</span>
+          <span class="tag">RBAC</span>
+          <span class="tag">Zero-Downtime Migrations</span>
+          <span class="tag">Vitest &amp; pytest</span>
+          <span class="tag">Functional &amp; Regression QA</span>
+          <span class="tag">Code Review</span>
+          <span class="tag">OpenTelemetry</span>
+          <span class="tag">PostHog</span>
+          <span class="tag">Jira</span>
+          <span class="tag">Agile</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ HISTORY ══ -->
+  <section id="history" class="reveal">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">History</h2>
+    </div>
+
+    <div class="tl panel stag">
+
+      <div class="tl-item">
+        <div class="tl-when"><span class="now">Sep 2023 — Present</span></div>
+        <div>
+          <div class="tl-org">Ariintel / Auto PARTnered Solutions</div>
+          <div class="tl-role">Software Developer / QA / AI Development Lead</div>
+          <ul class="tl-list">
+            <li>Lead full-stack web application development and technical implementation.</li>
+            <li>Manage QA activities including testing, validation, code reviews, and release readiness.</li>
+            <li>Design and deploy AI-powered automations and workflow optimization solutions.</li>
+            <li>Collaborate with stakeholders to deliver scalable, reliable, and business-focused applications.</li>
+            <li>Support system maintenance, troubleshooting, deployment, and continuous improvement initiatives.</li>
+          </ul>
+          <p class="tl-note">
+            Responsibilities include full-stack development, quality assurance, technical leadership, AI
+            integration, automation development, code reviews, functional testing, troubleshooting,
+            deployment support, and mentoring team members. Drive the adoption of AI-powered tools and
+            workflow automations to reduce manual effort, improve productivity, and enhance system capabilities.
+          </p>
+          <p class="stack-line">
+            <b>AI &amp; LLM —</b> Anthropic Claude, OpenAI (incl. Realtime API), Google Gemini, LiveKit Agents,
+            Vercel AI SDK, ElevenLabs, Deepgram, AssemblyAI, Retell AI, prompt engineering &amp; versioning,
+            tool/function calling, multi-provider model routing, LLM evaluation.<br />
+            <b>Frontend —</b> TypeScript, React 19, Next.js 16 (App Router, RSC, Server Actions),
+            Tailwind CSS, JavaScript, HTML/CSS.<br />
+            <b>Backend &amp; Data —</b> Python, Flask, Node.js, PHP, PostgreSQL,
+            Supabase (Auth, Realtime, RLS, Edge Functions), SQL migrations, REST APIs, Stripe, Twilio,
+            Axe Payment, MySQL.<br />
+            <b>Cloud &amp; DevOps —</b> AWS (ECS Fargate, Lambda, App Runner, S3, ECR, Secrets Manager,
+            CloudWatch), Terraform, Docker, GitHub Actions CI/CD, Vercel, Linux &amp; shell scripting, Git.<br />
+            <b>Practices —</b> multi-tenant SaaS, RBAC, zero-downtime migrations, Vitest &amp; pytest,
+            functional &amp; regression QA, code review, OpenTelemetry, PostHog, Jira, Agile.<br />
+            <b>Also maintained —</b> jQuery, jqGrid, AJAX, MariaDB, phpMyAdmin, TensorFlow, Puppeteer.
+          </p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-when">2015 — 2020</div>
+        <div>
+          <div class="tl-org">St. Theresita's Academy</div>
+          <div class="tl-role">System Developer &amp; Administrator</div>
+          <p class="tl-note">
+            Designed, developed, and maintained internal school systems including the STA File Management
+            System and Student Computer Laboratory Management System. Managed system administration and
+            provided technical support for school operations.
+          </p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-when">2011 — 2023</div>
+        <div>
+          <div class="tl-org">St. Theresita's Academy</div>
+          <div class="tl-role">JHS / SHS Teacher &amp; Computer Instructor</div>
+          <p class="tl-note">
+            Taught Computer Education subjects for Junior and Senior High School. Covered Web Development,
+            Java Programming, Desktop Publishing, Project Management, Graphic Design, Computer System
+            Servicing (CSS-NCII), Empowerment Technologies, and Disaster Readiness and Risk Reduction.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="sub-head">Education</p>
+    <div class="edu stag">
+      <div class="edu-card">
+        <div class="edu-school">KodeGo</div>
+        <div class="edu-degree">Full-Stack Web Development Bootcamp (Batch WD58P)</div>
+        <div class="badges">
+          <span class="badge">2023</span>
+          <span class="badge">Top 5 Student</span>
+          <span class="badge">Bibong KodeGeek Award</span>
+          <span class="badge">Capstone Leader</span>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-school">Silay Institute</div>
+        <div class="edu-degree">Bachelor of Science in Computer Science</div>
+        <div class="badges">
+          <span class="badge">2011</span>
+          <span class="badge">Best Web Designer Awardee</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LIFE ══ -->
+  <section id="life" class="reveal">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">My Life</h2>
+    </div>
+
+    <div class="life stag">
+
+      <div class="life-card">
+        <div class="life-media">
+          <img src="images/band.jpg" alt="Band performance"
+               onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=&quot;ph&quot;&gt;Stereotype&lt;/div&gt;')" />
+        </div>
+        <div class="life-body">
+          <div class="life-title">Stereotype Band</div>
+          <div class="life-sub">Bass Guitarist / Performer</div>
+          <p class="life-text">
+            I perform professionally as an active member of the
+            <a href="https://www.facebook.com/wethestereotype" target="_blank" rel="noopener">Stereotype</a>
+            Band since 2022, playing live shows and supporting music events.
+          </p>
+          <div class="badges">
+            <span class="badge">Live Performer</span>
+            <span class="badge">Since 2022</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="life-card">
+        <div class="life-media">
+          <img src="music.jpg" alt="Instrumentalist"
+               onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=&quot;ph&quot;&gt;Instruments&lt;/div&gt;')" />
+        </div>
+        <div class="life-body">
+          <div class="life-title">Instrumentalist</div>
+          <div class="life-sub">Multi-Instrument Player</div>
+          <p class="life-text">
+            I play guitar, piano/keyboard, drums, and other instruments. I also have experience teaching
+            and reading musical notation for over 15 years.
+          </p>
+          <div class="badges">
+            <span class="badge">Music Educator</span>
+            <span class="badge">15+ Years</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="life-card">
+        <div class="life-media">
+          <img src="images/coding.jpg" alt="Coding"
+               onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=&quot;ph&quot;&gt;Code&lt;/div&gt;')" />
+        </div>
+        <div class="life-body">
+          <div class="life-title">Coding as a Passion</div>
+          <div class="life-sub">Software Development</div>
+          <p class="life-text">
+            From teaching years to professional development, I continued building and learning software.
+            Eventually fully transitioning into software development and AI-driven engineering.
+          </p>
+          <div class="badges">
+            <span class="badge">Software Dev</span>
+            <span class="badge">AI Enthusiast</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ CONTACT ══ -->
+  <section id="contact" class="reveal">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title">Contact</h2>
+    </div>
+
+    <p class="contact-lead">Let's build <span>something</span> together.</p>
+
+    <div class="contacts panel stag">
+      <a class="contact-row" href="mailto:animusadamo@gmail.com">
+        <span class="contact-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <span>
+          <span class="contact-label">Personal Gmail</span>
+          <span class="contact-val" style="display:block">animusadamo@gmail.com</span>
+        </span>
+        <span class="arr">↗</span>
+      </a>
+
+      <a class="contact-row" href="mailto:jtobongbanua.aps@gmail.com">
+        <span class="contact-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <span>
+          <span class="contact-label">Company Gmail</span>
+          <span class="contact-val" style="display:block">jtobongbanua.aps@gmail.com</span>
+        </span>
+        <span class="arr">↗</span>
+      </a>
+
+      <a class="contact-row" href="mailto:joshua@autopartneredsolutions.com">
+        <span class="contact-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <span>
+          <span class="contact-label">Company Mail</span>
+          <span class="contact-val" style="display:block">joshua@autopartneredsolutions.com</span>
+        </span>
+        <span class="arr">↗</span>
+      </a>
+
+      <a class="contact-row" href="https://www.linkedin.com/in/joshua-tobongbanua-a39aa6187/" target="_blank" rel="noopener">
+        <span class="contact-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </span>
+        <span>
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-val" style="display:block">Joshua Tobongbanua</span>
+        </span>
+        <span class="arr">↗</span>
+      </a>
+
+      <a class="contact-row" href="https://www.facebook.com/joshua.tobongbanua.328801" target="_blank" rel="noopener">
+        <span class="contact-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.07C22 6.49 17.52 2 12 2S2 6.49 2 12.07C2 17.08 5.66 21.21 10.44 22v-7.03H7.9v-2.9h2.54V9.41c0-2.52 1.5-3.9 3.8-3.9 1.1 0 2.25.2 2.25.2v2.48h-1.27c-1.25 0-1.64.78-1.64 1.58v1.9h2.78l-.44 2.9h-2.34V22C18.34 21.21 22 17.08 22 12.07z"/></svg>
+        </span>
+        <span>
+          <span class="contact-label">Facebook</span>
+          <span class="contact-val" style="display:block">Joshua Tobongbanua</span>
+        </span>
+        <span class="arr">↗</span>
+      </a>
+
+      <a class="contact-row" href="https://www.youtube.com/@JStudio11" target="_blank" rel="noopener">
+        <span class="contact-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a2.97 2.97 0 0 0-2.088-2.105C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.41.581A2.97 2.97 0 0 0 .502 6.186 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .502 5.814 2.97 2.97 0 0 0 2.088 2.105C4.5 20.5 12 20.5 12 20.5s7.5 0 9.41-.581a2.97 2.97 0 0 0 2.088-2.105A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+        </span>
+        <span>
+          <span class="contact-label">YouTube</span>
+          <span class="contact-val" style="display:block">youtube.com/@JStudio11</span>
+        </span>
+        <span class="arr">↗</span>
+      </a>
+
+      <a class="contact-row" href="tel:+639952684166">
+        <span class="contact-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.07 21 3 13.93 3 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>
+        </span>
+        <span>
+          <span class="contact-label">Phone</span>
+          <span class="contact-val" style="display:block">+63 995 268 4166</span>
+        </span>
+        <span class="arr">↗</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
 <footer>
-  <span>Designed &amp; Built by <strong style="color:var(--accent)">JStudio11.Sys</strong></span>
-  <span>copyright © 2026</span>
+  <span>Designed &amp; built by <b>Joshua Tobongbanua</b></span>
+  <span>© 2025</span>
 </footer>
 
 <script>
-// ── Star canvas ──
+/* ══════════ Background: wireframe wave mesh ══════════ */
 (function(){
-  const c=document.getElementById('stars'),ctx=c.getContext('2d');
-  let w,h,stars=[];
-  function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}
-  function init(){
-    resize();stars=[];
-    for(let i=0;i<120;i++){
-      stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.2+0.2,a:Math.random(),da:0.003+Math.random()*0.005,vx:(Math.random()-0.5)*0.08,vy:(Math.random()-0.5)*0.08})
+  const canvas = document.getElementById('waves');
+  const ctx = canvas.getContext('2d');
+  let w = 0, h = 0, dpr = 1, t = 0, raf = null;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // A grid of points displaced by crossing sine waves, then projected in
+  // perspective — a topographic wireframe rather than a smooth ribbon.
+  let COLS = 46, ROWS = 30;   // thinned out on small screens for smoothness
+  const SPEED = 0.010;      // radians per 60fps frame — slow and graceful
+  const CAM   = 0.62;       // perspective strength
+  let floorGrid = [];       // mesh below the horizon
+  let ceilGrid  = [];       // mirrored mesh above it
+
+  // Scroll drives the camera: the horizon lifts and the surface travels as
+  // you move down the page, so scrolling has something to look at.
+  let scrollP = 0, scrollEase = 0;
+  const bar  = document.querySelector('#progress i');
+  const hero = document.querySelector('.hero-inner');
+  function readScroll(){
+    const y = window.scrollY;
+    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    scrollP = Math.min(1, Math.max(0, y / max));
+    scrollEase += (scrollP - scrollEase) * 0.08;
+    if (bar) bar.style.transform = `scaleX(${scrollP})`;
+
+    // hero drifts down and fades as the first section takes over
+    if (hero && y < h * 1.3){
+      hero.style.transform = `translateY(${y * 0.22}px)`;
+      hero.style.opacity = Math.max(0, 1 - y / (h * 0.8));
     }
   }
-  function draw(){
-    ctx.clearRect(0,0,w,h);
-    stars.forEach(s=>{
-      s.a+=s.da; if(s.a>1||s.a<0)s.da*=-1;
-      s.x+=s.vx; s.y+=s.vy;
-      if(s.x<0)s.x=w; if(s.x>w)s.x=0;
-      if(s.y<0)s.y=h; if(s.y>h)s.y=0;
-      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(0,229,255,${s.a*0.7})`;ctx.fill();
-    });
-    for(let i=0;i<stars.length;i++){
-      for(let j=i+1;j<stars.length;j++){
-        const dx=stars[i].x-stars[j].x,dy=stars[i].y-stars[j].y,dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<100){
-          ctx.beginPath();ctx.moveTo(stars[i].x,stars[i].y);ctx.lineTo(stars[j].x,stars[j].y);
-          ctx.strokeStyle=`rgba(0,229,255,${0.07*(1-dist/100)})`;ctx.lineWidth=0.5;ctx.stroke();
-        }
+  window.addEventListener('scroll', readScroll, { passive:true });
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    COLS = w < 700 ? 30 : 46;
+    ROWS = w < 700 ? 22 : 30;
+    floorGrid = [];
+    ceilGrid = [];
+    canvas.width  = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width  = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function strokeGradient(){
+    const g = ctx.createLinearGradient(0, h, w, 0);
+    g.addColorStop(0.00, '#ff2bd1');
+    g.addColorStop(0.30, '#d417ff');
+    g.addColorStop(0.60, '#8b2bff');
+    g.addColorStop(1.00, '#4318d8');
+    return g;
+  }
+
+  // Height field — two crossing waves plus a slow swell, so the surface
+  // never repeats on an obvious beat.
+  function height(u, v, time){
+    return Math.sin(u * 4.2 + time)        * 0.55
+         + Math.sin(v * 3.1 - time * 0.75) * 0.35
+         + Math.sin((u + v) * 2.3 + time * 0.45) * 0.30;
+  }
+
+  // flip = 1 projects the floor, -1 mirrors the same surface as a ceiling
+  function project(grid, flip, timeOffset){
+    // horizon drifts up as you scroll; the surface also travels forward
+    const horizon = h * (0.5 - scrollEase * 0.14);
+    const time = t * SPEED + timeOffset + scrollEase * 5.5;
+    for (let r = 0; r < ROWS; r++){
+      const v = r / (ROWS - 1);              // 0 = far, 1 = near
+      const depth = 0.16 + v * v * 1.5;      // non-linear: dense at the horizon
+      const scale = 1 / (1 + CAM / depth);
+      const rowY  = horizon + flip * depth * h * 0.40;
+      for (let c = 0; c < COLS; c++){
+        const u = c / (COLS - 1);
+        const px = (u - 0.5) * w * (0.85 + scale * 2.6) + w * 0.5;
+        const py = rowY + flip * height(u * 3, v * 3, time) * h * 0.06 * (0.35 + scale * 1.5);
+        const i = r * COLS + c;
+        grid[i] = grid[i] || {};
+        grid[i].x = px;
+        grid[i].y = py;
+        grid[i].a = Math.min(1, 0.08 + v * 0.92);   // fade toward the horizon
       }
     }
-    requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize',init);init();draw();
-})();
-
-// ── Custom Cursor + Mouse Glow + Magnetic Elements ──
-(function(){
-  const dot    = document.getElementById('cursor-dot');
-  const ring   = document.getElementById('cursor-ring');
-  const glow   = document.getElementById('mouse-glow');
-
-  // Current raw mouse position
-  let mx = window.innerWidth/2, my = window.innerHeight/2;
-  // Lagged ring position
-  let rx = mx, ry = my;
-  // Lagged glow position
-  let gx = mx, gy = my;
-
-  // Magnetic elements — cards, buttons, nav links, social btns, project links
-  const magEls = document.querySelectorAll(
-    '.project-card,.contact-card,' +
-    '.social-btn,.nav-link,.project-link,.avatar-wrap'
-  );
-  magEls.forEach(el => el.classList.add('mag-target'));
-
-  // Track nearest magnetic element
-  let activeMag = null;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
-  });
-
-  document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
-  document.addEventListener('mouseup',   () => document.body.classList.remove('cursor-click'));
-
-  // Hover state on interactive elements
-  const hoverEls = document.querySelectorAll(
-    'a,button,[role="button"],.stat-card,.skill-group,.tl-body,.edu-card,.project-card,.contact-card,.social-btn,.pill,.avatar-wrap'
-  );
-  hoverEls.forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-  });
-
-  // Magnetic pull
-  function getMagneticPull(el) {
-    const r = el.getBoundingClientRect();
-    const cx = r.left + r.width / 2;
-    const cy = r.top  + r.height / 2;
-    const dx = mx - cx;
-    const dy = my - cy;
-    const dist = Math.sqrt(dx*dx + dy*dy);
-    const threshold = Math.max(r.width, r.height) * 0.75 + 30;
-    if (dist < threshold) {
-      return { el, dx, dy, dist, threshold };
-    }
-    return null;
   }
 
-  function animate() {
-    // Dot: snaps instantly
-    dot.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
+  function drawMesh(grid, grad, dim){
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 1;
 
-    // Ring: smooth lag
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.transform = `translate(${rx - 20}px, ${ry - 20}px)`;
-
-    // Glow: very smooth lag
-    gx += (mx - gx) * 0.06;
-    gy += (my - gy) * 0.06;
-    glow.style.transform = `translate(${gx - 350}px, ${gy - 350}px)`;
-
-    // Magnetic pulls — reset all then apply nearest
-    if (activeMag) {
-      activeMag.style.transform = '';
-      activeMag.style.boxShadow = '';
-      activeMag = null;
-    }
-    let bestPull = null;
-    magEls.forEach(el => {
-      const pull = getMagneticPull(el);
-      if (pull && (!bestPull || pull.dist < bestPull.dist)) bestPull = pull;
-    });
-    if (bestPull) {
-      const { el, dx, dy, dist, threshold } = bestPull;
-      const strength = (1 - dist / threshold);
-      const px = dx * strength * -0.18;
-      const py = dy * strength * -0.18;
-      el.style.transform = `translate(${px}px, ${py}px)`;
-      el.style.boxShadow = `0 0 ${20*strength}px rgba(0,229,255,${0.18*strength}), 0 ${8*strength}px ${24*strength}px rgba(0,0,0,0.3)`;
-      activeMag = el;
-    }
-
-    requestAnimationFrame(animate);
-  }
-  animate();
-})();
-
-// ── Scroll fade-in ──
-(function(){
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
-  },{threshold:0.12});
-  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
-})();
-
-// ── Active nav highlight ──
-(function(){
-  const links=document.querySelectorAll('.nav-link');
-  const sections=document.querySelectorAll('section[id]');
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        links.forEach(l=>l.classList.remove('active'));
-        const active=document.querySelector(`.nav-link[href="#${e.target.id}"]`);
-        if(active)active.classList.add('active');
+    // horizontals — the topographic contours
+    for (let r = 0; r < ROWS; r++){
+      ctx.beginPath();
+      for (let c = 0; c < COLS; c++){
+        const p = grid[r * COLS + c];
+        c === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
       }
-    });
-  },{threshold:0.4});
-  sections.forEach(s=>obs.observe(s));
+      ctx.globalAlpha = grid[r * COLS].a * 0.72 * dim;
+      ctx.stroke();
+    }
+
+    // verticals — thinned out so the mesh reads as a grid, not a fill
+    for (let c = 0; c < COLS; c += 2){
+      ctx.beginPath();
+      for (let r = 0; r < ROWS; r++){
+        const p = grid[r * COLS + c];
+        r === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+      }
+      ctx.globalAlpha = 0.26 * dim;
+      ctx.stroke();
+    }
+
+    // node dots on the near rows — the "data point" accent
+    ctx.fillStyle = grad;
+    for (let r = ROWS - 12; r < ROWS; r += 3){
+      for (let c = 0; c < COLS; c += 4){
+        const p = grid[r * COLS + c];
+        ctx.globalAlpha = p.a * 0.8 * dim;
+        ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function render(grad){
+    project(floorGrid,  1, 0);
+    project(ceilGrid,  -1, 1.7);
+    drawMesh(ceilGrid,  grad, 0.55);
+    drawMesh(floorGrid, grad, 1);
+  }
+
+  // A scan sweep that travels across the mesh every so often.
+  function drawScan(grad){
+    const period = 900;                       // frames between sweeps
+    const phase = (t % period) / period;
+    if (phase > 0.42) return;                 // visible for part of the cycle
+    const x = (phase / 0.42) * (w + 240) - 120;
+    const g = ctx.createLinearGradient(x - 120, 0, x + 120, 0);
+    g.addColorStop(0,   'rgba(255,43,209,0)');
+    g.addColorStop(0.5, 'rgba(255,43,209,0.20)');
+    g.addColorStop(1,   'rgba(255,43,209,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(x - 120, 0, 240, h);
+  }
+
+  let last = 0;
+  function frame(now){
+    // advance in 60fps-equivalent units so the pace is identical on any display
+    const dt = last ? Math.min((now - last) / 16.667, 3) : 1;
+    last = now || 0;
+
+    readScroll();
+    ctx.clearRect(0, 0, w, h);
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    const grad = strokeGradient();
+    drawScan(grad);
+    render(grad);
+    t += dt;
+    raf = requestAnimationFrame(frame);
+  }
+
+  function start(){
+    resize();
+    last = 0;
+    if (raf) cancelAnimationFrame(raf);
+    if (reduced){
+      ctx.clearRect(0, 0, w, h);
+      readScroll();
+      render(strokeGradient());
+      return;
+    }
+    frame();
+  }
+
+  let rt;
+  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(start, 150); });
+  // Pause when the tab is hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden){ if (raf) cancelAnimationFrame(raf); raf = null; }
+    else if (!raf && !reduced){ last = 0; raf = requestAnimationFrame(frame); }
+  });
+  start();
 })();
-// ── Flip title ──
+
+/* ══════════ HUD cursor ══════════ */
 (function(){
-  // ↓↓↓ ADD YOUR OWN TITLES HERE ↓↓↓
+  if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+
+  const dot   = document.getElementById('cur-dot');
+  const ret   = document.getElementById('cur-ret');
+  const cv    = document.getElementById('cur-trail');
+  const ctx   = cv.getContext('2d');
+  const body  = document.body;
+  const HOVER = 'a,button,[role="button"],.tag,.badge,.stat,.edu-card,.life-card,.avatar,.skill-row,.tl-item';
+
+  let mx = innerWidth / 2, my = innerHeight / 2;   // raw pointer
+  let rx = mx, ry = my;                            // lagging reticle
+  let dpr = 1;
+  const trail = [];                                // {x,y,life}
+  let accent = '#c026ff';
+
+  function readAccent(){
+    accent = getComputedStyle(document.documentElement)
+      .getPropertyValue('--accent').trim() || '#c026ff';
+  }
+  readAccent();
+  new MutationObserver(readAccent)
+    .observe(document.documentElement, { attributes:true, attributeFilter:['data-theme'] });
+
+  function resize(){
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    cv.width  = Math.floor(innerWidth  * dpr);
+    cv.height = Math.floor(innerHeight * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  addEventListener('resize', resize);
+
+  addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    body.classList.remove('cur-out');
+    trail.push({ x: mx, y: my, life: 1 });
+    if (trail.length > 26) trail.shift();
+  }, { passive:true });
+
+  addEventListener('mousedown', () => body.classList.add('cur-down'));
+  addEventListener('mouseup',   () => body.classList.remove('cur-down'));
+  document.addEventListener('mouseleave', () => body.classList.add('cur-out'));
+  document.addEventListener('mouseenter', () => body.classList.remove('cur-out'));
+
+  // Delegated so it also covers content added later.
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest && e.target.closest(HOVER)) body.classList.add('cur-hover');
+  });
+  document.addEventListener('mouseout', e => {
+    if (!(e.target.closest && e.target.closest(HOVER))) return;
+    // still inside another interactive target? keep the lock-on, don't flicker
+    const to = e.relatedTarget && e.relatedTarget.closest
+      ? e.relatedTarget.closest(HOVER) : null;
+    if (!to) body.classList.remove('cur-hover');
+  });
+
+  function frame(){
+    dot.style.transform = `translate(${mx}px, ${my}px)`;
+
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ret.style.transform = `translate(${rx}px, ${ry}px)`;
+
+    // comet trail
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    ctx.strokeStyle = accent;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    for (let i = 1; i < trail.length; i++){
+      const a = trail[i - 1], b = trail[i];
+      const u = i / trail.length;
+      ctx.globalAlpha = u * a.life * 0.5;
+      ctx.lineWidth = u * 2.2;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    for (let i = trail.length - 1; i >= 0; i--){
+      trail[i].life -= 0.045;
+      if (trail[i].life <= 0) trail.splice(i, 1);
+    }
+
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+/* ══════════ Theme toggle ══════════ */
+(function(){
+  const root = document.documentElement;
+  const btn = document.getElementById('themeBtn');
+  const icon = document.getElementById('themeIcon');
+  const SUN = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+  const MOON = '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>';
+
+  const saved = localStorage.getItem('theme');
+  if (saved) root.setAttribute('data-theme', saved);
+  paint();
+
+  function paint(){
+    icon.innerHTML = root.getAttribute('data-theme') === 'light' ? MOON : SUN;
+  }
+  btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    paint();
+  });
+})();
+
+/* ══════════ Nav: sticky bar, mobile menu, active link ══════════ */
+(function(){
+  const bar = document.getElementById('topbar');
+  const nav = document.getElementById('topnav');
+  const menuBtn = document.getElementById('menuBtn');
+  const links = [...nav.querySelectorAll('a')];
+
+  const onScroll = () => bar.classList.toggle('stuck', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  menuBtn.addEventListener('click', () => nav.classList.toggle('open'));
+  links.forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+  const sections = links
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+    });
+  }, { threshold: 0.35 });
+  sections.forEach(s => obs.observe(s));
+})();
+
+/* ══════════ Scroll reveal ══════════ */
+(function(){
+  const els = [...document.querySelectorAll('.reveal')];
+  const show = el => el.classList.add('in');
+
+  // Geometry check — the source of truth, so a missed observer callback
+  // can never leave a section stuck at opacity 0.
+  function check(){
+    const vh = window.innerHeight;
+    let pending = 0;
+    els.forEach(el => {
+      if (el.classList.contains('in')) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < vh * 0.92 && r.bottom > 0) show(el); else pending++;
+    });
+    return pending;
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) show(e.target); });
+  }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
+  els.forEach(el => obs.observe(el));
+
+  window.addEventListener('scroll', check, { passive: true });
+  window.addEventListener('resize', check);
+  window.addEventListener('load', check);
+
+  // Belt and braces: poll on animation frames until everything has revealed,
+  // so the content shows even where scroll events / observers misbehave.
+  (function tick(){
+    if (check() > 0) requestAnimationFrame(tick);
+  })();
+})();
+
+/* ══════════ Rotating role ══════════ */
+(function(){
   const titles = [
     'Software Developer',
     'Web Developer',
@@ -1074,38 +1371,26 @@
     'Graphics Designer',
     'Team Leader',
     'Educator',
-    'Professor',
-    // 'Your Title Here',
+    'Professor'
   ];
-  // ↑↑↑ ADD YOUR OWN TITLES HERE ↑↑↑
-
   const targets = document.querySelectorAll('.flip-word');
+  if (!targets.length) return;
   let idx = 0;
-
-  // Set initial word
   targets.forEach(el => el.textContent = titles[0]);
 
   setInterval(() => {
     const next = titles[(idx + 1) % titles.length];
-
-    // Flip out
     targets.forEach(el => el.classList.add('flip-out'));
-
     setTimeout(() => {
-      // Snap to flip-in position (bottom), update text
       targets.forEach(el => {
         el.classList.remove('flip-out');
         el.classList.add('flip-in');
         el.textContent = next;
       });
-      // Force reflow then animate in
-      targets.forEach(el => el.getBoundingClientRect());
-      targets.forEach(el => {
-        el.classList.remove('flip-in');
-      });
+      targets.forEach(el => el.getBoundingClientRect()); // reflow
+      targets.forEach(el => el.classList.remove('flip-in'));
       idx = (idx + 1) % titles.length;
     }, 420);
-
   }, 2800);
 })();
 </script>
