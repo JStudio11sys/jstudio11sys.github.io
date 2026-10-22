@@ -208,9 +208,8 @@
     filter:drop-shadow(0 0 18px rgba(245,185,66,0.55)) drop-shadow(0 0 40px rgba(255,122,26,0.35));
     animation:glow 3s ease-in-out infinite;
   }
-  .big .star{display:inline-block;font-style:normal;font-size:0.55em;vertical-align:middle;margin:0 0.15em;animation:twinkle 2.4s ease-in-out infinite}
+  .big{word-spacing:0.25em}
   @keyframes glow{50%{filter:drop-shadow(0 0 26px rgba(245,185,66,0.8)) drop-shadow(0 0 60px rgba(255,122,26,0.5))}}
-  @keyframes twinkle{50%{transform:rotate(90deg) scale(1.25)}}
   .role-line{margin-top:1.1rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.78rem,1.3vw,0.92rem);color:var(--muted)}
   .role-line .cursor{display:inline-block;width:0.55em;height:1.05em;background:var(--gold);vertical-align:-0.15em;margin-left:2px;animation:blink 1s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
@@ -557,14 +556,10 @@
       </div>
       <h1 class="name anim d1">Joshua Tobongbanua</h1>
       <div class="tagline anim d2">Software · Engineer · Developer</div>
-      <div class="big anim zoom d3">Build<span class="star">✦</span>Ship<span class="star">✦</span>Scale</div>
+      <div class="big anim zoom d3">Build Ship Scale</div>
       <p class="role-line anim d4"><span id="typed"></span><span class="cursor"></span></p>
       <div class="cta anim d5">
-        <a class="btn gold" href="#projects" data-go="4">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          View Projects
-        </a>
-        <a class="btn" href="Joshua%20Tobongbanua%20CV%202026.pdf" target="_blank" rel="noopener">
+        <a class="btn gold" href="Joshua%20Tobongbanua%20CV%202026.pdf" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
           Download CV
         </a>
@@ -619,8 +614,6 @@
     <div class="page-inner">
       <h2 class="sec-title anim"><em>◆</em> Experience <em>◆</em></h2>
       <div class="slider anim d1">
-        <button class="arrow prev" id="prev" aria-label="Previous"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
-        <button class="arrow next" id="next" aria-label="Next"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
         <div class="slides">
           <div class="slides-track" id="slides">
             <div class="slide">
@@ -774,7 +767,7 @@
         <a class="frame c-row anim d4" href="https://jstudio11sys.github.io" target="_blank" rel="noopener"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></i><span><span class="c-lbl">Website</span><span class="c-val" style="display:block">jstudio11sys.github.io</span></span></a>
         <a class="frame c-row anim d4" href="https://www.youtube.com/@JStudio11" target="_blank" rel="noopener"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3 3 0 0 0-2.1-2.12C19.55 3.5 12 3.5 12 3.5s-7.55 0-9.4.57A3 3 0 0 0 .5 6.19C0 8.05 0 12 0 12s0 3.95.5 5.81a3 3 0 0 0 2.1 2.12c1.85.57 9.4.57 9.4.57s7.55 0 9.4-.57a3 3 0 0 0 2.1-2.12C24 15.95 24 12 24 12s0-3.95-.5-5.81zM9.75 15.57V8.43L15.82 12l-6.07 3.57z"/></svg></i><span><span class="c-lbl">YouTube</span><span class="c-val" style="display:block">@JStudio11</span></span></a>
       </div>
-      <p class="foot anim d5">© 2026 Joshua Tobongbanua · Designed &amp; built by hand</p>
+      <p class="foot anim d5">© 2026 Joshua Tobongbanua · JStudio11.sys</p>
     </div>
   </section>
 
@@ -833,6 +826,7 @@
   const cur = document.getElementById('cur');
   const nav = document.getElementById('nav');
   let index = 0, locked = false;
+  const steppers = window.steppers = window.steppers || {};
 
   pages.forEach((p, i) => {
     const b = document.createElement('button');
@@ -845,6 +839,9 @@
   function go(i){
     i = Math.max(0, Math.min(pages.length - 1, i));
     if (i === index && pages[i].classList.contains('on')) return;
+    // a stepped page entered from below starts on its last item
+    const entering = steppers[pages[i].id];
+    if (entering) entering.reset(i < index ? 'last' : 'first');
     index = i; locked = true;
     track.style.transform = `translateY(${-i * innerHeight}px)`;
     pages.forEach((p, k) => p.classList.toggle('on', k === i));
@@ -866,12 +863,25 @@
       : inner.scrollTop > 2;
   }
 
+  // Stepped pages (Expertise, Experience) go through their items first,
+  // then move on to the next page.
+  function step(dir){
+    if (locked) return;
+    const s = steppers[pages[index].id];
+    if (s && s.step(dir)){
+      locked = true;
+      setTimeout(() => locked = false, 850);
+      return;
+    }
+    go(index + dir);
+  }
+
   addEventListener('wheel', e => {
     if (Math.abs(e.deltaY) < 8) return;
     const dir = e.deltaY > 0 ? 1 : -1;
     if (canInnerScroll(dir)) return;
     e.preventDefault();
-    if (!locked) go(index + dir);
+    step(dir);
   }, { passive:false });
 
   let ty = null;
@@ -882,13 +892,13 @@
     if (Math.abs(dy) < 50) return;
     const dir = dy > 0 ? 1 : -1;
     if (canInnerScroll(dir)) return;
-    if (!locked) go(index + dir);
+    step(dir);
   }, { passive:true });
 
   addEventListener('keydown', e => {
     if (locked) return;
-    if (['ArrowDown','PageDown',' '].includes(e.key)){ e.preventDefault(); go(index + 1) }
-    if (['ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); go(index - 1) }
+    if (['ArrowDown','PageDown',' '].includes(e.key)){ e.preventDefault(); step(1) }
+    if (['ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); step(-1) }
     if (e.key === 'Home') go(0);
     if (e.key === 'End') go(pages.length - 1);
   });
@@ -980,7 +990,9 @@ document.addEventListener('pagechange', e => {
     b.onclick = () => select(i);
     roster.appendChild(b);
   });
+  let at = 0;
   function select(i){
+    at = i;
     [...roster.children].forEach((c, k) => c.classList.toggle('sel', k === i));
     const d = data[i];
     // "Name · detail" → detail shown muted inside the pill
@@ -989,6 +1001,16 @@ document.addEventListener('pagechange', e => {
       .map((t, n) => t.replace('<span', `<span style="animation-delay:${n * 0.04}s"`)).join('');
     detail.innerHTML = `<h4>${d.name}</h4><p class="desc">${d.desc}</p><div class="tags">${tags}</div>`;
   }
+  window.steppers = window.steppers || {};
+  window.steppers.expertise = {
+    step: dir => {
+      const k = at + dir;
+      if (k < 0 || k >= data.length) return false;
+      select(k);
+      return true;
+    },
+    reset: where => select(where === 'last' ? data.length - 1 : 0)
+  };
   select(0);
 })();
 
@@ -1007,8 +1029,18 @@ document.addEventListener('pagechange', e => {
     track.style.transform = `translateX(${-i * 100}%)`;
     [...pager.children].forEach((b, j) => b.classList.toggle('active', j === i));
   }
-  document.getElementById('prev').onclick = () => show(i - 1);
-  document.getElementById('next').onclick = () => show(i + 1);
+  const inner = document.querySelector('#experience .page-inner');
+  // returns false at either end so the page scroll can take over
+  window.steppers.experience = {
+    step: dir => {
+      const k = i + dir;
+      if (k < 0 || k >= n) return false;
+      show(k);
+      inner.scrollTop = 0;
+      return true;
+    },
+    reset: where => { show(where === 'last' ? n - 1 : 0); inner.scrollTop = 0 }
+  };
   show(0);
 })();
 
