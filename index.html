@@ -327,7 +327,7 @@
   .pager button{width:28px;height:3px;border:none;background:var(--line-2);cursor:pointer;transition:background 0.3s,width 0.4s var(--ease)}
   .pager button.active{background:var(--gold);width:46px}
 
-  /* ── 5. Projects (showcase on a pedestal) ── */
+  /* ── 5. Projects (device showcase) ── */
   .stage{display:flex;align-items:flex-end;justify-content:center;gap:clamp(1rem,3vw,2.5rem);position:relative;z-index:2}
   .device{display:flex;flex-direction:column;align-items:center;gap:0.9rem}
   .device .lbl{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--faint);display:flex;align-items:center;gap:0.4rem}
@@ -413,19 +413,7 @@
   .tabbar i{width:0.9em;height:0.9em;border-radius:3px;background:var(--faint)}
   .tabbar i.on{background:var(--gold)}
 
-  .pedestal{
-    position:relative;margin:-14px auto 0;width:min(820px,92%);height:54px;z-index:1;
-    background:linear-gradient(180deg,#e9e4d8,#a9a395);
-    border-radius:50%/100%;
-    box-shadow:0 0 0 1px rgba(255,255,255,0.4),0 40px 80px rgba(0,0,0,0.7),0 0 60px rgba(245,185,66,0.18);
-  }
-  .pedestal::after{
-    content:'';position:absolute;left:50%;top:60%;transform:translateX(-50%);
-    width:18%;height:120px;z-index:-1;
-    background:linear-gradient(90deg,#6f6a60,#cfc9bb 40%,#8b867b);
-    mask-image:linear-gradient(#000 30%,transparent);
-  }
-  .proj-info{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.75rem}
+  .proj-info{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem}
   .proj{padding:1.1rem 1.25rem}
   .proj h4{font-family:'Cinzel',serif;font-size:0.95rem;color:var(--gold-2);letter-spacing:0.06em}
   .proj p{font-size:0.8rem;color:var(--muted);line-height:1.6;margin-top:0.4rem}
@@ -489,16 +477,55 @@
     .proj-info{grid-template-columns:1fr}
   }
   @media(max-width:560px){
-    .page{padding:68px 16px 2rem}
-    .roster{grid-template-columns:repeat(2,1fr)}
+    .page{padding:68px 16px 1rem}
     .contacts{grid-template-columns:1fr}
-    .phone{display:none}
     .socials{display:none}
-    /* phones: arrows move down beside the pager */
-    .arrow{top:auto;bottom:0;transform:none;width:34px;height:34px}
-    .pager{height:34px;align-items:center}
-    .arrow.prev{left:0}.arrow.next{right:0}
+    /* Projects: one device at a time, stepped by scroll/swipe */
+    .stage .device{display:none}
+    .stage .device.cur{display:flex;animation:msgIn 0.5s var(--ease) both}
+    .phone .screen{width:115px}
+    .stage{height:268px;align-items:center}   /* fixed so the cards below don't jump */
+    #projects .sec-title{margin-bottom:0.9rem}
+    .proj-info{margin-top:0.8rem;gap:0.5rem}
+    .proj{padding:0.7rem 0.9rem}
+    .proj h4{font-size:0.78rem}
+    .proj p{font-size:0.68rem;line-height:1.45;margin-top:0.25rem}
+    .proj .stack{font-size:0.56rem;margin-top:0.35rem}
     .stat{padding:1rem}
+    /* About: compact so it fits one phone screen */
+    #about .sec-title{margin-bottom:0.9rem}
+    .about{gap:0.75rem}
+    .about .frame{padding:1rem}
+    .about p{font-size:0.74rem;line-height:1.45}
+    .about p + p{margin-top:0.5rem}
+    .loc{margin-top:0.8rem}
+    .chip{font-size:0.62rem;padding:0.25rem 0.5rem}
+    .stats{gap:0.6rem}
+    .about .stat{padding:0.55rem 0.75rem}
+    .stat-num{font-size:1.35rem}
+    .stat-label{font-size:0.62rem;margin-top:0.2rem;line-height:1.35}
+    /* Expertise: compact cards (3 + 2) and smaller pills so it fits one screen */
+    #expertise .sec-title{margin-bottom:0.9rem}
+    .roster{grid-template-columns:repeat(3,1fr);gap:0.5rem}
+    .card{padding:0.7rem 0.35rem 0.6rem}
+    .card .ico{width:36px;height:36px;margin-bottom:0.4rem}
+    .card .ico svg{width:18px;height:18px}
+    .card h3{font-size:0.62rem;letter-spacing:0.04em}
+    .card p{display:none}
+    .detail{margin-top:0.6rem;padding:0.9rem;min-height:0}
+    .detail h4{font-size:0.82rem}
+    .detail .desc{font-size:0.72rem}
+    .tags{gap:0.3rem;margin-top:0.6rem}
+    .tag{font-size:0.66rem;padding:0.25rem 0.55rem}
+    /* Experience: compact slide so the longest one fits one screen */
+    #experience .sec-title{margin-bottom:0.9rem}
+    .xp{padding:0.9rem 1rem;gap:0.6rem}
+    .xp-when{font-size:0.68rem}
+    .xp-org{font-size:0.92rem;margin-top:0.35rem}
+    .xp-role{font-size:0.72rem;margin-top:0.25rem}
+    .xp ul{gap:0.4rem}
+    .xp li{font-size:0.74rem;line-height:1.45;padding-left:1rem}
+    .pager{margin-top:0.8rem}
   }
   @media(prefers-reduced-motion:reduce){
     *{animation-duration:0.01ms !important;transition-duration:0.01ms !important}
@@ -737,7 +764,6 @@
           </div></div>
         </div>
       </div>
-      <div class="pedestal anim d2"></div>
       <div class="proj-info">
         <div class="frame proj anim d3">
           <h4>ari Voice — AI Phone Sales Agent</h4>
@@ -745,6 +771,11 @@
           <div class="stack">LiveKit Agents · Python · Next.js 16 · TypeScript · Supabase · AWS · Terraform · Stripe · Axe Payment</div>
         </div>
         <div class="frame proj anim d4">
+          <h4>Exactlinc — eBay Listing Optimizer</h4>
+          <p>Imports an auto recycler's eBay listings, matches each to yard inventory by tag number, then adds part numbers, interchange, vehicle fitment, item specifics and an 80-character keyword title, and pushes the updates to eBay around the clock.</p>
+          <div class="stack">eBay API · Inventory matching · Fitment · Item specifics · Weekly reports</div>
+        </div>
+        <div class="frame proj anim d5">
           <h4>STA File Management System</h4>
           <p>School-wide records and document management system built and maintained in production for staff and administrators.</p>
           <div class="stack">PHP · JavaScript · MySQL · Linux</div>
@@ -1044,6 +1075,32 @@ document.addEventListener('pagechange', e => {
   show(0);
 })();
 
+/* ══════════ Projects: on phones, step ari Voice → Exactlinc → STA FMS ══════════ */
+(function(){
+  const devices = [
+    document.querySelector('.stage .laptop'),
+    document.getElementById('ebay').closest('.device'),
+    document.getElementById('sta').closest('.device')
+  ];
+  const phone = window.matchMedia('(max-width:560px)');
+  let at = 0;
+  function show(k){
+    at = k;
+    devices.forEach((d, j) => d.classList.toggle('cur', j === k));
+  }
+  window.steppers.projects = {
+    step: dir => {
+      if (!phone.matches) return false;   // desktop shows all three at once
+      const k = at + dir;
+      if (k < 0 || k >= devices.length) return false;
+      show(k);
+      return true;
+    },
+    reset: where => show(where === 'last' ? devices.length - 1 : 0)
+  };
+  show(0);
+})();
+
 /* ══════════ Voice waveform (Projects) ══════════ */
 (function(){
   const wave = document.getElementById('wave');
@@ -1149,4 +1206,4 @@ document.addEventListener('pagechange', e => {
 })();
 </script>
 </body>
-</html> 
+</html>
